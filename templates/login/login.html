@@ -1,45 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  {% load staticfiles %}
     <!-- Required meta tags always come first -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+    <title>Stockdale Auto Electric | Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{%static "css/login.css" %}">
+    <style>
+      
+      .login-bg {
+        background-image: linear-gradient(to top right,#000000 10%, #313131 65%, #405FA8 125%);
+      }
+
+      .header {
+        padding-top: 5em;
+        padding-bottom: 5em;
+        /*background: red;*/
+      }
+
+      .form-container {
+        background: white;
+        border: 1px solid black;
+        border-radius: 0.2em;
+        margin : 0 auto;
+
+      }
+
+      .login-container {
+        /*background: green;*/
+        min-height: 50em
+
+      }
+      .login-title {
+        color: white;
+      }
+
+      .login-subtitle {
+        color: white;
+      }
+
+      .form-title {
+        padding: 2.0em 0 2.0em 0;
+        /*background: blue;*/
+      }
+
+      .login-form-container {
+        padding: 0 5.0em 3.0em 5.0em;
+        /*background: orange;*/
+      }
+      .login-footer {
+        background-color: black;
+      }
+    </style>
   </head>
-  <body>
-    <div class="container">
-      <!-- Login Form -->
-      <div class="row">
-        <div class="col-sm-6">
-          <h1 class="display-5">Stockdale Auto Electric
-           <h2 class="display-5">Employee Portal</h2>
+  <body class="login-bg">
+    <div class="container login-container">
+      <div class="row header">
+        <div class="col-md-12">
+          <h1 class="text-md-center login-title">Stockdale Auto Electric</h1>
+          <h2 class="text-md-center login-title">Employee Portal</h2>
         </div>
-        <div class="col-sm-6">
-         
-        </div>
-        <div class="col-sm-12">
-          <div class="jumbotron">
-            <form>
-              <fieldset class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control">
-              </fieldset>
-              <button type="submit" class="btn btn-primary">Submit</button>
-              <small><a href="#">Forget Password?</a></small>
+      </div>
+
+      <div class="row form-container">
+      <div class="col-md-12">
+          <h2 class="text-md-center form-title">Login</h2>
+          <div class="login-form-container">
+            <form action="#" method="POST">
+              <label for="username">Username</label>
+              <input type="text" name="username" class="form-control">
+              
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control">
+              
+              <button type="submit" class="btn btn-log btn-primary">Submit</button>
+              <small><a href="#">Forgot Password?</a></small>
             </form>
           </div>
+        </div><!-- ./form-container -->
+      </div>
+
+    </div><!-- ./container -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login-footer">
+          <footer>
+            <small>&copy; Cory Kitchens 2016</small>
+          </footer>
         </div>
       </div>
     </div>
     <!-- jQuery first, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>
 </html>
