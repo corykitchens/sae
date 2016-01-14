@@ -9,7 +9,6 @@ class Employee(models.Model):
 		('admin', 'Administrative'),
 		('tech', 'Service Technician')
 	)
-
 	ssn = models.IntegerField(primary_key=True)
 	first_name = models.CharField(max_length=200)
 	middle_initial = models.CharField(max_length=1)
