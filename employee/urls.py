@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
-from . import views
+from employee.views import EmployeeDirectory
 
 urlpatterns = [
-	url(r'^', views.employee_index, name="employee_index")
+	url(r'^', EmployeeDirectory.as_view(), name="employee_index")
 ]

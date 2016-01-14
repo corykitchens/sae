@@ -1,5 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic import ListView
+
+from employee.models import Employee
+
 # Create your views here.
-def employee_index(request):
-	return HttpResponse('Employees')
+class EmployeeDirectory(ListView):
+	model = Employee
+	
