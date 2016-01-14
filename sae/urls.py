@@ -19,5 +19,8 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^', include('authenticate.urls')),
+    #Employee module
+    url(r'^employees/$', include('employee.urls')),
+
     url(r'^admin/', admin.site.urls),
 ]
