@@ -27,6 +27,7 @@ class Employee(models.Model):
 
 	class Meta:
 		db_table = "CKTM_EMPLOYEE"
+		ordering = ['-job_title']
 
 	def __str__(self):
 		return self.first_name + " " + self.last_name
