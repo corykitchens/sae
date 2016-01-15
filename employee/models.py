@@ -17,10 +17,10 @@ class Employee(models.Model):
 	first_name = models.CharField(max_length=200)
 	middle_initial = models.CharField(max_length=1)
 	last_name = models.CharField(max_length=200)
-	email = models.EmailField(max_length=200)
+	email = models.EmailField(max_length=200, unique=True, null=True)
 	job_title = models.CharField(max_length=200, choices=JOB_TITLES)
 	wage = models.FloatField()
-	birthdate = models.DateField()
+	birthdate = models.DateField(null=True)
 	sex	= models.CharField(max_length=10, choices=SEX_CHOICES)
 
 	
@@ -28,7 +28,5 @@ class Employee(models.Model):
 	class Meta:
 		db_table = "CKTM_EMPLOYEE"
 
-	def full_name(self):
-		return self.first_name + " " + self.last_name
 	def __str__(self):
 		return self.first_name + " " + self.last_name
