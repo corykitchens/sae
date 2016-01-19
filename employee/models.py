@@ -7,7 +7,7 @@ class Employee(models.Model):
 	JOB_TITLES = (
 		('mgmt', 'Management'),
 		('admin', 'Administrative'),
-		('tech', 'Service Technician')
+		('Service Technician', 'tech')
 	)
 	SEX_CHOICES = (
 		('m', 'Male'),

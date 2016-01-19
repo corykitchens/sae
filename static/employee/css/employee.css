@@ -1,23 +1,23 @@
 .employee-container {
 	display: flex;
-	min-height: 500px;
-	background: #666;
-	justify-content: space-between;
+	
 	flex-wrap: wrap;
 }
 
 .employee-profile {
-	
 	border: 1px solid black;
 	background: #FFF;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	width: 300px;
+	padding: 10px;
+	margin: 10px;
 
 }
 
 .employee-information {
 	list-style: none;
-	
+	font-size: 0.8rem;
 }
 
 .employee-information img {
