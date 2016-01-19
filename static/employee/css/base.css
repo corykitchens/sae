@@ -1,0 +1,13 @@
+body {
+	background-color: #f2f7fa;
+}
+.side-nav {
+	background-color: #333333;
+	color: white;
+	min-height: 100rem;
+
+}
+
+.side-nav ul {
+	list-style-type: none;
+}
