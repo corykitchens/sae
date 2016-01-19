@@ -1,0 +1,26 @@
+.employee-container {
+	display: flex;
+	min-height: 500px;
+	background: #666;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.employee-profile {
+	
+	border: 1px solid black;
+	background: #FFF;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+}
+
+.employee-information {
+	list-style: none;
+	
+}
+
+.employee-information img {
+	border: 1px solid black;
+	margin: 0 auto;
+}
