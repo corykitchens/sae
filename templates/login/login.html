@@ -8,53 +8,8 @@
     <title>Stockdale Auto Electric | Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <style>
-      
-      .login-bg {
-        background-image: linear-gradient(to top right,#000000 15%, #313131 65%, #405FA8 125%);
-        background-size: 100%;
-      }
-
-      .header {
-        padding-top: 5em;
-        padding-bottom: 5em;
-        background: red;
-      }
-
-      .form-container {
-        background: white;
-        border: 1px solid black;
-        border-radius: 0.2em;
-        
-
-      }
-
-      .login-container {
-        background: green;
-        
-
-      }
-      .login-title {
-        color: white;
-      }
-
-      .login-subtitle {
-        color: white;
-      }
-
-      .form-title {
-        padding: 2.0em 0 2.0em 0;
-        background: blue;
-      }
-
-      .login-form-container {
-        padding: 0 5.0em 3.0em 5.0em;
-        background: orange;
-      }
-      .login-footer {
-        
-      }
-    </style>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "login/css/login.css" %}">
   </head>
   <body class="login-bg">
     <div class="container login-container">

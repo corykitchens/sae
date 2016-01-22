@@ -11,11 +11,8 @@
 					<li><img src="http://placehold.it/150x150" /></li>
 					<strong>{{employee.first_name}} {{employee.last_name}}</strong>
 					<li>Job Title: {{employee.job_title}}</li>
-					<li>Email: {{employee.email}}</li>
+					<li>Email: <a href="mail:{{employee.email}}"/>{{employee.email}}</a></li>
 				</ul>
-				
-				
-				
 			</div>
 		{% endfor %}
 

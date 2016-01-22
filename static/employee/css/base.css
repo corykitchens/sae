@@ -11,3 +11,7 @@ body {
 .side-nav ul {
 	list-style-type: none;
 }
+
+.base-header {
+	background-color: #555;
+}
