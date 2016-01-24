@@ -17,7 +17,7 @@ class Employee(models.Model):
 	first_name = models.CharField(max_length=200)
 	middle_initial = models.CharField(max_length=1)
 	last_name = models.CharField(max_length=200)
-	email = models.EmailField(max_length=200)
+	#email = models.EmailField(max_length=200)
 	job_title = models.CharField(max_length=200, choices=JOB_TITLES)
 	wage = models.FloatField()
 	birthdate = models.DateField()
