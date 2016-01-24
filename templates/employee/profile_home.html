@@ -1,8 +1,10 @@
 {% extends "employee/base.html" %}
 {% block content %}
 	{% if user %}
-		<h1>Welcome Back {{user}}</h1>
-
+		{{user}}
+	{% endif %}
+	{% if employee %}
+		{{employee}}
 	{% endif %}
 
 {% endblock %}

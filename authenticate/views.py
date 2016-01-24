@@ -2,8 +2,8 @@ import sys
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from .forms import LoginUserForm
+from django.contrib.auth import authenticate, login as auth_login 
+from employee.models import Employee
 
 # Create your views here.
 def login(request):
@@ -15,9 +15,10 @@ def login(request):
 		if user is not None:
 			
 			if user.is_active:
-				
-				#login(request, user)
-				return render(request, 'employee/profile_home.html', {'user' : user})
+				auth_login(request, user)
+				employee = Employee.objects.get(user=user)
+
+				return render(request, 'employee/profile_home.html', {'user' : user, 'employee' : employee})
 			else:
 				return HttpResponse("Could not login")
 		else:
