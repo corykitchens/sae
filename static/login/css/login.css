@@ -7,39 +7,19 @@
       .header {
         padding-top: 5em;
         padding-bottom: 5em;
-        background: red;
-      }
-
-      .form-container {
-        background: white;
-        border: 1px solid black;
-        border-radius: 0.2em;
         
-
       }
 
-      .login-container {
-        background: green;
-        
+      .login-page-container {
 
-      }
-      .login-title {
-        color: white;
+        margin-top: 0.5em;
       }
 
-      .login-subtitle {
-        color: white;
+      .login-panel-container {
+        background-color: white;
       }
 
-      .form-title {
-        padding: 2.0em 0 2.0em 0;
-        background: blue;
-      }
-
-      .login-form-container {
-        padding: 0 5.0em 3.0em 5.0em;
-        background: orange;
-      }
-      .login-footer {
-        
+      .login-form input {
+        width: 50%;
+        margin: 0 auto;
       }
