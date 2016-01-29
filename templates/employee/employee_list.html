@@ -1,30 +1,19 @@
 {% extends "employee/base.html" %}
 {% block content %}
 
-<div class="row">
-	<div class="col-md-12">
-		<h1 class="text-md-center">Employee Directory</h1>
-	</div>
-</div>
-{% if employees %}
-	<div class="row">
-		<div class="col-md-12">
-			<div class="card card-block">
-				<img class="card-img-top" data-src="http://placehold.it/350x150">
-				<div class="card-block">
-				<h4 class="card-title">{{employee.first_name}} {{employee.last_name}}</h4>
-				<ul>
-					<li>{{employee.job_title}}</li>
 
+	<h1>Employee Directory</h1>
+	<div class="employee-container">
+
+		{% for employee in employees %}
+			<div class="employee-profile">
+				<ul class="employee-information">
+					<li><img src="http://placehold.it/150x150" /></li>
+					<strong>{{employee.first_name}} {{employee.last_name}}</strong>
+					<li>Job Title: {{employee.job_title}}</li>
+					<li>Email: <a href="mail:{{employee.email}}"/>{{employee.email}}</a></li>
 				</ul>
-				</div>
 			</div>
-		</div>
-	</div>
-	{% for employee in employees %}
-	
-	{% endfor %}
-	
-{% endif %}
+		{% endfor %}
 
 {% endblock %}

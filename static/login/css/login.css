@@ -1,0 +1,25 @@
+  
+      .login-bg {
+        background-image: linear-gradient(to top right,#000000 15%, #313131 65%, #405FA8 125%);
+        background-size: 100%;
+      }
+
+      .header {
+        padding-top: 5em;
+        padding-bottom: 5em;
+        
+      }
+
+      .login-page-container {
+
+        margin-top: 0.5em;
+      }
+
+      .login-panel-container {
+        background-color: white;
+      }
+
+      .login-form input {
+        width: 50%;
+        margin: 0 auto;
+      }
