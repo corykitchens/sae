@@ -10,23 +10,19 @@
   
 }
 
-.login-page-container {
-
-
-}
 
 .login-panel-container {
   background-color: white;
-  padding: 2em 5em 0em 5em;
+  padding: 2em 5em 2em 5em;
   width: 50%;
   border-radius: 0.2em;
+  border-top: 10px solid #64B5F6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.login-form input {
-  
-}
 
 
 .login-title {
   color: #FFF;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }

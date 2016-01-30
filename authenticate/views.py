@@ -17,7 +17,7 @@ def login(request):
 				auth_login(request, user)
 				employee = Employee.objects.get(user=user)
 				#print >>sys.stderr, employee
-				return render(request, 'employee/employee_list.html', {'user': user, 'employee': employee})
+				return render(request, 'employee/profile_home.html', {'user': user, 'employee': employee})
 			else:
 				return HttpResponse("Could not login")
 		else:
