@@ -7,3 +7,4 @@ from customer.models import Customer
 class CustomerDirectory(ListView):
 	model = Customer
 	context_object_name = "customer"
+	

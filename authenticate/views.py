@@ -11,14 +11,13 @@ def login(request):
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
-		print >>sys.stderr, user
 		if user is not None:
 			
 			if user.is_active:
 				auth_login(request, user)
 				employee = Employee.objects.get(user=user)
-
-				return render(request, 'employee/profile_home.html', {'user' : user, 'employee' : employee})
+				#print >>sys.stderr, employee
+				return render(request, 'employee/employee_list.html', {'user': user, 'employee': employee})
 			else:
 				return HttpResponse("Could not login")
 		else:

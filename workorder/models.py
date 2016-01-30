@@ -31,8 +31,11 @@ class WorkOrder(models.Model):
 	amount_paid         = models.FloatField()
 	date_completed      = models.DateTimeField()
 
-	def __str__(self):
-		return self.customer + " " + self.vehicle + self.employee
+	class Meta:
+		db_table = "CKTM_CUSTOMER"
+
+	#def __str__(self):
+	#	return self.customer + " " + self.vehicle + self.employee
 
 
 

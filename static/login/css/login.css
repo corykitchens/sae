@@ -1,25 +1,32 @@
+
+.login-bg {
+  background: #D3D3D3;
+  background-size: 100%;
+}
+
+.header {
+  padding-top: 5em;
+  padding-bottom: 5em;
   
-      .login-bg {
-        background-image: linear-gradient(to top right,#000000 15%, #313131 65%, #405FA8 125%);
-        background-size: 100%;
-      }
+}
 
-      .header {
-        padding-top: 5em;
-        padding-bottom: 5em;
-        
-      }
+.login-page-container {
 
-      .login-page-container {
 
-        margin-top: 0.5em;
-      }
+}
 
-      .login-panel-container {
-        background-color: white;
-      }
+.login-panel-container {
+  background-color: white;
+  padding: 2em 5em 0em 5em;
+  width: 50%;
+  border-radius: 0.2em;
+}
 
-      .login-form input {
-        width: 50%;
-        margin: 0 auto;
-      }
+.login-form input {
+  
+}
+
+
+.login-title {
+  color: #FFF;
+}
