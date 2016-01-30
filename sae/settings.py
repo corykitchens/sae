@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'customer',
     'customer_address',
     'employee_address',
-    'authenticate'
+    'authenticate',
+    'vehicle',
+    'workorder'
 ]
 
 MIDDLEWARE_CLASSES = [

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from employee.models import Employee #   
 from customer.models import Customer #
-from vehicle.models import Vehicle   #
+from vehicle.models  import Vehicle  #
 # Create your models here.
 class WorkOrder(models.Model):
 	Initial_Estimate = (
@@ -15,9 +15,9 @@ class WorkOrder(models.Model):
 		('Cabin Air Filter Replacement', 19.99), ('Diagnosis', '105'),
 		('AC Service, excludes freon cost', 80.00)
 	)
-	customer 	 		= models.ForeignKey('Customer', on_delete=models.CASCADE)
-	vehicle             = models.ForeignKey('Vehicle', on_delete=models.CASCADE)
-	employee            = models.ForeignKey('Employee', on_delete=models.CASCADE)
+	customer 	 		= models.ForeignKey(Customer, on_delete=models.CASCADE)
+	vehicle             = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+	employee            = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	odometer            = models.IntegerField()
 	date_created        = models.DateTimeField() 
 	problem_description = models.CharField(max_length=400)
@@ -25,11 +25,11 @@ class WorkOrder(models.Model):
 	service_type        = models.CharField(max_length=100)
 	estimate_revision   = models.FloatField()
 	hours_required      = models.FloatField()
-	parts_require		= models.CharField(max_length=200, null=true)
+	parts_require		= models.CharField(max_length=200, null=True)
 	estimate_approval   = models.CharField(max_length=100)
 	approval_date_time  = models.DateTimeField()
 	amount_paid         = models.FloatField()
-	date_completed      = DateTimeField()
+	date_completed      = models.DateTimeField()
 
 	def __str__(self):
 		return self.customer + " " + self.vehicle + self.employee

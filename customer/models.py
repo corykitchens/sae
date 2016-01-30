@@ -8,7 +8,7 @@ class Customer(models.Model):
 	first_name     = models.CharField(max_length=200)
 	middle_initial = models.CharField(max_length=1)
 	last_name      = models.CharField(max_length=200)
-	#email          = models.EmailField(max_length=200)
+	email          = models.EmailField(max_length=200, unique=True, null=True)
 
 	class Meta:
 		db_table = "CKTM_CUSTOMER"
