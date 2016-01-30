@@ -27,7 +27,7 @@
           <h2 class="text-md-center form-title">Login</h2>
           <!-- Begin Form -->
           <div class="login-form-container">
-            <form action="{% url 'login' %}" method="POST" class="login-form">
+            <form action="{% url 'authenticate:login' %}" method="POST" class="login-form">
             {% csrf_token %}
               <fieldset class="form-group">
                 <label for="username">Username</label>
