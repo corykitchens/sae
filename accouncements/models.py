@@ -9,4 +9,4 @@ class Announcements(models.Model) :
 	date_posted = models.DateTimeField()
 
 	class Meta:
-		db_table = "CKTM_CUSTOMER"
+		db_table = "CKTM_ANNOUNCEMENTS"

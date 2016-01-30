@@ -8,12 +8,12 @@ class Vehicle(models.Model):
 	make          = models.CharField(max_length=20)
 	model         = models.CharField(max_length=20)
 	vin           = models.CharField(max_length=20)
-	year          = models.DateField()
+	year          = models.IntegerField()
 
 	class Meta:
 		db_table = "CKTM_VEHICLE"
 
 	def vehicle_info(self):
-		return slef.year + " " + self.make + " " + self.model + " " + self.license_plate
+		return str(self.year) + " " + self.make + " " + self.model + " " + self.license_plate
 	def __str__(self):
-		return slef.year + " " + self.make + " " + self.model + " " + self.license_plate
+		return str(self.year) + " " + self.make + " " + self.model + " " + self.license_plate

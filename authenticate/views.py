@@ -7,6 +7,9 @@ from employee.models import Employee
 
 # Create your views here.
 def login(request):
+	if request.user.is_authenticated():
+		employee = Employee.objects.get(user=request.user)
+		return render(request, 'employee/profile_home.html', {'user': request.user, 'employee': employee})
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']

@@ -21,23 +21,28 @@ class WorkOrder(models.Model):
 	odometer            = models.IntegerField()
 	date_created        = models.DateTimeField() 
 	problem_description = models.CharField(max_length=400)
-	estimate_initial    = models.FloatField(choices=Initial_Estimate)
-	service_type        = models.CharField(max_length=100)
-	estimate_revision   = models.FloatField()
+	service_type        = models.ManyToManyField('ServiceType')
+	estimate_initial    = models.IntegerField(blank=True)
+	estimate_revision   = models.FloatField(blank=True)
 	hours_required      = models.FloatField()
-	parts_require		= models.CharField(max_length=200, null=True)
-	estimate_approval   = models.CharField(max_length=100)
-	approval_date_time  = models.DateTimeField()
-	amount_paid         = models.FloatField()
-	date_completed      = models.DateTimeField()
+	parts_require		= models.CharField(max_length=200, blank=True)
+	estimate_approval   = models.CharField(max_length=100, blank=True)
+	approval_date_time  = models.DateTimeField(blank=True)
+	amount_paid         = models.FloatField(blank=True)
+	date_completed      = models.DateTimeField(blank=True)
 
 	class Meta:
-		db_table = "CKTM_CUSTOMER"
+		db_table = "CKTM_WORKORDER"
 
 	#def __str__(self):
 	#	return self.customer + " " + self.vehicle + self.employee
 
+class ServiceType(models.Model):
+	name = models.CharField(max_length=100)
+	cost = models.FloatField()
 
+	def __str__(self):
+		return self.name + " " + str(self.cost)
 
 
 
