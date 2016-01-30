@@ -74,11 +74,12 @@ class Employee_Address(models.Model):
 	city     = models.CharField   (max_length=50)
 	state    = models.CharField   (max_length=50, choices=STATES)
 	zip_code = models.IntegerField()
+	employee = models.ForeignKey(Employee)
 
 	class Meta:
 		db_table = "CKTM_EMPLOYEE_ADDRESS"
 
 	def full_address(self):
-		return self.address + " " + self.city + " " + self.state + " " + self.zip_code
+		return self.address + " " + self.city + " " + self.state + " " + str(self.zip_code)
 	def __str__(self):
-		return self.address + " " + self.city + " " + self.state + " " + self.zip_code
+		return self.address + " " + self.city + " " + self.state + " " + str(self.zip_code)

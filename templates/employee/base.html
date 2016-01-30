@@ -22,6 +22,9 @@
             <li><a href="/">Home</a></li>
             <li><a href="/workorders/">Service</a></li>
             <li><a href="/employees/employee_directory">Employee Directory</a></li>
+            {% if employee %}
+              <li><a href="/employees/edit_profile/{{employee.id}}">Employee Profile</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

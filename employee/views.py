@@ -8,3 +8,8 @@ from employee.models import Employee
 class EmployeeDirectory(ListView):
 	model = Employee
 	context_object_name = "employees"
+
+
+def employee_profile(request, employee_id):
+	employee = Employee.objects.get(id=employee_id)
+	return render(request, 'employee/employee_profile.html', {'employee': employee})

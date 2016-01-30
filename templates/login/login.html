@@ -25,6 +25,9 @@
       <div class="row">
       <div class="col-md-5 col-md-offset-3 login-panel-container">
           <h2 class="text-md-center form-title">Login</h2>
+          {% if error %}
+            {{error}}
+          {% endif %}
           <!-- Begin Form -->
           <div class="login-form-container">
             <form action="{% url 'authenticate:login' %}" method="POST" class="login-form">

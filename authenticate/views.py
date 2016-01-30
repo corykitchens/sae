@@ -9,6 +9,8 @@ from employee.models import Employee
 def login(request):
 	if request.user.is_authenticated():
 		employee = Employee.objects.get(user=request.user)
+		if not employee:
+			return render(request, 'login/login.html', {"error": "Error querying employee"})
 		return render(request, 'employee/profile_home.html', {'user': request.user, 'employee': employee})
 	if request.method == 'POST':
 		username = request.POST['username']
