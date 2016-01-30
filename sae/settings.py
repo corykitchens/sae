@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'employee',
     'customer',
-    'authenticate'
+    'authenticate',
+    'vehicle',
+    'workorder',
 ]
 
 MIDDLEWARE_CLASSES = [
