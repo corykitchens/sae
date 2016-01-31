@@ -55,7 +55,7 @@ class Customer_Address(models.Model):
 	zip_code = models.IntegerField()
 
 	class Meta:
-		db_table = "CKTM_CUSTOMER_ADDRESS"
+		db_table = "CKTM_CUSTOMER_ADDRESSES"
 
 	def full_address(self):
 		return self.address + " " + self.city + " " + self.state + " " + self.zip_code
