@@ -1,10 +1,10 @@
 {% extends "customer/base.html" %}
+{% block title %}{{customer}} Form{% endblock %}
 {% block content %}
-
-
-	<h1>Customer Directory</h1>
+<h5>Customer Directory</h5>
+	<li><a href="/customers/customer_directory/object_form">Add New</a></li>
 	<div class="customer-container">
-
+		<br/>
 		{% for customer in customers %}
 			<div class="customer-profile">
 				<ul class="customer-information">
@@ -14,5 +14,4 @@
 				</ul>
 			</div>
 		{% endfor %}
-
 {% endblock %}
