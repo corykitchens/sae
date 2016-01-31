@@ -1,0 +1,18 @@
+{% extends "customer/base.html" %}
+{% block content %}
+
+
+	<h1>Customer Directory</h1>
+	<div class="customer-container">
+
+		{% for customer in customers %}
+			<div class="customer-profile">
+				<ul class="customer-information">
+					<li><img src="http://placehold.it/150x150" /></li>
+					<strong>{{customer.first_name}} {{customer.last_name}}</strong>
+					<li>Email: <a href="mail:{{customer.email}}"/>{{customer.email}}</a></li>
+				</ul>
+			</div>
+		{% endfor %}
+
+{% endblock %}
