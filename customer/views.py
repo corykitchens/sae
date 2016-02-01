@@ -1,24 +1,37 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.generic import ListView
 from django.views.generic.list import ListView
+from customer.models import Customer_Address, Customer
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from customer.forms import Customer_AddressForm, CustomerForm
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
-from customer.forms import AddressForm, CustomerForm
 
-from customer.models import Customer, Customer_Address
+class Customer_AddressMixin(object):
+    model = Customer_Address
+    def get_context_data(self, **kwargs):
+        kwargs.update({'object_name':'Customer_Address'})
+        return kwargs
 
-# Create your views here.
-class CustomerDirectory(ListView):
-	model = Customer
-	context_object_name = "customers"
+class Customer_AddressFormMixin(Customer_AddressMixin):
+    form_class = Customer_AddressForm
+    template_name = 'customer/object_form.html'
 
+class Customer_AddressList(Customer_AddressMixin, ListView):
+    template_name = 'customer/object_list.html'
 
-def customer_profile(request, customer_id):
-	Customer = Customer.objects.get(id=customer_id)
-	return render(request, 'customers/customer_profile.html', {'customer': customer})
+class Customer_AddressDetail(Customer_AddressMixin, DetailView):
+    pass
+
+class NewCustomer_Address(Customer_AddressFormMixin, CreateView):
+    pass
+
+class EditCustomer_Address(Customer_AddressFormMixin, UpdateView):
+    pass
+
+class DeleteCustomer_Address(Customer_Address, DeleteView):
+    template_name = 'customer/object_confirm_delete.html'
+    def get_success_url(self):
+        return reverse('customer_address_list')
 
 class CustomerMixin(object):
     model = Customer
@@ -28,12 +41,12 @@ class CustomerMixin(object):
 
 class CustomerFormMixin(CustomerMixin):
     form_class = CustomerForm
-    template_name = 'customers/object_form.html'
+    template_name = 'customer/object_form.html'
 
 class CustomerList(CustomerMixin, ListView):
-    template_name = 'customers/object_list.html'
+    template_name = 'customer/object_list.html'
 
-class CustomerDetail(CustomerMixin, DetailView):
+class ViewCustomer(CustomerMixin, DetailView):
     pass
 
 class NewCustomer(CustomerFormMixin, CreateView):
@@ -42,41 +55,13 @@ class NewCustomer(CustomerFormMixin, CreateView):
 class EditCustomer(CustomerFormMixin, UpdateView):
     pass
 
-class DeleteCustomer(CustomerMixin, DeleteView):
-    template_name = 'customers/object_confirm_delete.html'
+class KillCustomer(CustomerMixin, DeleteView):
+    template_name = 'customer/object_confirm_delete.html'
     def get_success_url(self):
         return reverse('customer_list')
 
-class AddressMixin(object):
-    model = Customer_Address
-    def get_context_data(self, **kwargs):
-        kwargs.update({'object_name':'Address'})
-        return kwargs
-
-class AddressFormMixin(AddressMixin):
-    form_class = AddressForm
-    template_name = 'customers/object_form.html'
-
-class PeopleList(AddressMixin, ListView):
-    template_name = 'customers/object_list.html'
-
-class ViewAddress(AddressMixin, DetailView):
-    pass
-
-class NewAddress(AddressFormMixin, CreateView):
-    pass
-
-class EditAddress(AddressFormMixin, UpdateView):
-    pass
-
-class KillAddress(AddressMixin, DeleteView):
-    template_name = 'customers/object_confirm_delete.html'
-    def get_success_url(self):
-        return reverse('customer_list')
-
-class ViewCustomer(AddressMixin, ListView):
-    template_name = 'customers/object_list.html'
+class ViewCustomer_Address(CustomerMixin, ListView):
+    template_name = 'customer/object_list.html'
     def get_queryset(self):
-        self.customer = get_object_or_404(Customer, slug=self.kwargs['slug'])
-        return super(ViewCustomer, self).get_queryset().filter(customer=self.customer)
-    pass
+        self.customer_address = get_object_or_404(Customer_Address, slug=self.kwargs['slug'])
+        return super(ViewCustomer_Address, self).get_queryset().filter(customer_address=self.customer_address)
