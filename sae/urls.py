@@ -18,7 +18,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-	url(r'^$', include('authenticate.urls')),
+    url(r'^$', include('authenticate.urls')),
+    url(r'^user/', include('authenticate.urls')),
     url(r'^employees/', include('employee.urls')),
     url(r'^customers/', include('customer.urls')),
     url(r'^workorders/', include('workorder.urls')),

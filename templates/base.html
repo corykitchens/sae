@@ -25,7 +25,9 @@
             <li><a href="{% url 'customer_list' %}">Customer Directory</a> </li>
             {% if employee %}
               <li><a href="/employees/edit_profile/{{employee.id}}">Employee Profile</a></li>
+              <li><a href="/user/logout">Logout</a></li>
             {% endif %}
+
           </ul>
         </div>
       </div>

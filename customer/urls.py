@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.conf.urls import patterns, url, include
 from customer.views import CustomerList, ViewCustomer, NewCustomer, KillCustomer,\
     EditCustomer, ViewCustomer_Address, EditCustomer_Address, DeleteCustomer_Address, Customer_AddressDetail,\
@@ -24,3 +25,13 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[\w-]+).cat/', include(customer_address_urls)),
     url(r'^NewCategory$', NewCustomer_Address.as_view(), name='customer_address_add'),
 )
+=======
+from django.conf.urls import url
+from customer.views import CustomerDirectory, customer_profile
+from . import views
+urlpatterns = [
+	#landing page
+	url(r'^customer_directory', CustomerDirectory.as_view(), name="customer_index"),
+	url(r'^edit_profile/(?P<customer_id>[0-9])$', customer_profile, name="customer_profile")
+]
+>>>>>>> 79e007853215f322d7c72fd03c76236cec066500

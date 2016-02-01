@@ -2,7 +2,7 @@ import sys
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as auth_login 
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from employee.models import Employee
 
 # Create your views here.
@@ -11,7 +11,7 @@ def login(request):
 		employee = Employee.objects.get(user=request.user)
 		if not employee:
 			return render(request, 'login/login.html', {"error": "Error querying employee"})
-		return render(request, 'employee/profile_home.html', {'user': request.user, 'employee': employee})
+		return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee})
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
@@ -22,7 +22,7 @@ def login(request):
 				auth_login(request, user)
 				employee = Employee.objects.get(user=user)
 				#print >>sys.stderr, employee
-				return render(request, 'employee/profile_home.html', {'user': user, 'employee': employee})
+				return render(request, 'employee/employee_home.html', {'user': user, 'employee': employee})
 			else:
 				return HttpResponse("Could not login")
 		else:
@@ -36,3 +36,8 @@ def login(request):
 	else:
 		#form = LoginUserForm()
 		return render(request, 'login/login.html', {})
+
+
+def logout(request):
+	auth_logout(request)
+	return render(request, 'login/login.html', {'message': 'Logout Successfull'})
