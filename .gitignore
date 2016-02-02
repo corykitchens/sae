@@ -1,5 +1,14 @@
+#Customer Ignores
+sae/
+customer/migrations
+employee/migrations
+workorder/migrations
+vehicle/migrations
+
+CTKM
 db.sqlite3
-sae/settings.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

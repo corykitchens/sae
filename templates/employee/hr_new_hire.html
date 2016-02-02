@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+	<form>
+		<fieldset class="form-goup">
+		<label for="ssn">SSN</label>
+		 {{new_hire_form.ssn}}
+		
+		<label for="first_name">First Name</label>
+		{{new_hire_form.first_name}}
+		<label for="middle_initial">Middle Initial</label>
+		{{new_hire_form.midle_initial}}
+		<label for="last_name">Last Name</label>
+		{{new_hire_form.last_nane}}
+		<label for="job_title">Job Title</label>
+		{{new_hire_form.job_title}}
+		<label for="wage">Hourly Wage</label>
+		{{new_hire_form.wage}}
+		<label for="dob">Date of Birth</label>
+		{{new_hire_form.birthdate}}
+		</fieldset>
+		<button type="submit">Submit</button>
+	</form>
+{% endblock %}

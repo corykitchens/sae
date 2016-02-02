@@ -8,7 +8,7 @@ class Employee(models.Model):
 	JOB_TITLES = (
 		('mgmt', 'Management'),
 		('admin', 'Administrative'),
-		('Service Technician', 'tech')
+		('tech', 'Service Technician')
 	)
 	SEX_CHOICES = (
 		('m', 'Male'),
@@ -38,6 +38,7 @@ class Employee(models.Model):
 
 	def __str__(self):
 		return self.first_name + " " + self.last_name
+
 
 
 class Employee_Address(models.Model):
