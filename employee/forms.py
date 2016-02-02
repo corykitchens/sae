@@ -6,7 +6,7 @@ class NewHireForm(ModelForm):
 		model = Employee
 		fields = ['ssn', 'first_name', 'middle_initial', 
 		'last_name', 'email', 'job_title', 'wage', 'birthdate',
-		'sex', 'user']
+		'sex']
 
 class NewHireAddressForm(ModelForm):
 	class Meta:
