@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authenticate',
     'vehicle',
     'workorder',
+    'announcement'
 ]
 
 MIDDLEWARE_CLASSES = [

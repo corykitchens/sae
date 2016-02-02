@@ -8,7 +8,7 @@ class Employee(models.Model):
 	JOB_TITLES = (
 		('mgmt', 'Management'),
 		('admin', 'Administrative'),
-		('Service Technician', 'tech')
+		('tech', 'Service Technician')
 	)
 	SEX_CHOICES = (
 		('m', 'Male'),
@@ -40,7 +40,8 @@ class Employee(models.Model):
 		return self.first_name + " " + self.last_name
 
 
-class Employee_Address(models.Model):
+
+class EmployeeAddress(models.Model):
 
 	STATES = (
 			 (	'Alabama'	    ,	'AL'), (	'Alaska'	    ,	'AK'),
@@ -77,7 +78,7 @@ class Employee_Address(models.Model):
 	employee = models.ForeignKey(Employee)
 
 	class Meta:
-		db_table = "CKTM_EMPLOYEE_ADDRESS"
+		db_table = "CKTM_EmployeeAddress"
 
 	def full_address(self):
 		return self.address + " " + self.city + " " + self.state + " " + str(self.zip_code)
