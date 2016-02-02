@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from employee.models import Employee, Employee_Address
+from employee.models import Employee, EmployeeAddress
 
 class NewHireForm(ModelForm):
 	class Meta:
@@ -7,5 +7,8 @@ class NewHireForm(ModelForm):
 		fields = ['ssn', 'first_name', 'middle_initial', 
 		'last_name', 'email', 'job_title', 'wage', 'birthdate',
 		'sex', 'user']
-		
 
+class NewHireAddressForm(ModelForm):
+	class Meta:
+		model = EmployeeAddress
+		fields = ['address', 'city', 'state', 'zip_code']

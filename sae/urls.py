@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^employees/', include('employee.urls')),
     url(r'^customers/', include('customer.urls')),
     url(r'^workorders/', include('workorder.urls')),
+    url(r'^announcement/', include('announcement.urls')),
     url(r'^admin/', admin.site.urls),
 ]

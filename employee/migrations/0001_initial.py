@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Employee_Address',
+            name='EmployeeAddress',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('address', models.CharField(max_length=200)),
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 ('employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='employee.Employee')),
             ],
             options={
-                'db_table': 'CKTM_EMPLOYEE_ADDRESS',
+                'db_table': 'CKTM_EmployeeAddress',
             },
         ),
     ]

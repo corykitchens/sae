@@ -41,7 +41,7 @@ class Employee(models.Model):
 
 
 
-class Employee_Address(models.Model):
+class EmployeeAddress(models.Model):
 
 	STATES = (
 			 (	'Alabama'	    ,	'AL'), (	'Alaska'	    ,	'AK'),
@@ -78,7 +78,7 @@ class Employee_Address(models.Model):
 	employee = models.ForeignKey(Employee)
 
 	class Meta:
-		db_table = "CKTM_EMPLOYEE_ADDRESS"
+		db_table = "CKTM_EmployeeAddress"
 
 	def full_address(self):
 		return self.address + " " + self.city + " " + self.state + " " + str(self.zip_code)
