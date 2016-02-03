@@ -3,22 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
-class Customer(models.Model):
-
-	first_name     = models.CharField(max_length=200)
-	middle_initial = models.CharField(max_length=1)
-	last_name      = models.CharField(max_length=200)
-	email          = models.EmailField(max_length=200, unique=True, null=True)
-
-	class Meta:
-		db_table = "CKTM_CUSTOMER"
-
-	def full_name(self):
-		return self.first_name + " " + self.last_name
-	def __str__(self):
-		return self.first_name + " " + self.last_name
-
-
 class Customer_Address(models.Model):
 
 	STATES = (
@@ -48,16 +32,36 @@ class Customer_Address(models.Model):
 			 (	'Washington'	,	'WA'), (	'West Virginia'	,	'WV'),
 			 (	'Wisconsin'	    ,	'WI'), (	'Wyoming'	    ,	'WY'),
 		)
-
-	address  = models.CharField   (max_length=200)
-	city     = models.CharField   (max_length=50)
-	state    = models.CharField   (max_length=50, choices=STATES)
-	zip_code = models.IntegerField()
+	
+	address  = models.CharField   (max_length=200, default='', null=True)
+	city     = models.CharField   (max_length=50, default='Bakersfield', null=True)
+	state    = models.CharField   (max_length=50, choices=STATES, default='California', null=True)
+	zip_code = models.IntegerField(default=93304, null=True)
+	#customer  = models.ForeignKey(Customer, null=True)
 
 	class Meta:
 		db_table = "CKTM_CUSTOMER_ADDRESSES"
 
 	def full_address(self):
-		return self.address + " " + self.city + " " + self.state + " " + self.zip_code
+		return self.address + "\n" + self.city + " " + self.state 
 	def __str__(self):
-		return self.address + " " + self.city + " " + self.state + " " + self.zip_code
+		return self.address + "\n" + self.city + " " + self.state
+
+class Customer(models.Model):
+
+	
+	first_name     = models.CharField(max_length=200)
+	middle_initial = models.CharField(max_length=1, blank=True)
+	last_name      = models.CharField(max_length=200)
+	email          = models.EmailField(max_length=200, null=True, blank=True)
+	address  	   = models.ForeignKey(Customer_Address, null=True)
+
+	class Meta:
+		db_table = "CKTM_CUSTOMER"
+
+	def full_name(self):
+		return self.first_name + " " + self.last_name
+	def __str__(self):
+		return self.first_name + " " + self.last_name
+
+
