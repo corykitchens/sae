@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -19,7 +20,7 @@ class Employee(models.Model):
 	first_name = models.CharField(max_length=200)
 	middle_initial = models.CharField(max_length=1)
 	last_name = models.CharField(max_length=200)
-	email = models.EmailField(max_length=200, unique=True, null=True)
+	email = models.EmailField(max_length=200, unique=True, null=True, blank=True)
 	job_title = models.CharField(max_length=200, choices=JOB_TITLES)
 	wage = models.FloatField()
 	birthdate = models.DateField(null=True)
@@ -39,6 +40,13 @@ class Employee(models.Model):
 	def __str__(self):
 		return self.first_name + " " + self.last_name
 
+	def save(self, *args, **kwargs):
+		if self.email is None:
+			self.email = self.first_name[0] + self.last_name + "@stockdaleautoelec.com"
+		elif self.user is None:
+			username = self.first_name[0] + self.last_name
+		super(Employee, self).save(*args, **kwargs)
+		
 
 
 class EmployeeAddress(models.Model):
@@ -84,3 +92,5 @@ class EmployeeAddress(models.Model):
 		return self.address + " " + self.city + " " + self.state + " " + str(self.zip_code)
 	def __str__(self):
 		return self.address + " " + self.city + " " + self.state + " " + str(self.zip_code)
+
+
