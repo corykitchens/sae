@@ -1,3 +1,4 @@
+import sys
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -17,10 +18,14 @@ class AddressDirectory(ListView):
 
 
 def add_address(request):
+    print >>sys.stderr, 'inside add address'
     if request.method == 'POST':
             form = AddressForm(request.POST)
+            print >>sys.stderr, request.POST
+
             if form.is_valid():
                 form.save()
+
                 return redirect('/customers/customer_directory')
             else:
                 messages.error(request, "Error")
@@ -33,10 +38,14 @@ class CustomerDirectory(ListView):
 
 def add(request):
     if request.method == 'POST':
+            
             form = CustomerForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('/customers/address_form')
+                customer = Customer.objects.get(first_name=request.POST['first_name'], last_name=request.POST['last_name'])
+                print >>sys.stderr, customer
+                #Customer.objects.filter(last_name=request.POST['last_name'])
+                return render(request, 'customer/address_form.html', {'customer': customer, 'form': AddressForm()})
             else:
                 messages.error(request, "Error")
     return render(request, 'customer/customer_form.html', {'form': CustomerForm()})

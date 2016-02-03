@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'employee',
+    'customer',
     'authenticate',
     'vehicle',
-    'announcement',
-    #'workorder',
-    'customer'
+    'workorder',
+    'announcement'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'sae.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'TMCK'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

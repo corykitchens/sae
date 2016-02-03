@@ -4,5 +4,5 @@ from .models import Employee, EmployeeAddress
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-	exclude=('email', 'user')
+	pass
 admin.site.register(EmployeeAddress)
