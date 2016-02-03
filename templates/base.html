@@ -16,21 +16,19 @@
   <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3">
-        <div class="side-nav">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/workorders/">Service</a></li>
-            <li><a href="/employees/employee_directory">Employee Directory</a></li>
-            <li><a href="/customers/customer_directory">Customer Directory</a></li>
-            {% if employee.job_title == "admin" %}
-              <li><a href="/employees/hr">Human Resources</a></li>
-            {% endif %}
-            <li></li>
-            <li><a href="/employees/edit_profile/{{employee.id}}">Employee Profile</a></li>
-            <li><a href="/user/logout">Logout</a></li>
-          </ul>
-        </div>
+      <div class="col-md-3 side-nav">
+        <ul class="side-nav-links">
+          <li class="side-nav-link"><a href="/">Home</a></li>
+          <li class="side-nav-link"><a href="/workorders/">Service</a></li>
+          <li class="side-nav-link"><a href="/employees/employee_directory">Employee Directory</a></li>
+          <li class="side-nav-link"><a href="/customers/customer_directory">Customer Directory</a></li>
+          {% if employee.job_title == "admin" %}
+            <li class="side-nav-link"><a href="/employees/hr">Human Resources</a></li>
+          {% endif %}
+          <li></li>
+          <li class="side-nav-link"><a href="/employees/edit_profile/{{employee.id}}">Employee Profile</a></li>
+          <li class="side-nav-link"><a href="/user/logout">Logout</a></li>
+        </ul>
       </div>
       <div class="col-md-9">
         {%block content %}
