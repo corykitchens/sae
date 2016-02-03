@@ -1,57 +1,67 @@
-from django.db import models
-from django.template.defaultfilters import slugify
-from phonenumber_field.modelfields import PhoneNumberField
+from __future__ import unicode_literals
 
+from django.db import models
+
+# Create your models here.
 class Customer_Address(models.Model):
-    address  = models.CharField(max_length=80)
-    city	 = models.CharField(max_length=80)
-    state 	 = models.CharField(max_length=80)
-    zip_code = models.IntegerField(default=93313)
-    slug = models.SlugField(blank=True)
-    class Meta:
-        verbose_name_plural = 'customer_address'
-    def __unicode__(self):
-        return u"%s" % self.address
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.address)
-        return super(Customer_Address, self).save(*args, **kwargs)
-    @models.permalink
-    def get_absolute_url(self):
-        return ('customer_detail', [self.slug])
-    @models.permalink
-    def get_update_url(self):
-        return ('customer_address_update', [self.slug])
-    @models.permalink
-    def get_delete_url(self):
-        return ('customer_address_delete', [self.slug])
+
+	STATES = (
+			 (	'Alabama'	    ,	'AL'), (	'Alaska'	    ,	'AK'),
+			 (	'Arizona'	    ,	'AZ'), (	'Arkansas'	    ,	'AR'),
+			 (	'California'    ,   'CA'), (	'Colorado'	    ,	'CO'),
+			 (	'Connecticut'   ,   'CT'), (	'Delaware'	    , 	'DE'),
+			 (	'Florida'	    ,	'FL'), (	'Georgia'	    ,	'GA'),
+			 (	'Hawaii'	    ,	'HI'), (	'Idaho'	        ,	'ID'),
+			 (	'Illinois'	    ,	'IL'), (	'Indiana'	    ,	'IN'),
+			 (	'Iowa'	        ,	'IA'), (	'Kansas'	    ,	'KS'),
+			 (	'Kentucky'	    ,	'KY'), (	'Louisiana'	    ,	'LA'),
+			 (	'Maine'	        ,	'ME'), (	'Maryland'	    ,	'MD'),
+			 (	'Massachusetts'	,	'MA'), (	'Michigan'	    ,	'MI'),
+			 (	'Minnesota'	    ,	'MN'), (	'Mississippi'	,	'MS'),
+			 (	'Missouri'	    ,	'MO'), (	'Montana'	    ,	'MT'),
+			 (	'Nebraska'	    ,	'NE'), (	'Nevada'        ,	'NV'),
+			 (	'New Hampshire'	,	'NH'), (	'New Jersey'	,	'NJ'),
+			 (	'New Mexico'	,	'NM'), (	'New York'	    ,	'NY'),
+			 (	'North Carolina',	'NC'), (	'North Dakota'	,	'ND'),
+			 (	'Ohio'	        ,	'OH'), (	'Oklahoma'	    ,	'OK'),
+			 (	'Oregon'	    ,	'OR'), (	'Pennsylvania'	,	'PA'),
+			 (	'Rhode Island'	,	'RI'), (	'South Carolina',	'SC'),
+			 (	'South Dakota'	,	'SD'), (	'Tennessee'	    ,	'TN'),
+		     (	'Texas'	        ,	'TX'), (	'Utah'	        ,	'UT'),
+			 (	'Vermont'	    ,	'VT'), (	'Virginia'	    ,	'VA'),
+			 (	'Washington'	,	'WA'), (	'West Virginia'	,	'WV'),
+			 (	'Wisconsin'	    ,	'WI'), (	'Wyoming'	    ,	'WY'),
+		)
+	
+	address  = models.CharField   (max_length=200, default='', null=True)
+	city     = models.CharField   (max_length=50, default='Bakersfield', null=True)
+	state    = models.CharField   (max_length=50, choices=STATES, default='California', null=True)
+	zip_code = models.IntegerField(default=93304, null=True)
+	#customer  = models.ForeignKey(Customer, null=True)
+
+	class Meta:
+		db_table = "CKTM_CUSTOMER_ADDRESSES"
+
+	def full_address(self):
+		return self.address + "\n" + self.city + " " + self.state 
+	def __str__(self):
+		return self.address + "\n" + self.city + " " + self.state
 
 class Customer(models.Model):
-    first_name     = models.CharField(max_length=60, help_text='Their first name')
-    middle_initial = models.CharField(max_length=1, null=True, blank=True)
-    last_name      = models.CharField(max_length=80, blank=True, help_text='Their last name')
-    slug 	       = models.SlugField(blank=True)
-    address        = models.ForeignKey(Customer_Address, blank=True, null=True, help_text='What is the address?')
-    home_phone     = PhoneNumberField(blank=True)
-    cell_phone     = PhoneNumberField(blank=True)
-    email          = models.EmailField(blank=True, null=True, help_text='Do they have an Email address?')
 
-    class Meta:
-        verbose_name_plural = 'customer'
-        ordering = ['last_name']
-    @property
-    def full_name(self):
-        return u"%s %s" % (self.first_name, self.last_name) if self.last_name != '' else u"%s" % self.first_name
-    def __unicode__(self):
-        return u"%s, %s" % (self.last_name, self.first_name) if self.last_name != '' else u"%s" % self.first_name
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.full_name)
-        return super(Customer, self).save(*args, **kwargs)
-    @models.permalink
-    def get_absolute_url(self):
-        return ('customer_detail', [self.slug])
-    @models.permalink
-    def get_update_url(self):
-        return ('customer_update', [self.slug])
-    @models.permalink
-    def get_delete_url(self):
-        return ('customer_delete', [self.slug])
+	
+	first_name     = models.CharField(max_length=200)
+	middle_initial = models.CharField(max_length=1, blank=True)
+	last_name      = models.CharField(max_length=200)
+	email          = models.EmailField(max_length=200, null=True, blank=True)
+	address  	   = models.ForeignKey(Customer_Address, null=True)
+
+	class Meta:
+		db_table = "CKTM_CUSTOMER"
+
+	def full_name(self):
+		return self.first_name + " " + self.last_name
+	def __str__(self):
+		return self.first_name + " " + self.last_name
+
+

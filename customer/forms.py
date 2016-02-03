@@ -1,7 +1,7 @@
 from django import forms
 from customer.models import Customer, Customer_Address
 
-class Customer_AddressForm(forms.ModelForm):
+class AddressForm(forms.ModelForm):
     class Meta:
         model = Customer_Address
         fields = ('address', 'city', 'state', 'zip_code')

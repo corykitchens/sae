@@ -1,0 +1,20 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+	<h1>Your Profile</h1>
+
+	<div class="card">
+		<h4>Customer Information</h4>
+		<strong>Name: {{customer.first_name}} {{customer.last_name}}</strong>
+		<a href="/customers/customer_name_form">(Edit)</a>
+		<br>
+		<strong>Address: {{customer.address}}</strong>
+		<a href="/customers/customer_name_form">(Edit)</a>
+		<br>
+		<strong>Email: {{customer.email}}</a></strong>
+		<a href="/customers/customer_name_form">(Edit)</a>
+		<br>
+		<br>
+	</div>
+
+
+{% endblock %}
