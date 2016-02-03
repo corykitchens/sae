@@ -2,17 +2,22 @@
 {% block content %}
 
 
-	<h1>Customer Directory</h1>
+	<h5>Customer Directory</h5>
+	<br>
+	
+	<p><a href="/customers/customer_form">New Work Order</a></p>
+	</ul>
+	<hr>
 	<div class="customer-container">
-
+		<br/>
 		{% for customer in customers %}
 			<div class="customer-profile">
 				<ul class="customer-information">
 					<li><img src="http://placehold.it/150x150" /></li>
 					<strong>{{customer.first_name}} {{customer.last_name}}</strong>
 					<li>Email: <a href="mail:{{customer.email}}"/>{{customer.email}}</a></li>
+					<li><a href="/customers/customer_profile/{{customer.id}}">Edit</a></li>
 				</ul>
 			</div>
 		{% endfor %}
-
 {% endblock %}
