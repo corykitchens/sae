@@ -43,9 +43,9 @@ class Customer_Address(models.Model):
 		db_table = "CKTM_CUSTOMER_ADDRESSES"
 
 	def full_address(self):
-		return self.address + "\n" + self.city + " " + self.state 
+		return self.address + " " + self.city + " " + self.state 
 	def __str__(self):
-		return self.address + "\n" + self.city + " " + self.state
+		return self.address + " " + self.city + " " + self.state
 
 class Customer(models.Model):
 

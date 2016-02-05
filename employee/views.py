@@ -1,5 +1,5 @@
 import sys
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
 from .forms import NewHireForm, NewHireAddressForm
@@ -27,5 +27,5 @@ def new_hire(request):
 			'new_hire_address_form' : new_hire_address_form})
 	
 	elif request.method=='POST':
-		print >>sys.stderr, request['POST']
+		
 		return HttpResponse('POST')
