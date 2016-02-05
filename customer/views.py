@@ -26,7 +26,7 @@ def add(request):
             for inline_form in formset:
                 if inline_form.cleaned_data:
                     customer = form.save(commit=False)
-                    customer.address = address
+                    customer.address = address.id
                     customer.save()
             return redirect('customer_directory.html', {})
     else:
