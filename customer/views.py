@@ -1,3 +1,7 @@
+from __future__ import print_function
+import sys
+
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -19,14 +23,15 @@ class CustomerDirectory(ListView):
 def add(request):
     CustomerFormSet = formset_factory(CustomerForm, extra=1, min_num=0,validate_min=True)
     if request.method == 'POST':
-        form = AddressForm(request.POST)
-        formset = CustomerFormSet(request.POST)
-        if all([form.is_valid(), formset.is_valid()]):
-            address = form.save()
-            for inline_form in formset:
+        customer_address_form = AddressForm(request.POST)
+        customer_form = CustomerFormSet(request.POST)
+
+        if all([customer_form.is_valid(), customer_address_form.is_valid()]):
+            address = customer_address_form.save()
+            for inline_form in customer_form:
                 if inline_form.cleaned_data:
-                    customer = form.save(commit=False)
-                    customer.address = address.id
+                    customer = inline_form.save(commit=False)
+                    customer.address = address
                     customer.save()
             return redirect('customer_directory.html', {})
     else:
@@ -38,3 +43,6 @@ def add(request):
 def customer_profile(request, customer_id):
     customer = Customer.objects.get(id=customer_id)
     return render(request, 'customer/customer_profile.html', {'customer': customer})
+
+def print_objs(*objs):
+    print("OUTPUT->", objs, file=sys.stderr)
