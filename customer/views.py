@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from customer.forms import CustomerForm, AddressForm
+from customer.forms import CustomerForm, AddressForm, Customer_Edit_Form, Address_Edit_Form
 from customer.models import Customer, Customer_Address
 
 # Create your views here.
@@ -25,7 +25,6 @@ def add(request):
     if request.method == 'POST':
         customer_address_form = AddressForm(request.POST)
         customer_form = CustomerFormSet(request.POST)
-
         if all([customer_form.is_valid(), customer_address_form.is_valid()]):
             address = customer_address_form.save()
             for inline_form in customer_form:
@@ -46,3 +45,22 @@ def customer_profile(request, customer_id):
 
 def print_objs(*objs):
     print("OUTPUT->", objs, file=sys.stderr)
+
+def edit(request, customer_id):
+    customer = Customer.objects.get(id=customer_id)
+    Customer_EditFormSet = formset_factory(Customer_Edit_Form, extra=1, min_num=0,validate_min=True)
+    if request.method == 'POST':
+        address_edit_form = Address_Edit_Form(request.POST)
+        customer_edit_form = Customer_EditFormSet(request.POST)
+        if all([customer_edit_form.is_valid(), address_edit_form.is_valid()]):
+            address = address_edit_form.save()
+            for inline_form in customer_edit_form:
+                if inline_form.cleaned_data:
+                    customer.address = address
+                    customer.save()
+            return redirect('/customers/customer_directory', {})
+    else:
+        form = Address_Edit_Form()
+        formset = Customer_EditFormSet()
+
+    return render(request, 'customer/customer_edit_form.html', {'formset': formset, 'form': form})
