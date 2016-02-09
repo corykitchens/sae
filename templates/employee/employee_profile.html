@@ -1,15 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h1>Your Profile</h1>
-
-	<div class="card">
-		<h3>Contact Information</h3>
-		<label>Address</label>
-		<input type="text">
-		<label>Phone</label>
-		<input type="text">
-
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h4 class="card-title">Change Contact Information</h4>
+			<form class="form-group">
+				<label>Home Phone Number</label>
+				<input type="text" class="form-control">
+				<label>Mobile Phone</label>
+				<input type="text" class="form-control">
+				<button class="btn-primary">Submit</button>
+			</form>
+		</div>
 	</div>
+</div>
 
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h4 class="card-title">Change Password</h4>
+			<form class="form-group">
+				<label>Current Password</label>
+				<input type="text" class="form-control">
+				<label>New Password</label>
+				<input type="text" class="form-control">
+				<label>Confirm New Password</label>
+				<input type="text" class="form-control">
+				<button class="btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

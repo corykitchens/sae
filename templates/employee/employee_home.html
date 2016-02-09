@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-	{% if employee %}
-		<h3>Welcome back, {{employee.first_name}}</h3>
-		<div class="card">
+	<div class="row">
+		<div class="col-md-12">
+		<div class="card employee-card">
+			<h4 class="card-title">Announcements</h4>
 			<table class="table table-striped">
 			<thead>
 				<tr>
@@ -20,9 +21,10 @@
 			{% endfor %}
 			</table>
 		</div>
-		<div class="card">
-			<h4>Assigned Work Orders</h4>
+		<div class="card employee-card">
+			<h4 class="card-title">Work Orders</h4>
 			<table class="table table-striped">
+
 			<thead>
 				<tr>
 					<th>Date Created</th>
@@ -33,19 +35,7 @@
 			</thead>
 			</table>
 		</div>
-
-		<div class="card">
-			<h4 class="card-title">Messages</h4>
-			<div class="card-block">
-				<li>Message</li>
-				<li>Message</li>
-				<li>Message</li>
-				<li>Message</li>
-
-			</div>
-		</div>
-
-	{% endif %}
 	
-
+		</div>
+	</div>
 {% endblock %}

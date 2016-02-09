@@ -1,17 +1,16 @@
-body {
-	background-color: #f2f7fa;
-}
-.side-nav {
-	background-color: #333333;
-	min-height: 100rem;
 
+body {
+	background-color: #ECEFF1;
+}
+
+.side-nav {
+	background-color: #263238;
 }
 
 .side-nav ul {
 	list-style-type: none;
-	margin: 2em 0 0 0;
 }
 
 .base-header {
-	background-color: #555;
+
 }

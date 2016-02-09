@@ -1,13 +1,20 @@
-.employee-container {
-	display: flex;
-	
-	flex-wrap: wrap;
+/*Employee Home Styles */
+.employee-card {
+	border-top: 10px solid #03A9F4;
+	margin: 1em;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
+.card-title {
+	padding: 0.2em;
+}
+
+
+/*Employee Profile Styles */
 .employee-profile {
 	background: #FFF;
 	border-radius: 2px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 	border-top: 10px solid #004199;
 	justify-content: space-between;
 	flex-wrap: wrap;
