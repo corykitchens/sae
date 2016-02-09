@@ -10,3 +10,13 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ('first_name', 'middle_initial', 'last_name', 'email')
+
+class Customer_Edit_Form(forms.ModelForm):
+	class Meta:
+		model  = Customer
+		fields = ('email',		)
+
+class Address_Edit_Form(forms.ModelForm):
+	class Meta:
+		model  = Customer_Address
+		fields = ('address', 'city', 'state' )
