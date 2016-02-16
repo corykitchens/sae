@@ -32,6 +32,12 @@
             <strong>{{message}}</strong>
           </div>
           {% endif %}
+
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+            <strong>{{error}}</strong>
+          </div>
+          {% endif %}
           <!-- Begin Form -->
           <div class="login-form-container">
             <form action="{% url 'authenticate:login' %}" method="POST" class="login-form">

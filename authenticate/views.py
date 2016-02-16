@@ -12,9 +12,10 @@ from announcement.models import Announcement
 def login(request):
 	
 	if request.user.is_authenticated():
-		employee = Employee.objects.get(user=request.user)
-		if not employee:
-			return render(request, 'login/login.html', {"error": "Error querying employee"})
+		try:
+			employee = Employee.objects.get(user=request.user)
+		except Employee.DoesNotExist:
+			return render(request, 'login/login.html', {"error": "Error Employee information not found"})
 		announcements = Announcement.objects.all()
 		return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
 			'announcements' : announcements})
@@ -24,7 +25,6 @@ def login(request):
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
 		if user is not None:
-			
 			if user.is_active:
 				auth_login(request, user)
 				employee = Employee.objects.get(user=user)
@@ -32,17 +32,10 @@ def login(request):
 				return render(request, 'employee/employee_home.html', {'user': user, 'employee': employee,
 					'announcements' : announcements})
 			else:
-				return HttpResponse("Could not login")
+				return render(request, 'login/login.html', {"error": "Error unable to begin user session"})
 		else:
-			return HttpResponse('Could not authenticate')
-		# form = LoginUserForm(request.POST)
-
-		# if form.is_valid():
-		# 	return HttpResponse('Worked')
-		# else:
-		# 	return HttpResponse('Failed validity')
+			return render(request, 'login/login.html', {"error": "Error unable to authenticate user"})
 	else:
-		#form = LoginUserForm()
 		return render(request, 'login/login.html', {})
 
 
