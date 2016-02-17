@@ -29,3 +29,7 @@ def new_hire(request):
 	elif request.method=='POST':
 		
 		return HttpResponse('POST')
+
+
+def change_password(request, employee, new_password):
+	return HttpResponse('Change Passwordw')

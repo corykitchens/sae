@@ -55,3 +55,17 @@
 
 
 
+.wizard-navbar {
+	background: #03A9F4;
+}
+
+.wizard-navbar ul {
+	list-style: none;
+	padding: 0.5em;
+}
+
+.wizard-navbar li {
+	display: inline-block;
+	
+}
+

@@ -1,18 +1,46 @@
-{% extends "employee/base.html" %}
+{% extends "base.html" %}
 {% block content %}
 
-	<div class="card">
-		<h3>Customer Information</h3>
-		<label>First Name</label>
-		<input type="text">
-		<label>Last Name</label>
-		<input type="text">
+<div class="row">
+	<div class="col-md-12">
+		<div class="wizard-container">
+			<div class="wizard-navbar">
+				<ul>
+					<li>Customer Information</li>
+					<li>Vehicle Information</li>
+					<li>Diagnostics</li>
+					<li>Summary</li>
+				</ul>
+			</div>
+			<div class="employee-card wizard-body customer-select">
+				<!-- Logic to determine which stage of the wizard -->
+				<h4>Customer Information</h4>
+				<input type="radio" name="new_customer" id="new-customer-select" value="new-customer"><label>New Customer</label> <br />
+				<input type="radio" name="existing_customer" id="existing-customer-select"><label>Existing Customer</label>
+			</div>
+
+			<div class="employee-card wizard-body new-customer-form">
+				<!-- Logic to determine which stage of the wizard -->
+				<h4>New Customer Information</h4>
+				{{customer_form}}
+				{{customer_address_form}}
+			</div>
+			<div class="employee-card wizard-body existing-customer-form">
+				<!-- Logic to determine which stage of the wizard -->
+				<h4>Existing Customer Information</h4>
+				<form>
+					<label>Customer's First Name</label>
+					<input type="text" />
+					<label>Customer's Last Name</label>
+					<input type="text" />
+				</form>
+			</div>
+
+		</div>
+
 	</div>
 
-	<div class="card">
-		<h2>Results</h2>
-		<ul>
-			
-		</ul>
-	</div>
+</div>
+
+
 {% endblock %}

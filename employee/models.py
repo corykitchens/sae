@@ -15,7 +15,6 @@ class Employee(models.Model):
 		('m', 'Male'),
 		('f', 'Female')
 	)
-	id = models.AutoField(primary_key=True)
 	ssn = models.IntegerField(unique=True)
 	first_name = models.CharField(max_length=200)
 	middle_initial = models.CharField(max_length=1)
