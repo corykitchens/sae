@@ -8,10 +8,10 @@
 
 
 				<label>New Customer</label>
-				<input type="radio" name="new-customer"/>
+				<input type="radio" id="new-customer-radio" name="new-customer"/>
 
 				<label>Existing Customer</label>
-				<input type="radio" id="new-customer-radio" name="new-customer"/>
+				<input type="radio" id="existing-customer-radio" name="existing-customer"/>
 
 				<div id="existing-customer-container">
 					<form method='GET' action='/customers/get_customer'>
@@ -44,6 +44,12 @@
 
 				<label>Existing Vehicle</label>
 				<input type="radio" id="existing-vehicle" name="existing-vehicle"/>
+
+				<div id="existing-vehicle-container">
+					<ul>
+						
+					</ul>
+				</div>
 
 				{{vehicle_form.as_p}}
 			</div>

@@ -2,11 +2,22 @@ $(document).ready(function() {
 
 
 	$("#existing-customer-container").hide();
- 	$('#new-customer-radio').on("click", function() {
+ 	$('#existing-customer-radio').on("click", function() {
  		if($(this).is(':checked')) {
  			$("#existing-customer-container").show();
  		}
  	});
+
+ 	$('#new-customer-radio').on("click", function() {
+ 		console.log('test');
+ 		$("#existing-customer-container").hide();
+ 	});
+
+ 	$("#existing-vehicle").on("click", function() {
+ 		if($(this).is(':checked')) {
+ 			$("existing-vehicle-container").show();
+ 		}
+ 	})
 
  	$('#query-existing-customer-btn').on('click', function() {
  		//Get value of fields
@@ -24,6 +35,8 @@ $(document).ready(function() {
  				console.log(data);
  				$('.alert-msg').css("display", "block");
  			}
+ 			console.log(data);
+
  			updateCustomerFormFields(data);
  		})
  		//Send ajax call to /customers/get_customer
@@ -49,6 +62,12 @@ $(document).ready(function() {
  		$("#id_email").val(data.customer_email);
 
  		$("#id_address").val(data.customer_address);
+
+ 		//TODO, refactor for dynamically adding vehicles
+ 		$("#existing-vehicle-container").append("<li>" + data['vehicle0'] + "</li");
+ 		$("#existing-vehicle-container").append("<li>" + data['vehicle1'] + "</li");
+ 		$("#existing-vehicle-container").append("<li>" + data['vehicle2'] + "</li");
+ 		$("#existing-vehicle-container").append("<li>" + data['vehicle3'] + "</li");
 
 
  	}

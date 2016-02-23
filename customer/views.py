@@ -83,7 +83,15 @@ def get_customer(request, first_name, last_name):
     response_data['customer_state'] = customer.address.state
     response_data['customer_zip_code'] = customer.address.zip_code
 
-    response_data['customer_vehicles'] = customer.vehicles.all()
+    try:
+        vehicle = customer.vehicle.all() 
+    except Vehicle.DoesNotExist:
+        response_data['customer_vehicles'] = ''
+
+    if vehicle:
+        for i in range(0, len(vehicle)):
+            response_data['vehicle'+str(i)] = str(vehicle[i])
+
 
     return HttpResponse(json.dumps(response_data),
             content_type="application/json"
