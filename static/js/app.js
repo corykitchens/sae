@@ -30,8 +30,8 @@ $(document).ready(function() {
  			type: "get",
  			url: "http://localhost:8000/customers/get_customer/" + cFirstName + "/" + cLastName,
  		}).success(function(data) {
- 			
- 			if(!data.custom_fn) {
+ 			console.log(data);
+ 			if(data['msg']) {
  				console.log(data);
  				$('.alert-msg').css("display", "block");
  			}

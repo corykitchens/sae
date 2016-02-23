@@ -69,12 +69,14 @@ def edit(request, customer_id):
 
 
 def get_customer(request, first_name, last_name):
+    response_data = {}
     try:
         customer = Customer.objects.get(first_name=first_name.capitalize(), last_name=last_name.capitalize())
     except Customer.DoesNotExist:
-        return HttpResponse(json.dumps({'msg' : 'Error querying customer' + first_name + " " + last_name}))
+        response_data['msg'] = 'Error querying customer'
+        return HttpResponse(json.dumps(response_data),content_type="application/json") 
 
-    response_data = {}
+    
     response_data['customer_fn'] = customer.first_name
     response_data['customer_ln'] = customer.last_name
     response_data['customer_mi'] = customer.middle_initial

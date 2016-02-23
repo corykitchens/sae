@@ -303,3 +303,4 @@ insert into CKTM_Customer_vehicle (customer_id, vehicle_id) values (5, 86);
 insert into CKTM_Customer_vehicle (customer_id, vehicle_id) values (50, 25);
 insert into CKTM_Customer_vehicle (customer_id, vehicle_id) values (59, 34);
 
+insert into CKTM_WORKORDER_service_type(name, price)
