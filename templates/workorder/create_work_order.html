@@ -3,41 +3,45 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="wizard-container">
-			<div class="wizard-navbar">
-				<ul>
-					<li>Customer Information</li>
-					<li>Vehicle Information</li>
-					<li>Diagnostics</li>
-					<li>Summary</li>
-				</ul>
-			</div>
-			<div class="employee-card wizard-body customer-select">
-				<!-- Logic to determine which stage of the wizard -->
-				<h4>Customer Information</h4>
-				<input type="radio" name="new_customer" id="new-customer-select" value="new-customer"><label>New Customer</label> <br />
-				<input type="radio" name="existing_customer" id="existing-customer-select"><label>Existing Customer</label>
+		
+			<div class="card employee-card">
+				<label>New Customer</label>
+				<input type="radio" name="new-customer"/>
+
+				<label>Existing Customer</label>
+				<input type="radio" id="new-customer-radio" name="new-customer"/>
+
+				<div id="existing-customer-container">
+					<form method='GET' action='/customers/get_customer'>
+						<label>Customer First Name</label>
+						<input type="text" name="c-first-name" id="c-first-name" class="form-control" />
+						<label>Customer Last Name</label>
+						<input type="text" name="c-last-name" id="c-last-name" class="form-control"/>
+
+						<button  class="btn btn-primary" type="button" id="query-existing-customer-btn">Query</button>
+					</form>
+				</div>
+				<h3>Customer Information</h3>
+				{{customer_form.as_p}}
+				<h3>Customer Address</h3>
+				{{ca_form.as_p}}
 			</div>
 
-			<div class="employee-card wizard-body new-customer-form">
-				<!-- Logic to determine which stage of the wizard -->
-				<h4>New Customer Information</h4>
-				{{customer_form}}
-				{{customer_address_form}}
-			</div>
-			<div class="employee-card wizard-body existing-customer-form">
-				<!-- Logic to determine which stage of the wizard -->
-				<h4>Existing Customer Information</h4>
-				<form>
-					<label>Customer's First Name</label>
-					<input type="text" />
-					<label>Customer's Last Name</label>
-					<input type="text" />
-				</form>
+			<div class="card employee-card">
+				<h3>Vehicle Information</h3>
+				<label>New Vehicle</label>
+				<input type="radio" name="new-vehicle"/>
+
+				<label>Existing Vehicle</label>
+				<input type="radio" id="existing-vehicle" name="existing-vehicle"/>
+
+				{{vehicle_form.as_p}}
 			</div>
 
-		</div>
-
+			<div class="card employee-card">
+				<h4>Service Information</h4>
+				{{work_order_form.as_p}}
+			</div>
 	</div>
 
 </div>

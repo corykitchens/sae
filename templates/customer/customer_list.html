@@ -9,15 +9,26 @@
 	</ul>
 	<hr>
 	<div class="customer-container">
-		<br/>
-		{% for customer in customers %}
-			<div class="customer-profile">
-				<ul class="customer-information">
-					<li><img src="http://placehold.it/150x150" /></li>
-					<strong>{{customer.first_name}} {{customer.last_name}}</strong>
-					<li>Email: <a href="mail:{{customer.email}}"/>{{customer.email}}</a></li>
-					<li><a href="/customers/customer_profile/{{customer.id}}">Edit</a></li>
-				</ul>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card employee-card">
+					<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					{% for customer in customers %}
+						<tr>
+							<td>{{ customer.first_name}}</td>
+							<td>{{ customer.last_name }}</td>
+							<td><a href="mailto:{{customer.email}}">{{ customer.email }}</a></td>
+						</tr>
+					{% endfor %}
+					</table>
+				</div>
 			</div>
-		{% endfor %}
+		</div>
 {% endblock %}

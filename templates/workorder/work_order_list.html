@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="btn btn-secondary">
+			<a href="create_work_order">Create Work Order</a>
+		</div>
+		<div class="card employee-card">
+
+			<h4>Open Work Orders</h4>
+			
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Date Opened</th>
+					<th>Customer Name</th>
+					<th>Assigned Technician</th>
+					<th>Vehicle</th>
+					<th>Problem Description</th>
+				</tr>
+			</thead>
+			</table>
+		</div>
+	</div>
+
+</div>
+
+
+{% endblock %}
