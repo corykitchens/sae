@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+
 	$("#existing-customer-container").hide();
  	$('#new-customer-radio').on("click", function() {
  		if($(this).is(':checked')) {
@@ -17,6 +19,11 @@ $(document).ready(function() {
  			type: "get",
  			url: "http://localhost:8000/customers/get_customer/" + cFirstName + "/" + cLastName,
  		}).success(function(data) {
+ 			
+ 			if(!data.custom_fn) {
+ 				console.log(data);
+ 				$('.alert-msg').css("display", "block");
+ 			}
  			updateCustomerFormFields(data);
  		})
  		//Send ajax call to /customers/get_customer

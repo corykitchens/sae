@@ -3,25 +3,6 @@
 	<div class="row">
 		<div class="col-md-12">
 		<div class="card employee-card">
-			<h4 class="card-title">Announcements</h4>
-			<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Announcement</th>
-					<th>Posted By</th>
-				</tr>
-			</thead>
-			{% for announcement in announcements %}
-				<tr>
-					<td>{{ announcement.posted}}</td>
-					<td><a href="{{ announcement.id }}/">{{ announcement.title}}</a></td>
-					<td>{{ announcement.posted_by }}</td>
-				</tr>
-			{% endfor %}
-			</table>
-		</div>
-		<div class="card employee-card">
 			<h4 class="card-title">Work Orders</h4>
 			<table class="table table-striped">
 

@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from customer.forms import CustomerForm, AddressForm, Customer_Edit_Form, Address_Edit_Form
 from customer.models import Customer, Customer_Address
-
+from vehicle.models import Vehicle
 # Create your views here.
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
 class CustomerDirectory(ListView):
@@ -72,7 +72,7 @@ def get_customer(request, first_name, last_name):
     try:
         customer = Customer.objects.get(first_name=first_name.capitalize(), last_name=last_name.capitalize())
     except Customer.DoesNotExist:
-        return HttpResponse('Error querying customer' + first_name + " " + last_name)
+        return HttpResponse(json.dumps({'msg' : 'Error querying customer' + first_name + " " + last_name}))
 
     response_data = {}
     response_data['customer_fn'] = customer.first_name
@@ -82,6 +82,8 @@ def get_customer(request, first_name, last_name):
     response_data['customer_city'] = customer.address.city
     response_data['customer_state'] = customer.address.state
     response_data['customer_zip_code'] = customer.address.zip_code
+
+    response_data['customer_vehicles'] = customer.vehicles.all()
 
     return HttpResponse(json.dumps(response_data),
             content_type="application/json"

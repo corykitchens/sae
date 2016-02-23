@@ -53,7 +53,7 @@ class Customer(models.Model):
 
 	
 	first_name     = models.CharField(max_length=200)
-	middle_initial = models.CharField(max_length=1, blank=True)
+	middle_initial = models.CharField(max_length=1, null=True, blank=True)
 	last_name      = models.CharField(max_length=200)
 	email          = models.EmailField(max_length=200, null=True, blank=True)
 	address  	   = models.ForeignKey(Customer_Address, null=True)
