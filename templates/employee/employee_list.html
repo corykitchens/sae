@@ -1,19 +1,33 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
 
 
-	<h1>Employee Directory</h1>
-	<div class="employee-container">
-
-		{% for employee in employees %}
-			<div class="employee-profile">
-				<ul class="employee-information">
-					<li><img src="http://placehold.it/150x150" /></li>
-					<strong>{{employee.first_name}} {{employee.last_name}}</strong>
-					<li>Job Title: {{employee.job_title}}</li>
-					<li>Email: <a href="mail:{{employee.email}}"/>{{employee.email}}</a></li>
-				</ul>
+	<h5>Employee Directory</h5>
+	<hr>
+	<br />
+	<div class="customer-container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card employee-card">
+					<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Job Title</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					{% for employee in employees %}
+						<tr>
+							<td>{{ employee.first_name}}</td>
+							<td>{{ employee.last_name }}</td>
+							<td>{{ employee.job_title }}</td>
+							<td><a href="mailto:{{employee.email}}">{{ employee.email }}</a></td>
+						</tr>
+					{% endfor %}
+					</table>
+				</div>
 			</div>
-		{% endfor %}
-
+		</div>
 {% endblock %}

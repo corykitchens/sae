@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from vehicle.models import Vehicle
 
 # Create your models here.
 class Customer_Address(models.Model):
@@ -37,10 +38,10 @@ class Customer_Address(models.Model):
 	city     = models.CharField   (max_length=50, default='Bakersfield', null=True)
 	state    = models.CharField   (max_length=50, choices=STATES, default='California', null=True)
 	zip_code = models.IntegerField(default=93304, null=True)
-	#customer  = models.ForeignKey(Customer, null=True)
+	
 
 	class Meta:
-		db_table = "CKTM_CUSTOMER_ADDRESSES"
+		db_table = "CKTM_CUSTOMER_ADDRESS"
 
 	def full_address(self):
 		return str(self.address + " " + self.city + " " + self.state)
@@ -52,10 +53,11 @@ class Customer(models.Model):
 
 	
 	first_name     = models.CharField(max_length=200)
-	middle_initial = models.CharField(max_length=1, blank=True)
+	middle_initial = models.CharField(max_length=1, null=True, blank=True)
 	last_name      = models.CharField(max_length=200)
 	email          = models.EmailField(max_length=200, null=True, blank=True)
 	address  	   = models.ForeignKey(Customer_Address, null=True)
+	vehicle 	   = models.ManyToManyField(Vehicle)
 
 	class Meta:
 		db_table = "CKTM_CUSTOMER"

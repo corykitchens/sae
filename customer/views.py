@@ -1,6 +1,6 @@
 from __future__ import print_function
 import sys
-
+import json
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from customer.forms import CustomerForm, AddressForm, Customer_Edit_Form, Address_Edit_Form
 from customer.models import Customer, Customer_Address
-
+from vehicle.models import Vehicle
 # Create your views here.
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
 class CustomerDirectory(ListView):
@@ -64,3 +64,37 @@ def edit(request, customer_id):
         formset = Customer_EditFormSet()
 
     return render(request, 'customer/customer_edit_form.html', {'formset': formset, 'form': form})
+
+
+
+
+def get_customer(request, first_name, last_name):
+    response_data = {}
+    try:
+        customer = Customer.objects.get(first_name=first_name.capitalize(), last_name=last_name.capitalize())
+    except Customer.DoesNotExist:
+        response_data['msg'] = 'Error querying customer'
+        return HttpResponse(json.dumps(response_data),content_type="application/json") 
+
+    
+    response_data['customer_fn'] = customer.first_name
+    response_data['customer_ln'] = customer.last_name
+    response_data['customer_mi'] = customer.middle_initial
+    response_data['customer_address'] = customer.address.address
+    response_data['customer_city'] = customer.address.city
+    response_data['customer_state'] = customer.address.state
+    response_data['customer_zip_code'] = customer.address.zip_code
+
+    try:
+        vehicle = customer.vehicle.all() 
+    except Vehicle.DoesNotExist:
+        response_data['customer_vehicles'] = ''
+
+    if vehicle:
+        for i in range(0, len(vehicle)):
+            response_data['vehicle'+str(i)] = str(vehicle[i])
+
+
+    return HttpResponse(json.dumps(response_data),
+            content_type="application/json"
+)
