@@ -18,6 +18,15 @@
 					<th>Problem Description</th>
 				</tr>
 			</thead>
+				{% for work_order in work_orders %}
+					<tr>
+						<td>{{work_order.date_created}}</td>
+						<td>{{work_order.customer}}</td>
+						<td>{{work_order.employee}}</td>
+						<td>{{work_order.vehicle}}</td>
+						<td>{{work_order.problem_description}}</td>
+					</tr>
+				{% endfor %}
 			</table>
 		</div>
 		<div class="btn btn-secondary">
