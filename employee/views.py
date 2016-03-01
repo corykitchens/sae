@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views.generic import ListView
 from .forms import NewHireForm, NewHireAddressForm
 
+
 from employee.models import Employee
 
 # Create your views here.

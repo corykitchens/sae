@@ -74,6 +74,8 @@ $(document).ready(function() {
 
  	$("#existing-vehicle-list").change(function() {
  		console.log('Worked');
+ 		
+ 		
  	});
 });
 
