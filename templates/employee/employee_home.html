@@ -14,6 +14,18 @@
 					<th>Service</th>
 				</tr>
 			</thead>
+				{% for work_order in work_orders %}
+					<tr>
+					<td>{{work_order.date_created}}</td>
+					<td>{{work_order.customer}}</td>
+					<td>{{work_order.vehicle}}</td>
+					<td>
+					{% for service in work_order.service_type.all %}
+						<li>{{service.name}} {{service.cost}}</li>
+					{% endfor %}
+					</td>
+					</tr>
+				{% endfor %}
 			</table>
 		</div>
 	
