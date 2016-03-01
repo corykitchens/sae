@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 
 from .models import WorkOrder
+from customer.models import Customer
 from .forms import  WorkOrderForm
 from customer.forms import CustomerForm, AddressForm
 from vehicle.forms import VehicleForm
@@ -22,3 +23,19 @@ def create_work_order(request):
 																	'ca_form': ca_form,
 																	'vehicle_form' : vehicle_form,
 																	'work_order_form' : work_order_form})
+
+	elif request.method=='POST':
+		
+		if request.POST['c-first-name']  != '':
+			# Returning Customer
+			query_first_name = request.POST['c-first-name']
+			query_last_name = request.POST['c-last-name']
+			try:
+				customer = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
+				#Customer found
+				return HttpResponse(customer)
+				#Begin Vehicle
+			except Customer.DoesNotExist:
+				HttpResponse('Error querying customer')
+		else:
+			return HttpResponse('New Customer')

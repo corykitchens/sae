@@ -24,12 +24,12 @@ class WorkOrder(models.Model):
 	service_type        = models.ManyToManyField('ServiceType')
 	estimate_initial    = models.IntegerField(blank=True)
 	estimate_revision   = models.FloatField(blank=True)
-	hours_required      = models.FloatField()
+	hours_required      = models.FloatField(blank=True)
 	parts_require		= models.CharField(max_length=200, blank=True)
-	estimate_approval   = models.CharField(max_length=100, blank=True)
-	approval_date_time  = models.DateTimeField(blank=True)
-	amount_paid         = models.FloatField(blank=True)
-	date_completed      = models.DateTimeField(blank=True)
+	estimate_approval   = models.NullBooleanField(null=True)
+	approval_date_time  = models.DateTimeField(null=True, blank=True)
+	amount_paid         = models.FloatField(null=True, blank=True)
+	date_completed      = models.DateTimeField(null=True, blank=True)
 
 	class Meta:
 		db_table = "CKTM_WORKORDER"

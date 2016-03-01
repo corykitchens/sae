@@ -64,13 +64,17 @@ $(document).ready(function() {
  		$("#id_address").val(data.customer_address);
 
  		//TODO, refactor for dynamically adding vehicles
- 		$("#existing-vehicle-container").append("<li>" + data['vehicle0'] + "</li");
- 		$("#existing-vehicle-container").append("<li>" + data['vehicle1'] + "</li");
- 		$("#existing-vehicle-container").append("<li>" + data['vehicle2'] + "</li");
- 		$("#existing-vehicle-container").append("<li>" + data['vehicle3'] + "</li");
+ 		$("#existing-vehicle-list").append("<option>" + data['vehicle0'] + "</option>");
+ 		$("#existing-vehicle-list").append("<option>" + data['vehicle1'] + "</option>");
+ 		$("#existing-vehicle-list").append("<option>" + data['vehicle2'] + "</option>");
+ 		$("#existing-vehicle-list").append("<option>" + data['vehicle3'] + "</option>");
 
 
  	}
+
+ 	$("#existing-vehicle-list").change(function() {
+ 		console.log('Worked');
+ 	});
 });
 
 
