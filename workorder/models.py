@@ -23,9 +23,9 @@ class WorkOrder(models.Model):
 	problem_description = models.CharField(max_length=400)
 	service_type        = models.ManyToManyField('ServiceType')
 	estimate_initial    = models.IntegerField(blank=True)
-	estimate_revision   = models.FloatField(blank=True)
-	hours_required      = models.FloatField(blank=True)
-	parts_require		= models.CharField(max_length=200, blank=True)
+	estimate_revision   = models.FloatField(blank=True, null=True)
+	hours_required      = models.FloatField(blank=True, null=True)
+	parts_require		= models.CharField(null=True,max_length=200, blank=True)
 	estimate_approval   = models.NullBooleanField(null=True)
 	approval_date_time  = models.DateTimeField(null=True, blank=True)
 	amount_paid         = models.FloatField(null=True, blank=True)
@@ -44,5 +44,5 @@ class ServiceType(models.Model):
 	def __str__(self):
 		return self.name + " " + str(self.cost)
 
-
+		
 
