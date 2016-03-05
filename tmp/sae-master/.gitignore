@@ -1,0 +1,14 @@
+*.pyc
+*.DS_STORE
+
+sae/settings
+
+announcement/migrations/
+authenticate/migrations/
+customer/migrations/
+employee/migrations/
+service/migrations/
+vehicle/migrations/
+workorder/migrations/
+
+*.sqlite3

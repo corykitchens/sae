@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{object}}{% endblock %}
+
+{% block content %}
+<table>
+<tr><th>Full name:</th><td>{{object.full_name}}</td></tr>
+<tr><th>Filed under:</th><td><a href="{{object.category.get_absolute_url}}">{{object.category}}</a></td></tr>
+<tr><th>Proximity:</th><td>{{object.get_proximity_display}}</td></tr>
+{% if object.home_phone %}<tr><th>Home Phone:</th><td>{{object.home_phone}}</td></tr>{% endif %}
+{% if object.cell_phone %}<tr><th>Cell Phone:</th><td>{{object.cell_phone}}</td></tr>{% endif %}
+{% if object.email %}<tr><th>Email:</th><td>{{object.email}}</td></tr>{% endif %}
+</table>
+<a href="{{object.get_update_url}}">Update</a> | <a href="{{object.get_delete_url}}">Delete</a>
+{% endblock %}
