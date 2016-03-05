@@ -11,6 +11,35 @@
 		<br>
 		<a href="/customers/customer_edit_form/{{customer.id}}">(Edit)</a><br>
 	</div>
+	<div>
+
+			<h5>Vehicles Owned</h5>
+			
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th style"width: 30px;">Year</th>
+					<th style"width: 30px;">Make</th>
+					<th style"width: 30px;">Model</th>
+					<th style"width: 30px;">License Plate</th>
+				</tr>
+			</thead>
+			</table>
+	</div>
+	<div style"max-height: 200px; overflow: auto;">
+		<table class="table table-striped">
+		<tbody>
+			{% for vehicle in customer.vehicle.all %}
+				<tr>
+					<td style"width: 30px;">{{vehicle.year}}</td>
+					<td style"width: 30px;">{{vehicle.make}}</td>
+					<td style"width: 30px;">{{vehicle.model}}</td>
+					<td style"width: 30px;">{{vehicle.license_plate}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
 
 
 {% endblock %}
