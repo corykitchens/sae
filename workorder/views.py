@@ -82,7 +82,7 @@ def create_work_order(request):
 			w.customer = c
 		
 			w.vehicle = v
-			w.employee = Employee.objects.get(first_name='Ned', last_name='Stark')
+			w.employee = Employee.objects.get(user=request.user)
 
 			service_list = request.POST.getlist('service_type')
 			w.save()
