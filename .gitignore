@@ -12,3 +12,4 @@ vehicle/migrations/
 workorder/migrations/
 
 *.sqlite3
+CKTM
