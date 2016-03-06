@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="POST" method="asd">{% csrf_token %}
+<form method="POST" method="#">{% csrf_token %}
 <div class="card employee-card">
 	<div class="row">
 		<div class="col-md-6">
@@ -12,13 +12,13 @@
 					Query Existing Customer
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<form method='GET' action='/customers/get_customer'>
+					
 						<input type="text" name="c-first-name" id="c-first-name" class="form-control" placeholder="First Name" />
 
 						<input type="text" name="c-last-name" id="c-last-name" class="form-control" placeholder="Last Name" />
 
 						<button  class="btn btn-primary submit-btn" type="button" id="query-existing-customer-btn">Query</button>
-					</form>
+					
 				</div>
 			</div>
 		</div>
@@ -48,6 +48,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div class="collapse" id="collapseVehicle">
+				<input type="hidden" name="vehicle_id" id="vehicle_id">
 				{{vehicle_form.as_p}}
 			</div>
 		</div>
@@ -73,12 +74,13 @@
 		<div class="col-md-8">
 			<div class="collapse" id="collapseService">
 				{{work_order_form.as_p}}
-				<button type="submit">Submit</button>
+				
+				<button type="submit" class="btnSubmit">Submit</button>
 			</div>
 		</div>
 
 	</div>
 </div>
-<input type="hidden" name="vehicle_id" id="vehicle_id">
+
 </form>
 {% endblock %}

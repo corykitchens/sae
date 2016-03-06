@@ -31,6 +31,7 @@ def create_work_order(request):
 																	'work_order_form' : work_order_form})
 
 	elif request.method=='POST':
+		return HttpResponse(request.POST)
 		if request.POST['c-first-name']  != '':
 			# Returning Customer
 			query_first_name = request.POST['c-first-name']

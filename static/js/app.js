@@ -1,6 +1,9 @@
 //
 $(document).ready(function() {
 
+	$('.btnSubmit').click(function() {
+		$('form').submit();
+	});
 
 	$('.vehicle-list-select').hide();
 	var vehicles;
@@ -68,6 +71,7 @@ $(document).ready(function() {
  		$("#id_vin").val(selectedVehicle.fields.vin);
  		$("#id_year").val(selectedVehicle.fields.year);
  		$("#vehicle_id").val(selectedVehicle.pk);
+ 		console.log($("#vehicle_id").val());
  	}
 });
 
