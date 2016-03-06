@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col-md-12">
+		<div class="card employee-card">
+			<h4 class="card-title">Assigned Work Orders</h4>
+			{% if work_orders %}
+			<table class="table table-striped">
+
+			<thead>
+				<tr>
+					<th>Date Created</th>
+					<th>Customer</th>
+					<th>Vehicle</th>
+					<th>Service</th>
+				</tr>
+			</thead>
+					{% for work_order in work_orders %}
+					<tr>
+					<td>{{work_order.date_created}}</td>
+					<td>{{work_order.customer}}</td>
+					<td>{{work_order.vehicle}}</td>
+					<td>
+					{% for service in work_order.service_type.all %}
+						<li>{{service.name}} {{service.cost}}</li>
+					{% endfor %}
+					</td>
+					</tr>
+					{% endfor %}
+			</table>
+			{% endif %}
+		</div>
+	
+		</div>
+	</div>
+{% endblock %}

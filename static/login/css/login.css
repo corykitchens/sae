@@ -1,0 +1,33 @@
+
+
+* {
+  font-family: 'Work Sans', sans-serif;
+}
+.login-bg {
+  background: #546E7A;
+  background-size: 100%;
+}
+
+.header {
+  padding-top: 5em;
+  padding-bottom: 5em;
+
+}
+
+
+.login-panel-container {
+  background-color: white;
+  padding: 2em 5em 2em 5em;
+  width: 50%;
+  border-radius: 0.2em;
+  border-top: 10px solid #CFD8DC;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+
+.login-title {
+  color: #FFF;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-weight: 400;
+}
