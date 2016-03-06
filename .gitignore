@@ -1,6 +1,12 @@
 *.pyc
 *.DS_STORE
-
+manage.py
+sae_dummy_data.sql
+mockdata/
+planning/
+service/
+sae/
+announcement/
 sae/settings
 
 announcement/migrations/
