@@ -35,17 +35,36 @@ def create_work_order(request):
 			# Returning Customer
 			query_first_name = request.POST['c-first-name']
 			query_last_name = request.POST['c-last-name']
-			try:
-				customer = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
-				#Customer found
-				return HttpResponse(customer)
-				#Begin Vehicle
-			except Customer.DoesNotExist:
-				HttpResponse('Error querying customer')
-		else:
-		
+			query_vehicle = int(request.POST['vehicle_id'])
 
 			
+			try:
+				c = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
+			except Customer.DoesNotExist:
+				HttpResponse('Error querying customer')
+	
+			try:
+				v = Vehicle.objects.get(pk=query_vehicle)
+			except Vehicle.DoesNotExist:
+				HttpResponse('Error querying vehicle')
+
+			w = WorkOrder()
+			w.odometer = request.POST['odometer']
+			w.date_created = timezone.now()
+			w.problem_description = request.POST['problem_description']
+			w.estimate_initial = request.POST['estimate_initial']
+			w.customer = c
+			
+			w.vehicle = v
+			w.employee = Employee.objects.get(user=request.user)
+
+			service_list = request.POST.getlist('service_type')
+			w.save()
+			work_orders = WorkOrder.objects.filter(employee=w.employee)
+			employee = Employee.objects.get(user=request.user)
+			return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
+				 'work_orders' : work_orders})
+		else:
 
 			# New customer
 			c = Customer()

@@ -56,9 +56,9 @@ $(document).ready(function() {
  	}
 
  	$('.vehicle-list-select').change(function() {
- 		var selectedVehicle = 0;
- 		selectedVehicle = $(this).prop('selectedIndex');
- 		populateVehicleFields(vehicles[selectedVehicle]);
+ 	
+ 		var vehicleIndex = $(this).prop('selectedIndex');
+ 		populateVehicleFields(vehicles[vehicleIndex]);
  	});
 
  	var populateVehicleFields = function(selectedVehicle) {
@@ -67,6 +67,7 @@ $(document).ready(function() {
  		$("#id_model").val(selectedVehicle.fields.model);
  		$("#id_vin").val(selectedVehicle.fields.vin);
  		$("#id_year").val(selectedVehicle.fields.year);
+ 		$("#vehicle_id").val(selectedVehicle.pk);
  	}
 });
 

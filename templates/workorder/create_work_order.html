@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-
-<form method="POST" method="/">{% csrf_token %}
+<form method="POST" method="asd">{% csrf_token %}
 <div class="card employee-card">
-<div class="row">
-	<div class="col-md-6">
-		<!-- CUSTOMER CARD -->
-		<h3>Customer Information</h3>
-	</div>
-	<div class="col-md-6">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Customer Information</h3>
+		</div>
+		<div class="col-md-6">
 			<div class="dropdown">
-			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			    Query Existing Customer
-			  </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			  	<form method='GET' action='/customers/get_customer'>
-			  		<input type="text" name="c-first-name" id="c-first-name" class="form-control" placeholder="First Name" />
-			  		<input type="text" name="c-last-name" id="c-last-name" class="form-control" placeholder="Last Name" />
-			  		<button  class="btn btn-primary submit-btn" type="button" id="query-existing-customer-btn">Query</button>
-			    </form>
-			  </div>
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Query Existing Customer
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<form method='GET' action='/customers/get_customer'>
+						<input type="text" name="c-first-name" id="c-first-name" class="form-control" placeholder="First Name" />
+
+						<input type="text" name="c-last-name" id="c-last-name" class="form-control" placeholder="Last Name" />
+
+						<button  class="btn btn-primary submit-btn" type="button" id="query-existing-customer-btn">Query</button>
+					</form>
+				</div>
 			</div>
+		</div>
 	</div>
-</div>
 	<!-- <div class="collapse" id="collaposeCustomer"> -->
 	<div class="row">
 		<div class="col-md-4">
@@ -31,49 +31,54 @@
 		</div>
 	</div>
 	<!-- </div> -->
-
 </div>
 
-		<!-- VEHICLE CARD -->
-		<div class="card employee-card">
+<!-- VEHICLE CARD -->
+<div class="card employee-card">
+	<div class="row">
+		<div class="col-md-4">
 			<h3>Vehicle Information</h3>
+		</div>
+		<div class="col-md-8">
 			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseVehicle" aria-expanded="false" aria-controls="collapseVehicle">
-			 Display Vehicle Information
+				Display Vehicle Information
 			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
 			<div class="collapse" id="collapseVehicle">
-				<div class="row">
-					<div class="col-md-4">
-						{{vehicle_form.as_p}}
-					</div>
-					<div class='col-md-8 vehicle-list'>
-						<select class='vehicle-list-select'>
-							
-						</select>
-					</div>
-				</div>
+				{{vehicle_form.as_p}}
+			</div>
+		</div>
+		<div class='col-md-8 vehicle-list'>
+			<select class='vehicle-list-select'>
+
+			</select>
+		</div>
+	</div>
+</div>
+
+<!-- SERVICE CARD -->
+<div class="card employee-card">
+	<div class="row">
+		<div class="col-md-4">
+			<h4>Service Information</h4>
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseService" aria-expanded="false" aria-controls="collapseService">
+			Display Service Information
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="collapse" id="collapseService">
+				{{work_order_form.as_p}}
+				<button type="submit">Submit</button>
 			</div>
 		</div>
 
-		<!-- SERVICE CARD -->
-			<div class="card employee-card">
-				<h4>Service Information</h4>
-				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseService" aria-expanded="false" aria-controls="collapseService">
-				 Display Service Information
-				</button>
-
-				<div class="collapse" id="collapseService">
-					<div class="row">
-						<div class="col-md-8">
-						{{work_order_form.as_p}}
-						<button class="btn btn-primary submit-btn" type="submit">Submit</button>
-						</div>
-					</div>
-				
-				</div>
-			</div>
 	</div>
-
 </div>
+<input type="hidden" name="vehicle_id" id="vehicle_id">
 </form>
-
 {% endblock %}
