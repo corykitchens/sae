@@ -2,6 +2,7 @@ from __future__ import print_function
 import sys
 import json
 
+from django.core import serializers
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -69,7 +70,7 @@ def edit(request, customer_id):
 
 
 def get_customer(request, first_name, last_name):
-    response_data = {}
+    response_data = dict()
     try:
         customer = Customer.objects.get(first_name=first_name.capitalize(), last_name=last_name.capitalize())
     except Customer.DoesNotExist:
@@ -84,16 +85,13 @@ def get_customer(request, first_name, last_name):
     response_data['customer_city'] = customer.address.city
     response_data['customer_state'] = customer.address.state
     response_data['customer_zip_code'] = customer.address.zip_code
-
     try:
-        vehicle = customer.vehicle.all() 
+        customer_vehicles = customer.vehicle.all() 
     except Vehicle.DoesNotExist:
-        response_data['customer_vehicles'] = ''
+        response_data['customer_vehicles'] = {}
 
-    if vehicle:
-        for i in range(0, len(vehicle)):
-            response_data['vehicle'+str(i)] = str(vehicle[i])
-
+    serialized_vehicles = serializers.serialize("json", customer.vehicle.all())
+    response_data['customer_vehicles'] = serialized_vehicles
 
     return HttpResponse(json.dumps(response_data),
             content_type="application/json"
