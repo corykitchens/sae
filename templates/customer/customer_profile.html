@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h3>Your Profile</h3>
+	<h3>Customer Profile</h3>
 
 	<div class="card">
 		<h4>Customer Information</h4>
@@ -35,7 +35,7 @@
 					<td>{{vehicle.make}}</td>
 					<td>{{vehicle.model}}</td>
 					<td>{{vehicle.license_plate}}</td>
-					<td><a href="vehicle_profile/{{vehicle.id}}">Select</a></td>
+					<td><a href="/customers/vehicle_profile/{{vehicle.id}}">Select</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

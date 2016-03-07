@@ -2,11 +2,8 @@ from __future__ import print_function
 import sys
 import json
 
-<<<<<<< HEAD
 from workorder.models import WorkOrder
-=======
 from django.core import serializers
->>>>>>> 1f356d3f7aaa7fbd98b5990ca3e1120301039119
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -49,7 +46,7 @@ def customer_profile(request, customer_id):
     return render(request, 'customer/customer_profile.html', {'customer': customer})
 
 def vehicle_profile(request, vehicle_id):
-    v         = Vehicle.objects.get(id=vehicle_id)
+    v         = Vehicle.objects.filter(id=vehicle_id)
     workorder = WorkOrder.objects.get(vehicle=v)
     return render(request, 'customer/vehicle_profile.html', {'workorder': workorder})
 
