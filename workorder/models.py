@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.utils import timezone
 
 from django.db import models
 from employee.models import Employee #   
@@ -19,7 +20,7 @@ class WorkOrder(models.Model):
 	vehicle             = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 	employee            = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	odometer            = models.IntegerField()
-	date_created        = models.DateTimeField() 
+	date_created        = models.DateTimeField(default=timezone.now()) 
 	problem_description = models.CharField(max_length=400)
 	service_type        = models.ManyToManyField('ServiceType')
 	estimate_initial    = models.IntegerField(blank=True)

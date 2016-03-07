@@ -90,7 +90,3 @@ def create_work_order(request):
 			employee = Employee.objects.get(user=request.user)
 			return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
 				 'work_orders' : work_orders})
-
-
-
-
