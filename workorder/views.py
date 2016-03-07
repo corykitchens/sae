@@ -18,6 +18,13 @@ def work_orders(request):
 	work_orders = WorkOrder.objects.all()
 	return render(request, 'workorder/work_order_list.html', {'work_orders' : work_orders})
 
+def work_order_detail(request, work_order_id):
+	try:
+		w = WorkOrder.objects.get(pk=int(work_order_id))
+	except WorkOrder.ObjectDoesNotExist:
+		return HttpResponse('Error')
+	return render(request, 'workorder/work_order_detail.html', {'work_order' : w})
+
 
 def create_work_order(request):
 	if request.method=='GET':
@@ -122,5 +129,22 @@ def create_work_order(request):
 				 'work_orders' : work_orders})
 
 
+def generate_customer_receipt(customer, vehicle, work_order, employee):
+	####
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+
+	
+	generateCustomerReceipt(c,v,w,e)
+	cv = canvas.Canvas(response)
+	
+	cv.drawString(50,800, 'Customer Name : ')
+	cv.drawString(100, 800, str(c))
+
+
+	cv.save()
+	cv.showPage()
+	###
+	return response
 
 

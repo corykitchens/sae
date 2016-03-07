@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+		
+		<div class="card employee-card">
+			<h4>Work Order Detail</h4>
+			<ul>
+				<li>Customer: {{work_order.customer}}</li>
+				<li>Vehicle: {{work_order.vehicle}}</li>
+				<li>Odometer: {{work_order.odometer}}</li>
+				<li>Date Create: {{work_order.date_created}}</li>
+				<li>Problem: {{work_order.problem_description}}</li>
+				<li>Services: 
+				{% for service in work_order.service_type.all %}
+					{{service.name}},
+				{% endfor %}
+				</li>
+				<li>Estimatated Cost: {{work_order.estimate_initial}}</li>
+
+			</ul>
+
+		</div>
+
+		<div class="card employee-card">
+			<h4>Technician Notes</h4>
+			<ul>
+				<li>Date Serviced</li>
+				<li>Time spent</li>
+				<li>Services Rendered</li>
+				<li>Service Notes</li>
+				<li>Reassign?</li>
+
+			</ul>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+{% endblock %}

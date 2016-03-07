@@ -8,7 +8,6 @@ $(document).ready(function() {
 	$('.vehicle-list-select').hide();
 	var vehicles;
  	$('#query-existing-customer-btn').on('click', function() {
- 		//Get value of fields
  		var cFirstName = $("#c-first-name").val().toLowerCase();
  		var cLastName = $("#c-last-name").val().toLowerCase();
  		
@@ -18,10 +17,9 @@ $(document).ready(function() {
  			type: "get",
  			url: "http://localhost:8000/customers/get_customer/" + cFirstName + "/" + cLastName,
  		}).success(function(data) {
-
  			if(data['msg']) {
  				console.log(data);
- 				$('.alert-msg').css("display", "block");
+ 				alert(data['msg']);
  			}
  			
 
@@ -31,17 +29,10 @@ $(document).ready(function() {
 
  	});
 
- 	$("#existing-vehicle").on("click", function() {
- 		if($(this).is(':checked')) {
- 			//Get vehicles
- 		}
- 	})
-
  	var updateCustomerFormFields = function(data) {
-
+ 		
  		vehicles = JSON.parse(data['customer_vehicles']);
  		
-
  		$("#id_first_name").val(data.customer_fn);
  		$("#id_middle_initial").val(data.customer_mi);
  		$("#id_last_name").val(data.customer_ln);
