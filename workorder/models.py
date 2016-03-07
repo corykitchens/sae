@@ -26,7 +26,7 @@ class WorkOrder(models.Model):
 	estimate_initial    = models.FloatField(blank=True)
 	estimate_revision   = models.FloatField(blank=True, null=True)
 	hours_required      = models.FloatField(blank=True, null=True)
-	parts_require		= models.CharField(null=True,max_length=200, blank=True)
+	parts_required		= models.CharField(null=True,max_length=200, blank=True)
 	estimate_approval   = models.NullBooleanField(null=True)
 	approval_date_time  = models.DateTimeField(null=True, blank=True)
 	amount_paid         = models.FloatField(null=True, blank=True)
