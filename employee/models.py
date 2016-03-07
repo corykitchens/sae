@@ -17,7 +17,7 @@ class Employee(models.Model):
 	)
 	ssn = models.IntegerField(unique=True)
 	first_name = models.CharField(max_length=200)
-	middle_initial = models.CharField(max_length=1)
+	middle_initial = models.CharField(max_length=1, blank=True, null=False)
 	last_name = models.CharField(max_length=200)
 	email = models.EmailField(max_length=200, unique=True, null=True, blank=True)
 	job_title = models.CharField(max_length=200, choices=JOB_TITLES)

@@ -12,12 +12,16 @@
 					<th>Date Created</th>
 					<th>Customer</th>
 					<th>Vehicle</th>
-					<th>Service</th>
+					<th>Services Requested</th>
 				</tr>
 			</thead>
 					{% for work_order in work_orders %}
 					<tr>
-					<td>{{work_order.date_created}}</td>
+					
+					<td>
+						<a href="#"><i class="fa fa-plus-circle"></i></a>
+						{{work_order.date_created}}
+					</td>
 					<td>{{work_order.customer}}</td>
 					<td>{{work_order.vehicle}}</td>
 					<td>
