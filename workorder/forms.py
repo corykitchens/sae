@@ -14,3 +14,4 @@ class WorkOrderForm(ModelForm):
 				'service_type' : forms.SelectMultiple(attrs={'class' : 'form-control'}),
 				'parts_require' : forms.TextInput(attrs={'class' : 'form-control'}),
 			}
+

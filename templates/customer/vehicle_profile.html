@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% block content %}
+	<h3>Customer Profile</h3>
+
+	<div class="card">
+		<h4>Vehicle Information</h4>
+		<strong>Make: {{workorder.vehicle.make}}</strong><br>
+		<strong>Model: {{workorder.vehicle.model}}</strong><br>
+		<strong>Odometer: {{workorder.odometer}}</strong><br>
+		<strong>License Plate: {{workorder.vehicle.license_plate}}</a></strong>
+		<br>
+	</div>
+	<div>
+
+			<h5>Work Performed</h5>
+			
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Date Created</th>
+					<th>Service Type</th>
+					<th>Amount Paid</th>
+					<th>Work Order Total</th>
+					<th>Balance</th>
+				</tr>
+			</thead>
+			</table>
+	</div>
+	<div style"max-height: 200px; overflow: auto;">
+		<table class="table table-striped">
+		<tbody>
+				<tr>
+					<td>{{workorder.date_created}}</td>
+					<td>{{workorder.service_type}}</td>
+					<td>{{workorder.amount_paid}}</td>
+					<td>{{workorder.estimate_revision}}</td>
+				</tr>
+		</tbody>
+		</table>
+	</div>
+
+
+{% endblock %}

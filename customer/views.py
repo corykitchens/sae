@@ -2,6 +2,7 @@ from __future__ import print_function
 import sys
 import json
 
+from workorder.models import WorkOrder
 from django.core import serializers
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -43,6 +44,11 @@ def add(request):
 def customer_profile(request, customer_id):
     customer = Customer.objects.get(id=customer_id)
     return render(request, 'customer/customer_profile.html', {'customer': customer})
+
+def vehicle_profile(request, vehicle_id):
+    v         = Vehicle.objects.filter(id=vehicle_id)
+    workorder = WorkOrder.objects.get(vehicle=v)
+    return render(request, 'customer/vehicle_profile.html', {'workorder': workorder})
 
 def print_objs(*objs):
     print("OUTPUT->", objs, file=sys.stderr)
