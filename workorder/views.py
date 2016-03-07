@@ -47,17 +47,29 @@ def create_work_order(request):
 			query_first_name = request.POST['first_name']
 			query_last_name = request.POST['last_name']
 
-
-			try:
-				v = Vehicle.objects.get(pk=query_vehicle)
-			except Vehicle.DoesNotExist:
-				HttpResponse('Error querying vehicle')
-
 			try:
 				c = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
 			except Customer.DoesNotExist:
 				HttpResponse('Error querying customer')
 
+
+			if query_vehicle is not -1:
+				try:
+					v = Vehicle.objects.get(pk=query_vehicle)
+				except Vehicle.DoesNotExist:
+					HttpResponse('Error querying vehicle')
+			else:
+				#New Vehicle
+				v = Vehicle(license_plate=request.POST['license_plate'],
+									make=request.POST['make'],
+									model=request.POST['model'],
+									vin = request.POST['vin'],
+									year = request.POST['year'])
+				v.save()
+				c.vehicle.add(v)
+
+
+			
 			w = WorkOrder()
 			w.odometer = request.POST['odometer']
 			w.date_created = timezone.now()

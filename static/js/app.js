@@ -15,18 +15,14 @@ $(document).ready(function() {
 
  		$.ajax({
  			type: "get",
- 			url: "http://localhost:8000/customers/get_customer/" + cFirstName + "/" + cLastName,
+ 			url: "/customers/get_customer/" + cFirstName + "/" + cLastName,
  		}).success(function(data) {
  			if(data['msg']) {
  				console.log(data);
  				alert(data['msg']);
  			}
- 			
-
  			updateCustomerFormFields(data);
  		})
-
-
  	});
 
  	var updateCustomerFormFields = function(data) {
@@ -39,20 +35,29 @@ $(document).ready(function() {
  		$("#id_email").val(data.customer_email);
 
  		$("#id_address").val(data.customer_address);
-
+ 		$("#vehicle_id").val(-1);
+ 		
  		for(var i = 0; i < vehicles.length; i++) {
  			var vehicle = vehicles[i].fields.year + " " + vehicles[i].fields.make + " " + vehicles[i].fields.model;
  			$('.vehicle-list-select').append("<option>" + vehicle + "</option>");
  		}
  		
  		$('.vehicle-list-select').show();
- 		populateVehicleFields(vehicles[0]);
+ 		//populateVehicleFields(vehicles[0]);
  	}
 
  	$('.vehicle-list-select').change(function() {
  	
  		var vehicleIndex = $(this).prop('selectedIndex');
- 		populateVehicleFields(vehicles[vehicleIndex]);
+ 		console.log(vehicleIndex);
+ 		if(vehicleIndex > 0) {
+ 			populateVehicleFields(vehicles[vehicleIndex-1]);
+ 		} else {
+ 			console.log('inside clear');
+ 			$('.vehicle-information-fields').find('input').val('');
+ 		}
+
+ 		
  	});
 
  	var populateVehicleFields = function(selectedVehicle) {
