@@ -5,11 +5,22 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Customer_Address
         fields = ('address', 'city', 'state')
+        widgets = {
+            'address' : forms.TextInput(attrs={'class' : 'form-control'}),
+            'city': forms.TextInput(attrs={'class' : 'form-control'}),
+            'state':  forms.TextInput(attrs={'class' : 'form-control'}),
+        }
 
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ('first_name', 'middle_initial', 'last_name', 'email')
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+            'middle_initial' : forms.TextInput(attrs={'class' : 'form-control'}),
+            'last_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+            'email' : forms.TextInput(attrs={'class' : 'form-control'}),
+        }
 
         def __init__(self, *args, **kwargs):
             super(CustomerForm, self).__init__(*args, **kwargs)

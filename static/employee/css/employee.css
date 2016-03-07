@@ -78,3 +78,18 @@
 .alert-msg {
 	display: none;
 }
+
+.employee-card > button {
+	padding : 0.2em;
+}
+
+.employee-card > input {
+	padding: 5em;
+}
+
+
+.submit-btn {
+	padding: 0.5em 1em 0.5em 1em;
+	margin: 0 0 1em 0;
+}
+
