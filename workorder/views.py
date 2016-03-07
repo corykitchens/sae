@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 from django.contrib.auth.models import User
+from reportlab.pdfgen import canvas
 
 from .models import WorkOrder, ServiceType
 from customer.models import Customer, Customer_Address as CustomerAddress
@@ -16,6 +17,13 @@ from vehicle.forms import VehicleForm
 def work_orders(request):
 	work_orders = WorkOrder.objects.all()
 	return render(request, 'workorder/work_order_list.html', {'work_orders' : work_orders})
+
+def work_order_detail(request, work_order_id):
+	try:
+		w = WorkOrder.objects.get(pk=int(work_order_id))
+	except WorkOrder.ObjectDoesNotExist:
+		return HttpResponse('Error')
+	return render(request, 'workorder/work_order_detail.html', {'work_order' : w})
 
 
 def create_work_order(request):
@@ -54,7 +62,7 @@ def create_work_order(request):
 			w.odometer = request.POST['odometer']
 			w.date_created = timezone.now()
 			w.problem_description = request.POST['problem_description']
-			w.estimate_initial = request.POST['estimate_initial']
+			w.estimate_initial = 0
 			w.customer = c
 			
 			w.vehicle = v
@@ -63,11 +71,14 @@ def create_work_order(request):
 			
 			service_list = request.POST.getlist('service_type')
 			for service in service_list:
-				w.service_type.add(ServiceType.objects.get(pk=int(service)))
-			
+				selected_service = ServiceType.objects.get(pk=int(service))
+				w.service_type.add(selected_service)
+				w.estimate_initial = w.estimate_initial + selected_service.cost
+			w.save()
 
 			work_orders = WorkOrder.objects.filter(employee=w.employee)
 			employee = Employee.objects.get(user=request.user)
+			
 			return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
 				 'work_orders' : work_orders})
 		else:
@@ -115,4 +126,29 @@ def create_work_order(request):
 			work_orders = WorkOrder.objects.all()
 			employee = Employee.objects.get(user=request.user)
 			return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
+<<<<<<< HEAD
 				 'work_orders' : work_orders})
+=======
+				 'work_orders' : work_orders})
+
+
+def generate_customer_receipt(customer, vehicle, work_order, employee):
+	####
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+
+	
+	generateCustomerReceipt(c,v,w,e)
+	cv = canvas.Canvas(response)
+	
+	cv.drawString(50,800, 'Customer Name : ')
+	cv.drawString(100, 800, str(c))
+
+
+	cv.save()
+	cv.showPage()
+	###
+	return response
+
+
+>>>>>>> 926ca9f9960b02a6e5d9bd7fb352b44f226cea67
