@@ -30,12 +30,14 @@
 	<div style"max-height: 200px; overflow: auto;">
 		<table class="table table-striped">
 		<tbody>
+			{% for workorder in workorder.all %}
 				<tr>
 					<td>{{workorder.date_created}}</td>
 					<td>{{workorder.service_type}}</td>
 					<td>{{workorder.amount_paid}}</td>
 					<td>{{workorder.estimate_revision}}</td>
 				</tr>
+			{% endfor %}
 		</tbody>
 		</table>
 	</div>

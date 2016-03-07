@@ -47,7 +47,7 @@ def customer_profile(request, customer_id):
 
 def vehicle_profile(request, vehicle_id):
     v         = Vehicle.objects.filter(id=vehicle_id)
-    workorder = WorkOrder.objects.get(vehicle=v)
+    workorder = WorkOrder.objects.filter(vehicle=v)
     return render(request, 'customer/vehicle_profile.html', {'workorder': workorder})
 
 def print_objs(*objs):
