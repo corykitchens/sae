@@ -22,7 +22,7 @@ class WorkOrder(models.Model):
 	date_created        = models.DateTimeField() 
 	problem_description = models.CharField(max_length=400)
 	service_type        = models.ManyToManyField('ServiceType')
-	estimate_initial    = models.IntegerField(blank=True)
+	estimate_initial    = models.FloatField(blank=True)
 	estimate_revision   = models.FloatField(blank=True, null=True)
 	hours_required      = models.FloatField(blank=True, null=True)
 	parts_require		= models.CharField(null=True,max_length=200, blank=True)

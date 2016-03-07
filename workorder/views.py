@@ -55,7 +55,7 @@ def create_work_order(request):
 			w.odometer = request.POST['odometer']
 			w.date_created = timezone.now()
 			w.problem_description = request.POST['problem_description']
-			w.estimate_initial = request.POST['estimate_initial']
+			w.estimate_initial = 0
 			w.customer = c
 			
 			w.vehicle = v
@@ -64,8 +64,10 @@ def create_work_order(request):
 			
 			service_list = request.POST.getlist('service_type')
 			for service in service_list:
-				w.service_type.add(ServiceType.objects.get(pk=int(service)))
-			
+				selected_service = ServiceType.objects.get(pk=int(service))
+				w.service_type.add(selected_service)
+				w.estimate_initial = w.estimate_initial + selected_service.cost
+			w.save()
 
 			work_orders = WorkOrder.objects.filter(employee=w.employee)
 			employee = Employee.objects.get(user=request.user)
