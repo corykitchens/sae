@@ -31,23 +31,24 @@ def create_work_order(request):
 																	'work_order_form' : work_order_form})
 
 	elif request.method=='POST':
-		return HttpResponse(request.POST)
+
 		if request.POST['c-first-name']  != '':
 			# Returning Customer
-			query_first_name = request.POST['c-first-name']
-			query_last_name = request.POST['c-last-name']
-			query_vehicle = int(request.POST['vehicle_id'])
 
-			
-			try:
-				c = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
-			except Customer.DoesNotExist:
-				HttpResponse('Error querying customer')
-	
+			query_vehicle = int(request.POST['vehicle_id'])
+			query_first_name = request.POST['first_name']
+			query_last_name = request.POST['last_name']
+
+
 			try:
 				v = Vehicle.objects.get(pk=query_vehicle)
 			except Vehicle.DoesNotExist:
 				HttpResponse('Error querying vehicle')
+
+			try:
+				c = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
+			except Customer.DoesNotExist:
+				HttpResponse('Error querying customer')
 
 			w = WorkOrder()
 			w.odometer = request.POST['odometer']
@@ -58,9 +59,13 @@ def create_work_order(request):
 			
 			w.vehicle = v
 			w.employee = Employee.objects.get(user=request.user)
-
-			service_list = request.POST.getlist('service_type')
 			w.save()
+			
+			service_list = request.POST.getlist('service_type')
+			for service in service_list:
+				w.service_type.add(ServiceType.objects.get(pk=int(service)))
+			
+
 			work_orders = WorkOrder.objects.filter(employee=w.employee)
 			employee = Employee.objects.get(user=request.user)
 			return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
@@ -94,6 +99,7 @@ def create_work_order(request):
 			v.save()
 			c.vehicle.add(v)
 
+			# Work Order
 			w = WorkOrder()
 			w.odometer = request.POST['odometer']
 			w.date_created = timezone.now()
