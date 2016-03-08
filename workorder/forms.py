@@ -7,7 +7,7 @@ class WorkOrderForm(ModelForm):
 			model = WorkOrder
 			fields = ['odometer',
 					'problem_description', 'service_type',
-					'parts_require']
+					'parts_required']
 			widgets = {
 				'odometer' : forms.NumberInput(attrs={'class' : 'form-control'}),
 				'problem_description' : forms.Textarea(attrs={'class' : 'form-control'}),

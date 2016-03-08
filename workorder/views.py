@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 from django.contrib.auth.models import User
-from reportlab.pdfgen import canvas
+#from reportlab.pdfgen import canvas
 
 from .models import WorkOrder, ServiceType, Part, EmployeeServiceNotes
 from customer.models import Customer, Customer_Address as CustomerAddress
@@ -164,24 +164,23 @@ def create_work_order(request):
 				 'work_orders' : work_orders})
 
 
-def generate_customer_receipt(customer, vehicle, work_order, employee):
+#def generate_customer_receipt(customer, vehicle, work_order, employee):
 	####
-	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+	#response = HttpResponse(content_type='application/pdf')
+	#response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
 
 	
-	generateCustomerReceipt(c,v,w,e)
-	cv = canvas.Canvas(response)
+	#generateCustomerReceipt(c,v,w,e)
+	#cv = canvas.Canvas(response)
 	
-	cv.drawString(50,800, 'Customer Name : ')
-	cv.drawString(100, 800, str(c))
+#	cv.drawString(50,800, 'Customer Name : ')
+#	cv.drawString(100, 800, str(c))
 
 
-	cv.save()
-	cv.showPage()
+#	cv.save()
+#	cv.showPage()
 	###
-	return response
-
+#	return response
 
 def submit_service_notes(request):
 	response_data = dict()

@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.utils import timezone
 
 from django.db import models
 from django.utils import timezone
@@ -34,14 +35,14 @@ class WorkOrder(models.Model):
 	vehicle             = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 	employee            = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	odometer            = models.IntegerField()
-	date_created        = models.DateTimeField() 
+	date_created        = models.DateTimeField(default=timezone.now()) 
 	problem_description = models.CharField(max_length=400)
 	service_type        = models.ManyToManyField('ServiceType')
 	estimate_initial    = models.FloatField(blank=True)
 	estimate_revision   = models.FloatField(blank=True, null=True)
 	hours_required      = models.FloatField(blank=True, null=True)
-	parts_require		= models.CharField(null=True,max_length=200, blank=True)
 	status 				= models.CharField(null=True, max_length=100, choices=STATUS_OPTIONS)
+	parts_required		= models.CharField(null=True,max_length=200, blank=True)
 	estimate_approval   = models.NullBooleanField(null=True)
 	approval_date_time  = models.DateTimeField(null=True, blank=True)
 	amount_paid         = models.FloatField(null=True, blank=True)
