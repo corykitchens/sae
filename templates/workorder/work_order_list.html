@@ -6,8 +6,10 @@
 		
 		<div class="card employee-card">
 
-			<h4>Open Work Orders</h4>
-			
+			<h4 class="card-title">Open Work Orders</h4>
+			<div class="card-block">
+				<button class="btn btn-primary" href="customer_form">New Work Order</button class="btn btn-primary">
+			</div>
 			<table class="table table-striped">
 			<thead>
 				<tr>
@@ -30,9 +32,6 @@
 					</tr>
 				{% endfor %}
 			</table>
-		</div>
-		<div class="btn btn-secondary">
-			<a href="create_work_order">Create Work Order</a>
 		</div>
 	</div>
 
