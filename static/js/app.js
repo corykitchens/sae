@@ -90,7 +90,12 @@ var submitNote = function() {
 	// //Notes
 	var notes_text = $('#service-notes').val();
 	// //Parts
-	var parts = $('#parts-selected').val();
+	var parts = []
+	$('#parts-selected > option:selected').each(function() {
+		parts.push(this.value);
+	});
+	console.log(parts);
+
 	// //Status
 	var status = $('#service-status').val();
 	// //Reassigning?
@@ -105,7 +110,7 @@ var submitNote = function() {
 			'id' : work_order_id,
 			'time_spent' : time_spent,
 			'notes' : notes_text,
-			'parts' : parts,
+			'parts_list' : JSON.stringify(parts),
 			'status' : status,
 			'reassign' : reassign_status
 		}

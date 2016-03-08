@@ -99,6 +99,7 @@ def create_work_order(request):
 				selected_service = ServiceType.objects.get(pk=int(service))
 				w.service_type.add(selected_service)
 				w.estimate_initial = w.estimate_initial + selected_service.cost
+				
 			w.estimate_revision = w.estimate_initial
 			w.save()
 
@@ -153,6 +154,8 @@ def create_work_order(request):
 				selected_service = ServiceType.objects.get(pk=int(service))
 				w.service_type.add(selected_service)
 				w.estimate_initial = w.estimate_initial + selected_service.cost
+				
+			w.estimate_revision = w.estimate_initial
 			w.save()
 
 			work_orders = WorkOrder.objects.all()
@@ -188,12 +191,19 @@ def submit_service_notes(request):
 	response_data['work_order_id'] = request.GET['id']
 	response_data['status'] = request.GET['status']
 	response_data['reassign'] = request.GET['reassign']
-	response_data['parts'] = request.GET.getlist('parts')
+
 	response_data['emp'] = str(Employee.objects.get(user=response_data['emp_id']))
 	response_data['date'] = datetime.datetime.strftime(datetime.datetime.now(),'%B-%w-%Y-%X-%p')
-	parts_list = list()
+	parts_list = json.loads(request.GET['parts_list'])
+	response_data['parts'] = parts_list
+	response_data['cost'] = 0
 
-
+	w = WorkOrder.objects.get(pk=response_data['work_order_id'])
+	for part in parts_list:
+		p = Part.objects.get(name=part)
+		response_data['cost'] = response_data['cost'] + p.cost
+		w.estimate_revision = w.estimate_revision + p.cost
+	w.save()
 	'''
 	Instantiate Service Notes obj
 	'''
@@ -205,10 +215,6 @@ def submit_service_notes(request):
 		notes = response_data['notes'],
 	)
 	service_notes.save()
-
-	'''
-	'''
-	w = WorkOrder.objects.get(pk=response_data['work_order_id'])
 
 	if response_data['reassign'] is "No":
 		response_data['first_name'] = response_data['reassign'].split()[0]
