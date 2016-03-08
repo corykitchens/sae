@@ -3,12 +3,12 @@
 <form method="POST" method="#">{% csrf_token %}
 <div class="card employee-card">
 	<div class="row">
-		<div class="col-md-6">
-			<h3>Customer Information</h3>
+		<div class="col-md-5">
+			<h4 class="card-title">Customer Information</h4>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-2">
 			<div class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Query Existing Customer
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-9 col-md-offset-1">
 			{{customer_form.as_p}}
 			{{ca_form.as_p}}
 		</div>
@@ -34,21 +34,20 @@
 <!-- VEHICLE CARD -->
 <div class="card employee-card">
 	<div class="row">
-		<div class="col-md-12">
-			<h3>Vehicle Information</h3>
+		<div class="col-md-12 col-md-offset-1">
+			<h4>Vehicle Information</h4>
 			<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseVehicle" aria-expanded="false" aria-controls="collapseVehicle">
 				Display Vehicle Information
 			</button>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-9 col-md-offset-1">
 			<div class="collapse" id="collapseVehicle">
 				<div class="vehicle-information-fields">
 					<input type="hidden" name="vehicle_id" id="vehicle_id">
 					{{vehicle_form.as_p}}
 				</div>
-				
 			</div>
 		</div>
 		<div class='col-md-8 vehicle-list'>

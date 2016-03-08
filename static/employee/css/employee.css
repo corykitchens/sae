@@ -97,3 +97,7 @@
 	margin: 0 0 1em 0;
 }
 
+
+.dropdown > button {
+	margin: 1em;
+}

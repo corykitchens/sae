@@ -14,7 +14,9 @@ class EmployeeDirectory(ListView):
 
 
 def employee_profile(request, employee_id):
-	employee = Employee.objects.get(id=employee_id)
+	user = request.user
+
+	employee = Employee.objects.get(user=user)
 	return render(request, 'employee/employee_profile.html', {'employee': employee})
 
 def hr_view_pending(request):
