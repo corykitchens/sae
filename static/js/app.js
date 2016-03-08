@@ -110,8 +110,23 @@ var submitNote = function() {
 			'reassign' : reassign_status
 		}
 	}).success(function(data) {
-		console.log('Worked');
-		console.log(data);
+		updateNotesTable(data);
 	});
+
+}
+
+
+var updateNotesTable = function(data) {
+	//Update Tech
+	console.log(data['date']);
+	var row = $("<tr>");
+	row.append($("<td>").text(data['emp']));
+	row.append($("<td>").text(data['date']));
+	row.append($("<td>").text(data['time_spent']));
+	row.append($("<td>").text(data['notes']));
+	row.append($("<td>").text(data['parts']));
+	// //Start new record
+	$(".emp-notes:last-child").append(row);
+	
 
 }

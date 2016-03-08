@@ -99,6 +99,7 @@ def create_work_order(request):
 				selected_service = ServiceType.objects.get(pk=int(service))
 				w.service_type.add(selected_service)
 				w.estimate_initial = w.estimate_initial + selected_service.cost
+			w.estimate_revision = w.estimate_initial
 			w.save()
 
 			work_orders = WorkOrder.objects.filter(employee=w.employee)

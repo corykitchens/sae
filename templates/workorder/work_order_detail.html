@@ -10,6 +10,7 @@
 				<th>Customer</th>
 				<th>Vehicle</th>
 				<th>Services</th>
+				<th>Receipt</th>
 				<tbody>
 					<tr>
 						<td>{{work_order.date_created}}</td>
@@ -20,12 +21,17 @@
 								<li>{{service.name}}</li>
 							{% endfor %}
 						</td>
+						<td>
+							<a href="#">
+								<i class="fa fa-file-pdf-o"></i>
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 
 		</div>
-		{% if notes %}
+		
 			<div class="card employee-card">
 				<h5 class="card-title">Service History</h5>
 			<table class='table'>
@@ -35,6 +41,7 @@
 				<th>Notes</th>
 				<th>Parts</th>
 				<tbody class="emp-notes">
+				{% if notes %}
 				{% for note in notes %}
 				<tr>
 					<td>{{note.employee}}</td>
@@ -43,10 +50,11 @@
 					<td>{{note.notes}}</td>
 				</tr>
 				{% endfor %}
+				{% endif %}
 				</tbody>
 			</table>
 			</div>
-		{% endif %}
+		
 
 		<div class="card employee-card">
 			<h5 class="card-title">Service Notes</h5>
@@ -95,7 +103,6 @@
 					    	<div class="col-xs-6">
 					    	    <label for="service-status">Service Status</label>
 					    	    <select class="form-control" id="service-status">
-					    		    <option>Assigned</option>
 					    		    <option>Diagnosing</option>
 					    		    <option>Repairing</option>
 					    		    <option>Reassigning</option>
