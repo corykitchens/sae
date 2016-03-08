@@ -1,0 +1,17 @@
+{% for workorder in workorder.all %}
+				
+					{{workorder.customer.first_name}}
+					{{workorder.customer.last_name}}<br>
+					{{workorder.customer.address.address}}<br>
+					{{workorder.customer.address.city}}<br>
+					{{workorder.customer.address.state}}<br>
+					{{workorder.vehicle.year}}
+					{{workorder.vehicle.make}}
+					{{workorder.vehicle.model}}<br>
+					{{workorder.vehicle.license_plate}}<br>
+					<td>{{workorder.date_created}}</td>
+					<td>{{workorder.service_type}}</td>
+					<td>{{workorder.amount_paid}}</td>
+					<td>{{workorder.estimate_revision}}</td>
+				</tr>
+{% endfor %}

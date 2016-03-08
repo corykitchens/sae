@@ -50,6 +50,10 @@ def vehicle_profile(request, vehicle_id):
     workorder = WorkOrder.objects.filter(vehicle=v)
     return render(request, 'customer/vehicle_profile.html', {'workorder': workorder})
 
+def workorder_summary(request, workorder_id):
+    workorder = WorkOrder.objects.filter(id=workorder_id)
+    return render(request, 'customer/workorder_summary.html', {'workorder': workorder})    
+
 def print_objs(*objs):
     print("OUTPUT->", objs, file=sys.stderr)
 
