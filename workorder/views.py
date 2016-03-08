@@ -191,13 +191,12 @@ def submit_service_notes(request):
 
 	parts_list = list()
 
-	
 
 	'''
 	Instantiate Service Notes obj
 	'''
 	service_notes = EmployeeServiceNotes(
-		employee = Employee.objects.get(pk=response_data['emp_id']),
+		employee = Employee.objects.get(user=response_data['emp_id']),
 		work_order = WorkOrder.objects.get(pk=response_data['work_order_id']),
 		date_serviced = timezone.now(),
 		hours_spent = response_data['time_spent'],
@@ -206,9 +205,16 @@ def submit_service_notes(request):
 	service_notes.save()
 
 	'''
-	Update Work Order status
 	'''
 	w = WorkOrder.objects.get(pk=response_data['work_order_id'])
+	if response_data['reassign'] is not 'No':
+		'''Work Order is being reassigned'''
+		response_data['first_name'] = response_data['reassign'].split()[0]
+		response_data['last_name'] = response_data['reassign'].split()[1]
+		w.employee = Employee.objects.get(first_name=response_data['first_name'], last_name=response_data['last_name'])
+	'''
+	Update Work Order status
+	'''
 	w.status = response_data['status']
 	w.save()
 
