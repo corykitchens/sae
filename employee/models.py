@@ -7,9 +7,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Employee(models.Model):
 	JOB_TITLES = (
-		('mgmt', 'Management'),
-		('admin', 'Administrative'),
-		('tech', 'Service Technician')
+		('Management', 'mgmt'),
+		('Administrative', 'admin'),
+		('Service Technician', 'tech')
 	)
 	SEX_CHOICES = (
 		('m', 'Male'),
