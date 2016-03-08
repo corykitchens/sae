@@ -3,25 +3,31 @@
 
 <div class="row">
 	<div class="col-md-12">
-		
 		<div class="card employee-card">
-			<h4>Work Order Detail</h4>
-			<ul>
-				<li><strong>Customer:</strong> {{work_order.customer}}</li>
-				
-				<li>Odometer: {{work_order.odometer}}</li>
-				<li>Date Create: {{work_order.date_created}}</li>
-				<li>Problem: {{work_order.problem_description}}</li>
-				<li>Services: 
-				{% for service in work_order.service_type.all %}
-					{{service.name}},
-				{% endfor %}
-				</li>
-				<li>Estimatated Cost: {{work_order.estimate_initial}}</li>
-			</ul>
+			<h5 class="card-title">Work Order Detail</h5>
+			<table class="table">
+				<th>Date </th>
+				<th>Customer</th>
+				<th>Vehicle</th>
+				<th>Services</th>
+				<tbody>
+					<tr>
+						<td>{{work_order.date_created}}</td>
+						<td>{{work_order.customer}}</td>
+						<td>{{work_order.vehicle}}</td>
+						<td>
+							{% for service in work_order.service_type.all %}
+								<li>{{service.name}}</li>
+							{% endfor %}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
 		</div>
 		{% if notes %}
-			<div class="card">
+			<div class="card employee-card">
+				<h5 class="card-title">Service History</h5>
 			<table class='table'>
 				<th>Tech</th>
 				<th>Date</th>
@@ -41,7 +47,78 @@
 		{% endif %}
 
 		<div class="card employee-card">
-			{{note_form}}
+			<h5 class="card-title">Service Notes</h5>
+			<div class="row">
+				<div class="col-md-12 col-md-offset-1">
+					<form>
+					  <!-- Time Spent -->
+					  <fieldset class="form-group">
+					  	<div class="row">
+					  		<div class="col-xs-2">
+						  		<label for="exampleInputEmail1">Time Spent</label>
+						  		<input type="number" class="form-control" id="time-spent">
+					  		</div>
+					  	</div>
+					  </fieldset>
+
+					  <!-- Notes -->
+					  <fieldset class="form-group">
+					  	<div class="row">
+					  		<div class="col-xs-8">
+						  		<label for="service-notes">Notes</label>
+						  		<textarea class="form-control" id="service-notes" rows="3"></textarea>
+					  		</div>
+					  	</div>
+					  </fieldset>
+
+					  <!-- Parts -->
+					  <fieldset class="form-group">
+					    <div class="row">
+					    	<div class="col-xs-8">
+						    	<label for="exampleSelect2">Parts Used</label>
+						    	<select multiple class="form-control" id="exampleSelect2">
+						    		{% for part in parts %}
+						    			<option>{{part.name}}</option>
+						    		{% endfor %}
+						    	</select>
+					    	</div>
+					    </div>
+					    
+					  </fieldset>
+
+					  <!-- Status -->
+					  <fieldset class="form-group">
+					    <div class="row">
+					    	<div class="col-xs-6">
+					    	    <label for="exampleSelect1">Service Status</label>
+					    	    <select class="form-control" id="exampleSelect1">
+					    		    <option>Assigned</option>
+					    		    <option>Diagnosing</option>
+					    		    <option>Repairing</option>
+					    		    <option>Reassigning</option>
+					    		    <option>Completed</option>
+					    	    </select>
+					    	</div>
+					    	<div class="col-xs-3">
+						    	<!-- Reassign -->
+						    	<fieldset class="form-group">
+						    	  <label for="exampleSelect1">Reassign</label>
+						    	  <select class="form-control" id="exampleSelect1">
+						    	    <option>No</option>
+						    	    {% for tech in techs %}
+						    	    	<option>{{tech}}</option>
+						    	    {% endfor %}
+						    	  </select>
+						    	</fieldset>
+					    	</div>
+					    	
+					    </div>
+					  </fieldset>
+
+					  <button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
 		</div>
 
 	</div>

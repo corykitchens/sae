@@ -20,6 +20,9 @@ def work_orders(request):
 
 def work_order_detail(request, work_order_id):
 	note_form = EmployeeServiceNotesForm()
+	parts = Part.objects.all()
+	techs = Employee.objects.filter(job_title='Service Technician')
+
 	try:
 		w = WorkOrder.objects.get(pk=int(work_order_id))
 	except WorkOrder.ObjectDoesNotExist:
@@ -28,8 +31,12 @@ def work_order_detail(request, work_order_id):
 	try:
 		notes = EmployeeServiceNotes.objects.filter(work_order=w)
 	except EmployeeServiceNotes.DoesNotExist:
-		return render(request, 'workorder/work_order_detail.html', {'work_order' : w, 'notes_form' : note_form})
-	return render(request, 'workorder/work_order_detail.html', {'work_order' : w, 'notes' : notes, 'note_form' : note_form})
+		return render(request, 'workorder/work_order_detail.html', 
+			{'work_order' : w, 'notes_form' : note_form, 'parts' : parts,
+			'techs': techs})
+	return render(request, 'workorder/work_order_detail.html', 
+		{'work_order' : w, 'notes' : notes, 'note_form' : note_form, 
+		'parts' : parts, 'techs': techs})
 
 
 def create_work_order(request):

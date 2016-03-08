@@ -22,26 +22,26 @@
         <ul class="side-nav-links">
 
         <!-- HOME -->
-          <li class="side-nav-link">
+          <li class="side-nav-link" id="home">
             <a href="/">
               <i class="fa fa-home"></i> Home
             </a>
           </li>
           <!-- SERVICE -->
-          <li class="side-nav-link">
+          <li class="side-nav-link" id="service">
             <a href="/workorders">
               <i class="fa fa-wrench"></i> Service
             </a>
           </li>
           <!-- EMP DIRECTORY -->
-          <li class="side-nav-link">
+          <li class="side-nav-link" id="emp_directory">
             <a href="/employees/employee_directory"><i class="fa fa-users"></i>
               Employee Directory
             </a>
           </li>
 
           <!-- CUST DIRECTORY -->
-          <li class="side-nav-link">
+          <li class="side-nav-link" id="cust_directory">
             <a href="/customers/customer_directory">
               <i class="fa fa-car"></i> Customer Directory
             </a>
@@ -56,8 +56,8 @@
           {% endif %}
           
           <!-- PROFILE -->
-          <li class="side-nav-link">
-            <a href="/employees/edit_profile/{{employee.id}}">
+          <li class="side-nav-link" id="profile">
+            <a href="/employees/edit_profile/{{request.user.id}}">
               <i class="fa fa-user"></i> Employee Profile
             </a>
           </li>
@@ -70,7 +70,6 @@
           </li>
         </ul>
       </div>
-
 
       <!-- BEGIN CONTENT -->
       <div class="col-md-9">

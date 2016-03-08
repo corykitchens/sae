@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 	<div class="row">
 		<div class="col-md-12">
 		<div class="card employee-card">
@@ -27,7 +28,7 @@
 					<td>{{work_order.vehicle}}</td>
 					<td>
 					{% for service in work_order.service_type.all %}
-						<li>{{service.name}} {{service.cost}}</li>
+						<li>{{service.name}}</li>
 					{% endfor %}
 					</td>
 					</tr>

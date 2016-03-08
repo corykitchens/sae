@@ -36,8 +36,8 @@ class WorkOrder(models.Model):
 	class Meta:
 		db_table = "CKTM_WORKORDER"
 
-	#def __str__(self):
-	#	return self.customer + " " + self.vehicle + self.employee
+	def __str__(self):
+		return str(self.date_created) + " " + str(self.customer) + " " + str(self.vehicle)
 
 class ServiceType(models.Model):
 	name = models.CharField(max_length=100)

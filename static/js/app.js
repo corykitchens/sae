@@ -1,5 +1,6 @@
 //
 $(document).ready(function() {
+	checkCurrentLocation();
 
 	$('.btnSubmit').click(function() {
 		$('form').submit();
@@ -70,5 +71,11 @@ $(document).ready(function() {
  		console.log($("#vehicle_id").val());
  	}
 });
+
+var checkCurrentLocation = function() {
+	var loc = document.location.pathname;
+	console.log(loc);
+	
+}
 
 

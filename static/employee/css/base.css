@@ -1,21 +1,17 @@
-
 body {
 	background-color: #ECEFF1;
 }
 
 .side-nav {
 	background-color: #263238;
-	min-height: 40em;
+	min-height: 100%;
+
 }
 
 .side-nav ul {
 	list-style-type: none;
 	padding: 0em;
 	margin: 0em;
-}
-
-.base-header {
-
 }
 
 .active {
