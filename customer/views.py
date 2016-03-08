@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.contrib import messages
+from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
@@ -42,13 +43,20 @@ def add(request):
     return render(request, 'customer/customer_form.html', {'formset': formset, 'form': form})
 
 def customer_profile(request, customer_id):
-    customer = Customer.objects.get(id=customer_id)
-    return render(request, 'customer/customer_profile.html', {'customer': customer})
+    customer  = Customer.objects.get(id=customer_id)
+    vlist = customer.vehicle.all()
+    count = []
+    i = 0
+    for vehicle in vlist:
+        count.append(WorkOrder.objects.filter(vehicle=vehicle.id).count())
+        i += 1
+    i = 0
+    return render(request, 'customer/customer_profile.html', {'customer': customer, 'count' : count, 'i' : i })
 
 def vehicle_profile(request, vehicle_id):
     v         = Vehicle.objects.filter(id=vehicle_id)
     workorder = WorkOrder.objects.filter(vehicle=v)
-    return render(request, 'customer/vehicle_profile.html', {'workorder': workorder})
+    return render(request, 'customer/vehicle_profile.html', {'workorder': workorder} )
 
 def workorder_summary(request, workorder_id):
     workorder = WorkOrder.objects.filter(id=workorder_id)

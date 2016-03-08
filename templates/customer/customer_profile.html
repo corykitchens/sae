@@ -22,6 +22,7 @@
 					<th>Make</th>
 					<th>Model</th>
 					<th>License Plate</th>
+					<th>WO Count</th>
 				</tr>
 			</thead>
 			</table>
@@ -36,6 +37,7 @@
 					<td>{{vehicle.model}}</td>
 					<td>{{vehicle.license_plate}}</td>
 					<td><a href="/customers/vehicle_profile/{{vehicle.id}}">Select</a></td>
+					<td>{{count.i}}</td>
 				</tr>
 			{% endfor %}
 		</tbody>
