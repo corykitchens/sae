@@ -5,9 +5,6 @@ sae_dummy_data.sql
 mockdata/
 planning/
 service/
-sae/
-sae/settings
-
 announcement/migrations/
 authenticate/migrations/
 customer/migrations/
