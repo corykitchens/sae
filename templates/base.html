@@ -20,18 +20,59 @@
     <div class="row">
       <div class="col-md-3 side-nav">
         <ul class="side-nav-links">
-          <li class="side-nav-link"><a href="/">Home</a></li>
-          <li class="side-nav-link"><a href="/workorders">Service</a></li>
-          <li class="side-nav-link"><a href="/employees/employee_directory">Employee Directory</a></li>
-          <li class="side-nav-link"><a href="/customers/customer_directory">Customer Directory</a></li>
+
+        <!-- HOME -->
+          <li class="side-nav-link">
+            <a href="/">
+              <i class="fa fa-home"></i> Home
+            </a>
+          </li>
+          <!-- SERVICE -->
+          <li class="side-nav-link">
+            <a href="/workorders">
+              <i class="fa fa-wrench"></i> Service
+            </a>
+          </li>
+          <!-- EMP DIRECTORY -->
+          <li class="side-nav-link">
+            <a href="/employees/employee_directory"><i class="fa fa-users"></i>
+              Employee Directory
+            </a>
+          </li>
+
+          <!-- CUST DIRECTORY -->
+          <li class="side-nav-link">
+            <a href="/customers/customer_directory">
+              <i class="fa fa-car"></i> Customer Directory
+            </a>
+          </li>
+          
           {% if employee.job_title == "admin" %}
-            <li class="side-nav-link"><a href="/employees/hr">Human Resources</a></li>
+            <li class="side-nav-link">
+              <a href="/employees/hr">
+                Human Resources
+              </a>
+            </li>
           {% endif %}
-          <li></li>
-          <li class="side-nav-link"><a href="/employees/edit_profile/{{employee.id}}">Employee Profile</a></li>
-          <li class="side-nav-link"><a href="/user/logout">Logout</a></li>
+          
+          <!-- PROFILE -->
+          <li class="side-nav-link">
+            <a href="/employees/edit_profile/{{employee.id}}">
+              <i class="fa fa-user"></i> Employee Profile
+            </a>
+          </li>
+
+          <!-- LOGOUT -->
+          <li class="side-nav-link">
+            <a href="/user/logout">
+              <i class="fa fa-sign-out"></i> Logout
+            </a>
+          </li>
         </ul>
       </div>
+
+
+      <!-- BEGIN CONTENT -->
       <div class="col-md-9">
         {%block content %}
 

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.utils import timezone
 
 from django.db import models
+from django.utils import timezone
 from employee.models import Employee #   
 from customer.models import Customer #
 from vehicle.models  import Vehicle  #
@@ -41,7 +42,30 @@ class WorkOrder(models.Model):
 class ServiceType(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.FloatField()
+	
+	def __str__(self):
+		return self.name
+
+class Part(models.Model):
+	name = models.CharField(max_length=100)
+	cost = models.FloatField()
 
 	def __str__(self):
-		return self.name + " " + str(self.cost)
+		return self.name
 
+class EmployeeServiceNotes(models.Model):
+	employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+	work_order = models.ForeignKey(WorkOrder, on_delete=models.CASCADE)
+	date_serviced = models.DateTimeField()
+	hours_spent = models.FloatField()
+	notes = models.CharField(max_length=400)
+	parts_used = models.ManyToManyField(Part, blank=True, null=True)
+
+	def __str__(self):
+		return str(self.date_serviced) + " " + self.employee.first_name + " " + self.employee.last_name
+
+
+
+
+
+# 

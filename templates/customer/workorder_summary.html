@@ -1,17 +1,41 @@
-{% for workorder in workorder.all %}
+{% extends 'base.html' %}
+{% block content %}
+<div style="height:500px;" class="card">
+<h1>Stockdale Auto Electric</h1><br>
+	{% for workorder in workorder.all %}				
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td><h5><u>Customer Information</u></h5>
+						<strong><u>Name</u></strong><br>{{workorder.customer.first_name}}
+					    {{workorder.customer.last_name}}<br>
+					    Address: {{workorder.customer.address.address}}<br>
+					    {{workorder.customer.address.city}},
+					    {{workorder.customer.address.state}}</td>
 				
-					{{workorder.customer.first_name}}
-					{{workorder.customer.last_name}}<br>
-					{{workorder.customer.address.address}}<br>
-					{{workorder.customer.address.city}}<br>
-					{{workorder.customer.address.state}}<br>
-					{{workorder.vehicle.year}}
-					{{workorder.vehicle.make}}
-					{{workorder.vehicle.model}}<br>
-					{{workorder.vehicle.license_plate}}<br>
-					<td>{{workorder.date_created}}</td>
-					<td>{{workorder.service_type}}</td>
-					<td>{{workorder.amount_paid}}</td>
-					<td>{{workorder.estimate_revision}}</td>
+					<td><td><h5><u>Vehicle Information</u></h5>
+						{{workorder.vehicle.year}}<br>
+					    {{workorder.vehicle.make}}
+					    {{workorder.vehicle.model}}<br>
+					    License Plate: {{workorder.vehicle.license_plate}}<br>
+					    Mileage: {{workorder.odometer}}</td>
 				</tr>
-{% endfor %}
+			</thead>
+		</table><br>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td><h5><u>Workorder Information</u></h5>
+						Date Created: {{workorder.date_created}}<br>
+						Service Type: {{workorder.service_type}}<br>
+						Original Estimate:{{workorder.estimate_initial}}<br>
+					    Amount Paid: {{workorder.amount_paid}}<br>
+					    Revised Estimate: {{workorder.estimate_revision}}</td>
+					<td>
+					    <strong><u>Problem Description</u></strong><br> {{workorder.problem_description}}</td>
+				</tr>
+			</thead>
+		</table><hr>
+</div>
+	{% endfor %}	
+{% endblock %}

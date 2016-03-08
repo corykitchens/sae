@@ -5,12 +5,12 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 #from reportlab.pdfgen import canvas
 
-from .models import WorkOrder, ServiceType
+from .models import WorkOrder, ServiceType, Part, EmployeeServiceNotes
 from customer.models import Customer, Customer_Address as CustomerAddress
 from vehicle.models import Vehicle
 from employee.models import Employee
 
-from .forms import  WorkOrderForm
+from .forms import  WorkOrderForm, EmployeeServiceNotesForm
 from customer.forms import CustomerForm, AddressForm
 from vehicle.forms import VehicleForm
 # Create your views here.
@@ -19,11 +19,17 @@ def work_orders(request):
 	return render(request, 'workorder/work_order_list.html', {'work_orders' : work_orders})
 
 def work_order_detail(request, work_order_id):
+	note_form = EmployeeServiceNotesForm()
 	try:
 		w = WorkOrder.objects.get(pk=int(work_order_id))
 	except WorkOrder.ObjectDoesNotExist:
 		return HttpResponse('Error')
-	return render(request, 'workorder/work_order_detail.html', {'work_order' : w})
+
+	try:
+		notes = EmployeeServiceNotes.objects.filter(work_order=w)
+	except EmployeeServiceNotes.DoesNotExist:
+		return render(request, 'workorder/work_order_detail.html', {'work_order' : w, 'notes_form' : note_form})
+	return render(request, 'workorder/work_order_detail.html', {'work_order' : w, 'notes' : notes, 'note_form' : note_form})
 
 
 def create_work_order(request):
@@ -42,7 +48,6 @@ def create_work_order(request):
 
 		if request.POST['c-first-name']  != '':
 			# Returning Customer
-
 			query_vehicle = int(request.POST['vehicle_id'])
 			query_first_name = request.POST['first_name']
 			query_last_name = request.POST['last_name']
@@ -51,7 +56,6 @@ def create_work_order(request):
 				c = Customer.objects.get(first_name=query_first_name, last_name=query_last_name)
 			except Customer.DoesNotExist:
 				HttpResponse('Error querying customer')
-
 
 			if query_vehicle is not -1:
 				try:
@@ -68,8 +72,7 @@ def create_work_order(request):
 				v.save()
 				c.vehicle.add(v)
 
-
-			
+			#Work Order
 			w = WorkOrder()
 			w.odometer = request.POST['odometer']
 			w.date_created = timezone.now()
@@ -132,9 +135,15 @@ def create_work_order(request):
 		
 			w.vehicle = v
 			w.employee = Employee.objects.get(user=request.user)
+			w.save()
 
 			service_list = request.POST.getlist('service_type')
+			for service in service_list:
+				selected_service = ServiceType.objects.get(pk=int(service))
+				w.service_type.add(selected_service)
+				w.estimate_initial = w.estimate_initial + selected_service.cost
 			w.save()
+
 			work_orders = WorkOrder.objects.all()
 			employee = Employee.objects.get(user=request.user)
 			return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,

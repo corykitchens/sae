@@ -7,8 +7,8 @@
 		<div class="card employee-card">
 			<h4>Work Order Detail</h4>
 			<ul>
-				<li>Customer: {{work_order.customer}}</li>
-				<li>Vehicle: {{work_order.vehicle}}</li>
+				<li><strong>Customer:</strong> {{work_order.customer}}</li>
+				
 				<li>Odometer: {{work_order.odometer}}</li>
 				<li>Date Create: {{work_order.date_created}}</li>
 				<li>Problem: {{work_order.problem_description}}</li>
@@ -18,22 +18,30 @@
 				{% endfor %}
 				</li>
 				<li>Estimatated Cost: {{work_order.estimate_initial}}</li>
-
 			</ul>
-
 		</div>
+		{% if notes %}
+			<div class="card">
+			<table class='table'>
+				<th>Tech</th>
+				<th>Date</th>
+				<th>Hours</th>
+				<th>Notes</th>
+				<th>Parts</th>
+			{% for note in notes %}
+			<tr>
+				<td>{{note.employee}}</td>
+				<td>{{note.date_serviced}}</td>
+				<td>{{note.hours_spent}}</td>
+				<td>{{note.notes}}</td>
+			</tr>
+			{% endfor %}
+			</table>
+			</div>
+		{% endif %}
 
 		<div class="card employee-card">
-			<h4>Technician Notes</h4>
-			<ul>
-				<li>Date Serviced</li>
-				<li>Time spent</li>
-				<li>Services Rendered</li>
-				<li>Service Notes</li>
-				<li>Reassign?</li>
-				<li></li>
-			</ul>
-
+			{{note_form}}
 		</div>
 
 	</div>
