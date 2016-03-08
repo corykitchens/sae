@@ -6,6 +6,10 @@ $(document).ready(function() {
 		$('form').submit();
 	});
 
+	$('.submit-note').click(function() {
+		submitNote();
+	});
+
 	$('.vehicle-list-select').hide();
 	var vehicles;
  	$('#query-existing-customer-btn').on('click', function() {
@@ -79,3 +83,35 @@ var checkCurrentLocation = function() {
 }
 
 
+var submitNote = function() {
+
+	//Time
+	var time_spent = $('#time-spent').val();
+	// //Notes
+	var notes_text = $('#service-notes').val();
+	// //Parts
+	var parts = $('#parts-selected').val();
+	// //Status
+	var status = $('#service-status').val();
+	// //Reassigning?
+	var work_order_id = $('#work_order_id').val();
+	
+	var reassign_status = $("#reassign").val();
+
+	$.ajax({
+		url : '/workorders/submit_service_notes/',
+		type : 'get',
+		data : {
+			'id' : work_order_id,
+			'time_spent' : time_spent,
+			'notes' : notes_text,
+			'parts' : parts,
+			'status' : status,
+			'reassign' : reassign_status
+		}
+	}).success(function(data) {
+		console.log('Worked');
+		console.log(data);
+	});
+
+}

@@ -16,6 +16,20 @@ class WorkOrder(models.Model):
 		('Cabin Air Filter Replacement', 19.99), ('Diagnosis', '105'),
 		('AC Service, excludes freon cost', 80.00)
 	)
+
+	STATUS_OPTIONS = (
+			('Assigned', 'Assigned'),
+			('Diagnosing', 'Diagnosing'),
+			('Repairing', 'Repairing'),
+			('Reassigned', 'Reassigned'),
+			('Completed', 'Completed'),
+			('Awaiting Payment', 'Awaiting Payment'),
+			('Paid in Full', 'Paid in Full' ),
+			('Closed', 'Closed'),
+			('Cancelled', 'Cancelled')
+		)
+
+
 	customer 	 		= models.ForeignKey(Customer, on_delete=models.CASCADE)
 	vehicle             = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 	employee            = models.ForeignKey(Employee, on_delete=models.CASCADE)
@@ -27,7 +41,7 @@ class WorkOrder(models.Model):
 	estimate_revision   = models.FloatField(blank=True, null=True)
 	hours_required      = models.FloatField(blank=True, null=True)
 	parts_require		= models.CharField(null=True,max_length=200, blank=True)
-
+	status 				= models.CharField(null=True, max_length=100, choices=STATUS_OPTIONS)
 	estimate_approval   = models.NullBooleanField(null=True)
 	approval_date_time  = models.DateTimeField(null=True, blank=True)
 	amount_paid         = models.FloatField(null=True, blank=True)

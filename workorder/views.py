@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
@@ -82,11 +84,12 @@ def create_work_order(request):
 			#Work Order
 			w = WorkOrder()
 			w.odometer = request.POST['odometer']
+
 			w.date_created = timezone.now()
 			w.problem_description = request.POST['problem_description']
 			w.estimate_initial = 0
 			w.customer = c
-			
+			w.status = 'Assigned'
 			w.vehicle = v
 			w.employee = Employee.objects.get(user=request.user)
 			w.save()
@@ -139,7 +142,7 @@ def create_work_order(request):
 			w.problem_description = request.POST['problem_description']
 			w.estimate_initial = request.POST['estimate_initial']
 			w.customer = c
-		
+			w.status = 'Assigned'
 			w.vehicle = v
 			w.employee = Employee.objects.get(user=request.user)
 			w.save()
@@ -176,3 +179,39 @@ def generate_customer_receipt(customer, vehicle, work_order, employee):
 	return response
 
 
+def submit_service_notes(request):
+	response_data = dict()
+	response_data['time_spent'] = float(request.GET['time_spent'])
+	response_data['notes'] = request.GET['notes']
+	response_data['emp_id'] = request.user.id
+	response_data['work_order_id'] = request.GET['id']
+	response_data['status'] = request.GET['status']
+	response_data['reassign'] = request.GET['reassign']
+	response_data['parts'] = request.GET.getlist('parts')
+
+	parts_list = list()
+
+	
+
+	'''
+	Instantiate Service Notes obj
+	'''
+	service_notes = EmployeeServiceNotes(
+		employee = Employee.objects.get(pk=response_data['emp_id']),
+		work_order = WorkOrder.objects.get(pk=response_data['work_order_id']),
+		date_serviced = timezone.now(),
+		hours_spent = response_data['time_spent'],
+		notes = response_data['notes'],
+	)
+	service_notes.save()
+
+	'''
+	Update Work Order status
+	'''
+	w = WorkOrder.objects.get(pk=response_data['work_order_id'])
+	w.status = response_data['status']
+	w.save()
+
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+	
+	
