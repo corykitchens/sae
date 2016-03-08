@@ -27,6 +27,16 @@
               <i class="fa fa-home"></i> Home
             </a>
           </li>
+
+          
+          {% if employee.job_title == "admin" %}
+            <li class="side-nav-link">
+              <a href="/employees/hr">
+                <i class="fa fa-credit-card"></i> Payment Processing
+              </a>
+            </li>
+          {% endif %}
+          
           <!-- SERVICE -->
           <li class="side-nav-link" id="service">
             <a href="/workorders">
@@ -47,14 +57,7 @@
             </a>
           </li>
           
-          {% if employee.job_title == "admin" %}
-            <li class="side-nav-link">
-              <a href="/employees/hr">
-                Human Resources
-              </a>
-            </li>
-          {% endif %}
-          
+
           <!-- PROFILE -->
           <li class="side-nav-link" id="profile">
             <a href="/employees/edit_profile/{{request.user.id}}">

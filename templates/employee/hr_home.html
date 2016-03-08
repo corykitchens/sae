@@ -1,11 +1,38 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-<h1>Human Resources</h1>
 
-<ul>
-	<li><a href="new_hire">New Hire</a></li>
-	<li>Employee Dismissal</li>
-	<li><a href="/announcements/create">Create New Announcement</a></li>
-	
-</ul>
+<div class="row">
+	<div class="col-md-12">
+		
+		<div class="card employee-card">
+
+			<h4 class="card-title">Work Orders Pending Payment</h4>
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Date Opened</th>
+					<th>Customer Name</th>
+					<th>Assigned Technician</th>
+					<th>Vehicle</th>
+					<th>Problem Description</th>
+					<th>Service Status</th>
+				</tr>
+			</thead>
+				{% for work_order in work_orders %}
+					<tr>
+						<td>{{work_order.date_created}}</td>
+						<td>{{work_order.customer}}</td>
+						<td>{{work_order.employee}}</td>
+						<td>{{work_order.vehicle}}</td>
+						<td>{{work_order.problem_description}}</td>
+						<td>{{work_order.status}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+
 {% endblock %}

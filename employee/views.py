@@ -6,7 +6,7 @@ from .forms import NewHireForm, NewHireAddressForm
 
 
 from employee.models import Employee
-
+from workorder.models import WorkOrder
 # Create your views here.
 class EmployeeDirectory(ListView):
 	model = Employee
@@ -17,8 +17,9 @@ def employee_profile(request, employee_id):
 	employee = Employee.objects.get(id=employee_id)
 	return render(request, 'employee/employee_profile.html', {'employee': employee})
 
-def hr_home(request):
-	return render(request, 'employee/hr_home.html', {})
+def hr_view_pending(request):
+	w = WorkOrder.objects.filter(status='Completed')
+	return render(request, 'employee/hr_home.html', {'work_orders' : w})
 
 def new_hire(request):
 	if request.method=='GET':
