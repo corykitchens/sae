@@ -21,6 +21,7 @@
 					<th>Last Name</th>
 					<th>Email</th>
 					<th>Address</th>
+					<th>Profile</th>
 				</tr>
 			</thead>
 			{% for customer in customers %}
@@ -29,7 +30,11 @@
 					<td>{{ customer.last_name }}</td>
 					<td><a href="mailto:{{customer.email}}">{{ customer.email }}</a></td>
 					<td>{{ customer.address }}</td>
-					<td><a href="customer_profile/{{customer.id}}">Select</a></td>
+					<td>
+					<form action="customer_profile/{{customer.id}}">
+					    <button type="submit" value="Create Work Order" class="btn btn-success">Select</button>
+					</form>
+					</td>
 				</tr>
 			{% endfor %}
 			</table>

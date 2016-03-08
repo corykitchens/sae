@@ -1,48 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h3>Customer Profile</h3>
 
-	<div class="card">
-		<h4>Customer Information</h4>
-		<strong>First Name: {{customer.first_name}}</strong><br>
-		<strong>Last Name: {{customer.last_name}}</strong><br>
-		<strong>Address: {{customer.address}}</strong><br>
-		<strong>Email: {{customer.email}}</a></strong>
-		<br>
-		<a href="/customers/customer_edit_form/{{customer.id}}">(Edit)</a><br>
-	</div>
-	<div>
-
-			<h5>Vehicles Owned</h5>
-			
-			<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Year</th>
-					<th>Make</th>
-					<th>Model</th>
-					<th>License Plate</th>
-					<th>WO Count</th>
-				</tr>
-			</thead>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h3 class="card-title">Customer Information</h3>
+			<table class="table">
+				<th>First Name </th>
+				<th>Last Name</th>
+				<th>Address</th>
+				<th>Email</th>
+				<th>Edit</th>
+				<tbody>
+					<tr>
+						<td>{{customer.first_name}}</td>
+						<td>{{customer.last_name}}</td>
+						<td>{{customer.address}}</td>
+						<td>{{customer.email}}</td>
+						<td>
+							<form action="/customers/customer_edit_form/{{customer.id}}">
+							    <button type="submit" value="Create Work Order" class="btn btn-primary">Edit</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
 			</table>
+		</div>
 	</div>
-	<div style"max-height: 200px; overflow: auto;">
-		<table class="table table-striped">
-		<tbody>
-			{% for vehicle in customer.vehicle.all %}
-				<tr>
-					<td>{{vehicle.year}}</td>
-					<td>{{vehicle.make}}</td>
-					<td>{{vehicle.model}}</td>
-					<td>{{vehicle.license_plate}}</td>
-					<td><a href="/customers/vehicle_profile/{{vehicle.id}}">Select</a></td>
-					<td>{{count.i}}</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-		</table>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h3 class="card-title">Vehicles Owned</h3>
+			<table class="table table-striped">
+				<th>Year </th>
+				<th>Make</th>
+				<th>Model</th>
+				<th>License Plate</th>
+				<th>Vehicle History</th>
+				<tbody>
+				{% for vehicle in customer.vehicle.all %}
+					<tr>
+						<td>{{vehicle.year}}</td>
+						<td>{{vehicle.make}}</td>
+						<td>{{vehicle.model}}</td>
+						<td>{{vehicle.license_plate}}</td>
+						<td>
+							<form action="/customers/vehicle_profile/{{vehicle.id}}">
+							    <button type="submit" value="Create Work Order" class="btn btn-primary">View History</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-
+</div>
 {% endblock %}

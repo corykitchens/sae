@@ -1,47 +1,51 @@
 
 {% extends 'base.html' %}
 {% block content %}
-	<h3>Customer Profile</h3>
-
-	<div class="card">
-		<h4>Vehicle Information</h4>
-		<strong>Make: {{workorder.vehicle.make}}</strong><br>
-		<strong>Model: {{workorder.vehicle.model}}</strong><br>
-		<strong>Odometer: {{workorder.odometer}}</strong><br>
-		<strong>License Plate: {{workorder.vehicle.license_plate}}</a></strong>
-		<br>
-	</div>
-	<div>
-
-			<h5>Work Performed</h5>
-			
-			<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Date Created</th>
-					<th>Service Type</th>
-					<th>Amount Paid</th>
-					<th>Work Order Total</th>
-					<th>Balance</th>
-				</tr>
-			</thead>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h3 class="card-title">Vehicle Infomation</h3>
+			<table class="table">
+				<th>Make </th>
+				<th>Model</th>
+				<th>Odometer</th>
+				<th>License Plate</th>
+				<tbody>
+					<tr>
+						<td>{{workorder.vehicle.make}}</td>
+						<td>{{workorder.vehicle.model}}</td>
+						<td>{{workorder.odometer}}</td>
+						<td>{{workorder.vehicle.license_plate}}</td>
+					</tr>
+				</tbody>
 			</table>
+		</div>
 	</div>
-	<div style"max-height: 200px; overflow: auto;">
-		<table class="table table-striped">
-		<tbody>
-			{% for workorder in workorder.all %}
-				<tr>
-					<td>{{workorder.date_created}}</td>
-					<td>{{workorder.service_type}}</td>
-					<td>{{workorder.amount_paid}}</td>
-					<td>{{workorder.estimate_revision}}</td>
-					<td><a href="/customers/workorder_summary/{{workorder.id}}">Summary</a></td>
-				</tr>
-			{% endfor %}
-		</tbody>
-		</table>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h3 class="card-title">Work History</h3>
+			<table class="table">
+				<th>Date Created </th>
+				<th>Service Type</th>
+				<th>Amount Paid</th>
+				<th>Work Order Total</th>
+				<th>Balance</th>
+				<tbody>
+				{% for workorder in workorder.all %}
+					<tr>
+						<td>{{workorder.date_created}}</td>
+						<td>{{workorder.service_type}}</td>
+						<td>{{workorder.amount_paid}}</td>
+						<td>{{workorder.estimate_revision}}</td>
+						<td><a href="/customers/workorder_summary/{{workorder.id}}">Summary</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-
+</div>
 {% endblock %}
