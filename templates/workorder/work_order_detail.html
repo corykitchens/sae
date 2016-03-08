@@ -34,14 +34,16 @@
 				<th>Hours</th>
 				<th>Notes</th>
 				<th>Parts</th>
-			{% for note in notes %}
-			<tr>
-				<td>{{note.employee}}</td>
-				<td>{{note.date_serviced}}</td>
-				<td>{{note.hours_spent}}</td>
-				<td>{{note.notes}}</td>
-			</tr>
-			{% endfor %}
+				<tbody class="emp-notes">
+				{% for note in notes %}
+				<tr>
+					<td>{{note.employee}}</td>
+					<td>{{note.date_serviced}}</td>
+					<td>{{note.hours_spent}}</td>
+					<td>{{note.notes}}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
 			</table>
 			</div>
 		{% endif %}

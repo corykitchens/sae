@@ -1,5 +1,5 @@
 import json
-
+import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
@@ -188,7 +188,8 @@ def submit_service_notes(request):
 	response_data['status'] = request.GET['status']
 	response_data['reassign'] = request.GET['reassign']
 	response_data['parts'] = request.GET.getlist('parts')
-
+	response_data['emp'] = str(Employee.objects.get(user=response_data['emp_id']))
+	response_data['date'] = datetime.datetime.strftime(datetime.datetime.now(),'%B-%w-%Y-%X-%p')
 	parts_list = list()
 
 
@@ -207,8 +208,8 @@ def submit_service_notes(request):
 	'''
 	'''
 	w = WorkOrder.objects.get(pk=response_data['work_order_id'])
-	if response_data['reassign'] is not 'No':
-		'''Work Order is being reassigned'''
+
+	if response_data['reassign'] is "No":
 		response_data['first_name'] = response_data['reassign'].split()[0]
 		response_data['last_name'] = response_data['reassign'].split()[1]
 		w.employee = Employee.objects.get(first_name=response_data['first_name'], last_name=response_data['last_name'])
