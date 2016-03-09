@@ -4,11 +4,12 @@ from customer.models import Customer, Customer_Address
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Customer_Address
-        fields = ('address', 'city', 'state')
+        fields = ('address', 'city', 'state', 'zip_code')
         widgets = {
             'address' : forms.TextInput(attrs={'class' : 'form-control'}),
             'city': forms.TextInput(attrs={'class' : 'form-control'}),
             'state':  forms.TextInput(attrs={'class' : 'form-control'}),
+            'zip_code':  forms.NumberInput(attrs={'class' : 'form-control'}),
         }
 
 class CustomerForm(forms.ModelForm):

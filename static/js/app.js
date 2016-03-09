@@ -3,7 +3,10 @@ $(document).ready(function() {
 	checkCurrentLocation();
 
 	$('.btnSubmit').click(function() {
-		$('form').submit();
+		if (verifyInput()) {
+			$('form').submit();
+		}
+		
 	});
 
 	$('.submit-note').click(function() {
@@ -134,4 +137,17 @@ var updateNotesTable = function(data) {
 	$(".emp-notes:last-child").append(row);
 	
 
+}
+
+
+var verifyInput = function() {
+	
+	if (($('#id_service_type').prop("selectedIndex") == -1)) {
+		$("#id_service_type").addClass("alert alert-danger");
+		$("#id_service_type").css("border", "1px solid red");
+		return false;
+	} else {
+		return true;
+	}
+	
 }
