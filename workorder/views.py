@@ -142,7 +142,7 @@ def create_work_order(request):
 			w.odometer = request.POST['odometer']
 			w.date_created = timezone.now()
 			w.problem_description = request.POST['problem_description']
-			w.estimate_initial = request.POST['estimate_initial']
+			w.estimate_initial = 0
 			w.customer = c
 			w.status = 'Assigned'
 			w.vehicle = v
