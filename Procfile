@@ -1,1 +1,1 @@
-web: gunicorn sae.wsgi
+web: gunicorn sae.wsgi --log-file -
