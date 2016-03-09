@@ -1,6 +1,9 @@
+bin
+db.sqlite3
 *.pyc
 *.DS_STORE
 manage.py
+local_settings.py
 sae_dummy_data.sql
 mockdata/
 planning/

@@ -40,7 +40,11 @@
 						<td>{{workorder.service_type}}</td>
 						<td>{{workorder.amount_paid}}</td>
 						<td>{{workorder.estimate_revision}}</td>
-						<td><a href="/customers/workorder_summary/{{workorder.id}}">Summary</a></td>
+						<td>
+						<form action="/customers/workorder_summary/{{workorder.id}}">
+						    <button type="submit" value="Create Work Order" class="btn btn-primary">Submit</button>
+						</form>
+						</td>
 					</tr>
 				{% endfor %}
 				</tbody>
