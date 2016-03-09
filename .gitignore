@@ -1,10 +1,14 @@
 bin
+lib
+.Python
+pip-selfcheck.json
 db.sqlite3
 *.pyc
 *.DS_STORE
 manage.py
 local_settings.py
 sae_dummy_data.sql
+
 mockdata/
 planning/
 service/
