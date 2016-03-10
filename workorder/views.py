@@ -48,10 +48,15 @@ def create_work_order(request):
 		ca_form = AddressForm()
 		work_order_form = WorkOrderForm()
 		vehicle_form = VehicleForm()
+		try:
+			parts_list = Part.objects.all()
+		except Part.DoesNotExist:
+			parts_list = []
 		return render(request, 'workorder/create_work_order.html', {'customer_form' : customer_form,
 																	'ca_form': ca_form,
 																	'vehicle_form' : vehicle_form,
-																	'work_order_form' : work_order_form})
+																	'work_order_form' : work_order_form,
+																	'parts' : parts_list})
 
 	elif request.method=='POST':
 

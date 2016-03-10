@@ -11,15 +11,30 @@ from workorder.models import WorkOrder
 # Create your views here.
 def login(request):
 	if request.user.is_authenticated():
+		emp_home_tmp = 'employee/employee_home.html'
+
+
 		try:
 			employee = Employee.objects.get(user=request.user)
 		except Employee.DoesNotExist:
 			return render(request, 'login/login.html', {"error": "Error Employee information not found"})
-		try:
-			work_orders = WorkOrder.objects.filter(employee=employee)
-		except WorkOrder.DoesNotExist:
-			return render(request, 'employee/employee_home.html', {'employee' : employee, 'user' : request.user})
-		return render(request, 'employee/employee_home.html', {'employee' : employee, 'user' : request.user, 'work_orders' : work_orders})
+
+		if employee.job_title is 'admin':
+			return HttpResponse(employee)
+			emp_home_tmp = 'employee/hr_home.html'
+		
+
+		if employee.job_title is u'Service Technician':
+			try:
+				work_orders = WorkOrder.objects.filter(employee=employee)
+			except WorkOrder.DoesNotExist:
+				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
+		else:
+			try:
+				work_orders = WorkOrder.objects.all().exclude(status='Closed')
+			except WorkOrder.DoesNotExist:
+				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
+		return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'work_orders' : work_orders})
 		
 	'''
 	Initial login
@@ -28,15 +43,29 @@ def login(request):
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
+		emp_home_tmp = 'employee/employee_home.html'
 		if user is not None:
 			if user.is_active:
 				auth_login(request, user)
+				
 				employee = Employee.objects.get(user=request.user)
-				try:
-					work_orders = WorkOrder.objects.filter(employee=employee)
-				except WorkOrder.DoesNotExist:
-					return render(request, 'employee/employee_home.html', {'employee' : employee, 'user' : request.user})
-				return render(request, 'employee/employee_home.html', {'user': request.user, 'employee': employee,
+				print >>sys.stderr, employee.job_title
+				
+				if employee.job_title == "Administrative":
+					emp_home_tmp = 'employee/hr_home.html'
+				
+				if employee.job_title == "Service Technician":
+					try:
+						work_orders = WorkOrder.objects.filter(employee=employee)
+					except WorkOrder.DoesNotExist:
+						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
+				else:
+					try:
+						work_orders = WorkOrder.objects.all().exclude(status='Closed')
+					except WorkOrder.DoesNotExist:
+						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
+
+				return render(request, emp_home_tmp, {'user': request.user, 'employee': employee,
 					'work_orders' : work_orders})
 			else:
 				return render(request, 'login/login.html', {"error": "Error unable to begin user session"})
@@ -49,3 +78,4 @@ def login(request):
 def logout(request):
 	auth_logout(request)
 	return render(request, 'login/login.html', {'message': 'Logout Successfull'})
+
