@@ -18,7 +18,8 @@ from vehicle.forms import VehicleForm
 # Create your views here.
 def work_orders(request):
 	work_orders = WorkOrder.objects.all()
-	return render(request, 'workorder/work_order_list.html', {'work_orders' : work_orders})
+	employee = Employee.objects.get(user=request.user)
+	return render(request, 'workorder/work_order_list.html', {'work_orders' : work_orders, 'employee': employee})
 
 def work_order_detail(request, work_order_id):
 	note_form = EmployeeServiceNotesForm()

@@ -19,19 +19,18 @@ def login(request):
 		except Employee.DoesNotExist:
 			return render(request, 'login/login.html', {"error": "Error Employee information not found"})
 
-		if employee.job_title is 'admin':
-			return HttpResponse(employee)
+		if employee.job_title == "Administrative":
 			emp_home_tmp = 'employee/hr_home.html'
 		
 
-		if employee.job_title is u'Service Technician':
+		if employee.job_title == "Service Technician":
 			try:
 				work_orders = WorkOrder.objects.filter(employee=employee)
 			except WorkOrder.DoesNotExist:
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		else:
 			try:
-				work_orders = WorkOrder.objects.all().exclude(status='Closed')
+				work_orders = WorkOrder.objects.filter(status='Completed').exclude(status='Closed')
 			except WorkOrder.DoesNotExist:
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'work_orders' : work_orders})
@@ -61,7 +60,7 @@ def login(request):
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 				else:
 					try:
-						work_orders = WorkOrder.objects.all().exclude(status='Closed')
+						work_orders = WorkOrder.objects.filter(status='Completed').exclude(status='Closed')
 					except WorkOrder.DoesNotExist:
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 
