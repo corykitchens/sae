@@ -1,6 +1,10 @@
 //
 $(document).ready(function() {
-	checkCurrentLocation();
+
+
+	$('#reportBtn').click(function() {
+		generateCustomerReport();
+	});
 
 	$('.btnSubmit').click(function() {
 		if (verifyInput()) {
@@ -11,6 +15,7 @@ $(document).ready(function() {
 
 	$('.submit-note').click(function() {
 		submitNote();
+		$('form').trigger('reset');
 	});
 
 	$('.vehicle-list-select').hide();
@@ -150,4 +155,11 @@ var verifyInput = function() {
 		return true;
 	}
 	
+}
+
+var generateCustomerReport = function() {
+	
+	var ctx = document.getElementById("myChart").getContext("2d");
+	var myNewChart = new Chart(ctx).PolarArea(data);
+
 }

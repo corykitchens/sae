@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
 from django.utils import timezone
@@ -7,6 +8,8 @@ from employee.models import Employee #
 from customer.models import Customer #
 from vehicle.models  import Vehicle  #
 # Create your models here.
+
+@python_2_unicode_compatible
 class WorkOrder(models.Model):
 	Initial_Estimate = (
 		('3-Step Fuel System Service', 139.99), ('Synthetic Oil Change', 75.00),
@@ -54,20 +57,23 @@ class WorkOrder(models.Model):
 	def __str__(self):
 		return str(self.date_created) + " " + str(self.customer) + " " + str(self.vehicle)
 
+
+
+@python_2_unicode_compatible
 class ServiceType(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.FloatField()
 	
 	def __str__(self):
 		return self.name
-
+@python_2_unicode_compatible
 class Part(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.FloatField()
 
 	def __str__(self):
 		return self.name
-
+@python_2_unicode_compatible
 class EmployeeServiceNotes(models.Model):
 	employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	work_order = models.ForeignKey(WorkOrder, on_delete=models.CASCADE)

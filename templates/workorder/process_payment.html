@@ -50,8 +50,8 @@
 						<td>{{service.employee}}</td>
 						<td>{{service.hours_spent}}</td>
 						<td>
-						{% for parts in service.parts_used.all %}
-							<li>{{part}}</li>
+						{% for part in service.parts_used.all %}
+							<li>{{part.name}}</li>
 						{% endfor %}
 						</td>
 						<td>{{service.notes}}</td>
@@ -68,16 +68,44 @@
 		<!-- Work Order Detail -->
 		<div class="card employee-card">
 			<h5 class="card-title">Payment</h5>
-			<li>Initial Estimate of Cost {{work_order.estimate_initial}}</li>
-
-			<li>Final Cost {{work_order.estimate_revision}}</li>
-			<li>Amount of Payment <input type=number></li>
-			<li>Payment Method</li>
-			<selection>
-				<option>Cash</option>
-				<option>Credit Card</option>
-				<option>Check</option>
-			</selection>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<form class="form-group">
+					<div class="input-group">
+					  <span class="input-group-addon" >Initial Estimate</span>
+					  <input class="form-control" id="e_initial" type=number value="{{work_order.estimate_initial}}" disabled>					
+					  </div>
+					<br>
+					<div class="input-group">
+					  <span class="input-group-addon" >Final Cost</span>
+					  <input class="form-control" id="e_final" type="number" value="{{work_order.estimate_revision}}" disabled>					
+					</div>
+					<br>
+					<div class="input-group">
+					  <span class="input-group-addon" >Payment Method</span>
+					  <select>
+					  	<option>Cash</option>
+					  	<option>Credit Card</option>
+					  	<option>Check</option>
+					  </select>					</div>
+					<br>
+					<div class="input-group">
+					  <span class="input-group-addon" >Payment Amount</span>
+					  <input class="form-control" id="payment_amount" type="number">
+					</div>
+					<br>
+					<div class="input-group">
+					  <span class="input-group-addon" >Work Order Status</span>
+					  <select>
+					  	<option>Awaiting Further Payments</option>
+					  	<option>Paid in Full</option>
+					  </select>
+					</div>
+					<br>
+					<button  class="btn btn-success" type="button" id="submitPayment">Submit</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

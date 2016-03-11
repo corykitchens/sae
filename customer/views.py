@@ -165,6 +165,7 @@ def get_customer(request, first_name, last_name):
     response_data['customer_fn'] = customer.first_name
     response_data['customer_ln'] = customer.last_name
     response_data['customer_mi'] = customer.middle_initial
+    response_data['customer_email'] = customer.email
     response_data['customer_address'] = customer.address.address
     response_data['customer_city'] = customer.address.city
     response_data['customer_state'] = customer.address.state

@@ -101,3 +101,13 @@
 .dropdown > button {
 	margin: 1em;
 }
+
+.input-group {
+	margin: 0 2em 0 0;
+}
+
+.input-group-addon {
+	background-color: #0275d8;
+	color: #FFF;
+
+}

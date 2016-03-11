@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from customer.views import CustomerDirectory, add, customer_profile, edit, vehicle_profile, workorder_summary #, AddressDirectory, add_address#, address_profile
 from customer.views import WorkOrderPDF
+from wkhtmltopdf.views import PDFTemplateView
+
 from . import views
 
 app_name="customers"
