@@ -1,62 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
+{% extends "easy_pdf/base.html" %}
 
 {% block content %}
-<body>
-<div class="company-info">
-    <h1>Stockdale Auto Electric Customer Receipt</h1>
-    <p>2901 Brundage Ln</p>
-    <p>Bakersfield, California 93304</p>
-</div>
+    <div id="content">
+        <div class="company-info">
+            <h1>Stockdale Auto Electric Customer Receipt</h1>
+            <p>2901 Brundage Ln</p>
+            <p>Bakersfield, California 93304</p>
+        </div>
+<hr>
+        <h2>Customer Information</h2>
+        {{workorder.customer.first_name}}
+        {{workorder.customer.last_name}}<br>
+        {{workorder.customer.address.address}}<br>
+        {{workorder.customer.address.city}}
+        {{workorder.customer.address.state}}
+        {{workorder.customer.address.zip_code}}
+<hr>    
+        <h2>Serivce Information</h2>
+        <strong>Service Requested</strong>
+        {% for service in workorder.service_type.all %}
+            <li>{{service.name}}</li>
+        {% endfor %}
 
-<div class="customer-info">
-    <h2>Customer Information</h2>
-    {{workorder.customer.first_name}}
-    {{workorder.customer.last_name}}<br>
-    {{workorder.customer.address.address}}<br>
-    {{workorder.customer.address.city}}
-    {{workorder.customer.address.state}}
-    {{workorder.customer.address.zip_code}}    
-</div>
+        <strong>Date of Initial Service: </strong>
+        {{workorder.date_created}}<br>
+        <strong>Date of Service Completed: </strong>
+        {{workorder.date_completed}}<br>
+<hr>
+        <h2>Service Notes</h2>
+        {% for note in service_notes.all %}
+            <strong>Date</strong>{{note.date_serviced}} <strong>Tech:</strong> {{note.employee}}<strong>Notes</strong>{{note.notes}}<br>
+            
+            
+        {% endfor %}
+<hr>
+        <div class="payment-info">
+            <h2>Payment Information</h2>
 
-<div class="service-info">
-    <h2>Serivce Information</h2>
-    <strong>Service Requested</strong>
-    {% for service in workorder.service_type.all %}
-        <li>{{service.name}}</li>
-    {% endfor %}
+            <strong>Initial Estimate</strong> : {{workorder.estimate_initial}}<br />
 
-    <strong>Date of Initial Service: </strong>
-    {{work_order.date_completed}}<br>
-</div>
-    <strong>Date of Service Completion</strong>
-    {{work_order.date_completed}}
-    
-    {% for note in service_notes.all %}
-        <strong>Tech:</strong> 
-        {{note.employee}}<br>
-        <strong>Date</strong>
-        {{note.date_serviced}}<br>
-        
-        <strong>Notes</strong>{{note.notes}}<br>
-        
-    {% endfor %}
-</div>
+            <strong> Total Estimate: </strong> {{workorder.estimate_revision}}<br />
 
-<div class="payment-info">
-    <h2>Payment Information</h2>
+            <strong>Total Amount Paid:</strong> {{workorder.amount_paid}}
 
-    <strong>Initial Estimate</strong> : {{workorder.estimate_initial}}<br />
-
-    <strong> Total Estimate: </strong> {{workorder.estimate_revision}}<br />
-
-    <strong>Total Amount Paid:</strong> {{workorder.amount_paid}}
-
-</div>
-
+        </div>
+    </div>
 {% endblock %}
-</body>
-</html>
