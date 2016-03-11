@@ -110,12 +110,12 @@ def customer_profile(request, customer_id):
     return render(request, 'customer/customer_profile.html', {'customer': customer})
 
 def vehicle_profile(request, vehicle_id):
-    vehicle         = Vehicle.objects.filter(id=vehicle_id)
+    vehicle         = Vehicle.objects.get(pk=vehicle_id)
     workorder = WorkOrder.objects.filter(vehicle=vehicle)
-    return render(request, 'customer/vehicle_profile.html', {'workorder': workorder, 'vehicle' : vehicle} )
+    return render(request, 'customer/vehicle_profile.html', {'vehicle': vehicle, 'workorder': workorder} )
 
 def workorder_summary(request, workorder_id):
-    workorder = WorkOrder.objects.filter(id=workorder_id)
+    workorder = WorkOrder.objects.get(id=workorder_id)
     service_notes = EmployeeServiceNotes.objects.filter(work_order=workorder)
     return render_to_pdf_response(request, 'customer/workorder_summary.html', {'workorder' : workorder, 'service_notes' : service_notes})
     #return render_to_pdf('customer/workorder_summary.html', {'workorder': workorder})    
