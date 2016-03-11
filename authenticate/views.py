@@ -1,6 +1,7 @@
 import sys
 
 from django.shortcuts import render
+from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -20,7 +21,6 @@ def login(request):
 
 		if employee.job_title == "Administrative":
 			emp_home_tmp = 'employee/hr_home.html'
-		
 
 		if employee.job_title == "Service Technician":
 			try:
@@ -29,7 +29,8 @@ def login(request):
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		else:
 			try:
-				work_orders = WorkOrder.objects.filter(status='Completed').exclude(status='Closed')
+				work_orders = WorkOrder.objects.filter(Q(status__contains="Completed") | Q(status__contains="Awaiting Payment"))
+
 			except WorkOrder.DoesNotExist:
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		request.session['job_title'] = employee.job_title
@@ -60,7 +61,7 @@ def login(request):
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 				else:
 					try:
-						work_orders = WorkOrder.objects.filter(status='Completed').exclude(status='Closed')
+						work_orders = WorkOrder.objects.filter(Q(status__contains="Completed") | Q(status__contains="Awaiting Payment"))
 					except WorkOrder.DoesNotExist:
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 				request.session['job_title'] = employee.job_title

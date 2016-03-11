@@ -82,7 +82,14 @@
 					  <span class="input-group-addon" >Final Cost</span>
 					  <input class="form-control" id="e_final" type="number" value="{{work_order.estimate_revision}}" disabled>					
 					</div>
+					{% if work_order.amount_paid > 0 %}
 					<br>
+					<div class="input-group">
+					  <span class="input-group-addon" >Amount Paid So Far</span>
+					  <input class="form-control" id="e_final" type="number" value="{{work_order.amount_paid}}" disabled>					
+					</div>
+					<br>
+					{% endif %}
 					<div class="input-group">
 					  <span class="input-group-addon" >Payment Amount</span>
 					  <input class="form-control" id="payment_amount" type="number">
@@ -90,7 +97,7 @@
 					<br>
 					<div class="input-group">
 					  <span class="input-group-addon" >Work Order Status</span>
-					  {{work_order.status}}
+					  <input class="form-control" value="{{work_order.status}}" disabled>					
 					</div>
 					<br>
 					<button  class="btn btn-success" type="button" id="submitPayment">Submit</button>
