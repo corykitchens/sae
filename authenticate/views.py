@@ -13,7 +13,6 @@ def login(request):
 	if request.user.is_authenticated():
 		emp_home_tmp = 'employee/employee_home.html'
 
-
 		try:
 			employee = Employee.objects.get(user=request.user)
 		except Employee.DoesNotExist:
@@ -33,6 +32,7 @@ def login(request):
 				work_orders = WorkOrder.objects.filter(status='Completed').exclude(status='Closed')
 			except WorkOrder.DoesNotExist:
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
+		request.session['job_title'] = employee.job_title
 		return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'work_orders' : work_orders})
 		
 	'''
@@ -63,7 +63,7 @@ def login(request):
 						work_orders = WorkOrder.objects.filter(status='Completed').exclude(status='Closed')
 					except WorkOrder.DoesNotExist:
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
-
+				request.session['job_title'] = employee.job_title
 				return render(request, emp_home_tmp, {'user': request.user, 'employee': employee,
 					'work_orders' : work_orders})
 			else:
