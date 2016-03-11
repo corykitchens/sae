@@ -192,7 +192,7 @@ var processPayment = function() {
 			'payment_amount' : payment_amount,
 		}
 	}).success(function(data) {
-		console.log(data);
+		$('#myModal').modal('show');
 	}).error(function(data) {
 		console.log(data['responseText']);
 	})
