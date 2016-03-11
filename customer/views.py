@@ -31,16 +31,6 @@ from django.http import HttpResponse
 from easy_pdf.views import PDFTemplateView
 from easy_pdf.rendering import render_to_pdf_response
 
-class WorkOrderPDF(PDFTemplateView):
-    template_name="customer/workorder_summary.html"
-    model = WorkOrder
-
-    def get_context_data(self, **kwargs):
-        ctx = super(PDFTemplateView, self).get_context_data(**kwargs)
-        ctx['workorder_id'] = kwargs['workorder_id']
-        w = WorkOrder.objects.get(pk=ctx['workorder_id'])
-        ctx['workorder'] = w
-        return ctx
 
 
 def render_to_pdf(template_src, context_dict):
@@ -115,11 +105,13 @@ def vehicle_profile(request, vehicle_id):
     return render(request, 'customer/vehicle_profile.html', {'vehicle': vehicle, 'workorder': workorder} )
 
 def workorder_summary(request, workorder_id):
-    workorder = WorkOrder.objects.get(id=workorder_id)
-    service_notes = EmployeeServiceNotes.objects.filter(work_order=workorder)
-    return render_to_pdf_response(request, 'customer/workorder_summary.html', {'workorder' : workorder, 'service_notes' : service_notes})
-    #return render_to_pdf('customer/workorder_summary.html', {'workorder': workorder})    
+    workorder = WorkOrder.objects.filter(id=workorder_id)
+    return render(request,'customer/workorder_summary.html', {'workorder': workorder})    
 
+def pdf_workorder_summary(request, workorder_id):
+    workorder = WorkOrder.objects.filter(id=workorder_id)
+    return render_to_pdf('customer/pdf_workorder_summary.html', {'workorder': workorder})    
+        
 def piechart(request):
     # Initialise the report
     template = "myapp/my_report.html"
@@ -151,6 +143,39 @@ def edit(request, customer_id):
     return render(request, 'customer/customer_edit_form.html', {'formset': formset, 'form': form})
 
 
+def generate_history(request, vehicle_id):
+    date_from = request.GET['date_from']
+    date_to = request.GET['date_to']
+    dates = dict()
+    dates['from'] = date_from
+    dates['to'] = date_to
+
+    try:
+        w = WorkOrder.objects.filter(vehicle=vehicle_id)
+    except WorkOrder.DoesNotExist:
+        return HttpResponse('No Work Orders')
+    try:
+        workorder = WorkOrder.objects.filter(vehicle=vehicle_id, date_created__gt=date_from, date_created__lt=date_to)
+    except WorkOrder.DoesNotExit:
+        return HttpResponse('Query didnt work')
+    return render(request,'customer/workorder_summary_history.html', {'dates': dates, 'workorder': workorder})    
+
+def pdf_history_summary(request, vehicle_id):
+    date_from = request.GET['date_from']
+    date_to = request.GET['date_to']
+    dates = dict()
+    dates['from'] = date_from
+    dates['to'] = date_to
+
+    try:
+        w = WorkOrder.objects.filter(vehicle=vehicle_id)
+    except WorkOrder.DoesNotExist:
+        return HttpResponse('No Work Orders')
+    try:
+        workorder = WorkOrder.objects.filter(vehicle=vehicle_id, date_created__gt=date_from, date_created__lt=date_to)
+    except WorkOrder.DoesNotExit:
+        return HttpResponse('Query didnt work')
+    return render_to_pdf('customer/workorder_summary_history.html', {'dates': dates, 'workorder': workorder})    
 
 
 def get_customer(request, first_name, last_name):

@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 	// Generate Customer Report
 	$('#reportBtn').click(function() {
+		console.log('Hello world');
 		generateCustomerReport();
 	});
 
@@ -168,8 +169,23 @@ var verifyInput = function() {
 
 var generateCustomerReport = function() {
 	
+	var data = [
+	{
+		value: 500,
+		color: "#52409AB",
+		label: "A"
+	},
+	{
+		value: 250,
+		color: "#5AX09AB",
+		label: "B"
+	},
+	
+	]
+
 	var ctx = document.getElementById("myChart").getContext("2d");
 	var myNewChart = new Chart(ctx).PolarArea(data);
+	
 
 }
 

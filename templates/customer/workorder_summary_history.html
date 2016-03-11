@@ -1,0 +1,155 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Summary of Work Completed</title>
+    
+    <style>
+    .invoice-box{
+        max-width:800px;
+        margin:auto;
+        padding:30px;
+        border:1px solid #eee;
+        box-shadow:0 0 10px rgba(0, 0, 0, .15);
+        font-size:16px;
+        line-height:24px;
+        font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color:#555;
+    }
+    
+    .invoice-box table{
+        width:100%;
+        line-height:inherit;
+        text-align:left;
+    }
+    
+    .invoice-box table td{
+        padding:5px;
+        vertical-align:top;
+    }
+    
+    .invoice-box table tr td:nth-child(2){
+
+    }
+    
+    .invoice-box table tr.top table td{
+        padding-bottom:20px;
+    }
+    
+    .invoice-box table tr.top table td.title{
+        font-size:45px;
+        line-height:45px;
+        color:#333;
+    }
+    
+    .invoice-box table tr.information table td{
+        padding-bottom:40px;
+    }
+    
+    .invoice-box table tr.heading td{
+        background:#eee;
+        border-bottom:1px solid #ddd;
+        font-weight:bold;
+    }
+    
+    .invoice-box table tr.details td{
+        padding-bottom:20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom:1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td{
+        border-bottom:none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2){
+        border-top:2px solid #eee;
+        font-weight:bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td{
+            width:100%;
+            display:block;
+            text-align:center;
+        }
+        
+        .invoice-box table tr.information table td{
+            width:100%;
+            display:block;
+            text-align:center;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <h2 style="text-align:center;">Vehicle Work Order History</h2>
+        <strong>From {{dates.from}} </strong>
+        <strong>To {{dates.to}}</strong>
+        <img src="{% static "pictures/Logo.png" %}" style="width:100%; max-width:300px;">
+        
+        <h3>Customer Information</h3>
+        <strong>Name: </strong>{{workorder.0.customer.first_name}}
+        {{workorder.0.customer.last_name}}<br>
+        <strong>Address: </strong>
+        {{workorder.0.customer.address.address}}
+        {{workorder.0.customer.address.city}}
+        {{workorder.0.customer.address.state}}
+        {{workorder.0.customer.address.zip_code}}
+        <br><br>
+        <table class="table">
+            <th>Invoice #</th>
+            <th>Date Created</th>
+            <th>Date Completed</th>
+            <tbody>
+            {% for workorder in workorder.all %}
+            <tr>
+                <td>#{{workorder.id}}</td>
+                <td>{{workorder.date_created}}</td>
+                <td>Completed: {{workorder.date_completed}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Service History</h3>
+        <table>
+            <th>Service Type</th>
+            <th>Parts</th>
+            <th>Initial Estimate</th>
+            <th>Final Cost</th>
+            <tbody>
+                {% for workorder in workorder.all %}
+                <tr>
+                    <td>{% for service in workorder.service_type.all %}
+                            {{service.name}}
+                        {% endfor %}
+                    </td>
+                    <td>{{workorder.parts_required.all}}</td>
+                    <td>{{workorder.estimate_initial}}</td>
+                    <td>{{workorder.estimate_revision}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        Stockdale Auto Electric<br>
+        2901 Brundage Ln.<br>
+        Bakersfield, California 93304<br>
+
+    </div>
+
+    
+    <form action="/customers/pdf_history_summary/{{workorder.0.vehicle.id}}">
+        <input hidden type="text" value='{{dates.from}}' name="date_from">
+        <input hidden type="text" value='{{dates.to}}' name="date_to">
+        <button type="submit" class="btn btn-primary">Export</button>
+    </form>
+    
+</body>
+</html>

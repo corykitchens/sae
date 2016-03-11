@@ -88,7 +88,7 @@
 
 <body>
     <div class="invoice-box">
-        <h2 style="text-align:center;">Workorder Summary</h2>
+        
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -143,32 +143,30 @@
             
             <tr class="heading">
                 <td>
+                    {% for workorder in workorder.all %}
                         <u>Vehicle Info</u><br>
+                        Year/Make/Model: {{workorder.vehicle.year}}/
+                        {{workorder.vehicle.make}}/{{workorder.vehicle.model}}<br>
+                        Odomter:{{workorder.odometer}}<br>
+                        Service Type: {{workorder.service_type}}<br>
+                    {% endfor %}
                 </td>
                 
                 <td>
-                        <u>Service Summary</u><br>
+                    {% for workorder in workorder.all %}
+                        <u>Vehicle Info</u><br>
+                        
+                    {% endfor %}
                 </td>
             </tr>
             
             <tr class="details">
                 <td>
-                    {% for workorder in workorder.all %}
-                        <strong>Year/Make/Model:</strong> {{workorder.vehicle.year}}
-                        {{workorder.vehicle.make}}
-                        {{workorder.vehicle.model}}<br>
-                        <strong>Mileage:</strong> {{workorder.odometer}}<br>
-                    {% endfor %}
+                    Check
                 </td>
                 
                 <td>
-                    {% for workorder in workorder.all %}
-                        <strong>Service Type: </strong>{{workorder.service_type}}<br>
-                        <strong>Parts Used </strong>{{workorder.parts_required}}<br>
-                        <strong>Initial Estimate: </strong>{{workorder.estimate_initial}}<br>
-                        <strong>Revised Estimate: </strong>{{workorder.estimate_revision}}<br>
-                        <strong>Subtotal Less Taxes: </strong>{{workorder.estimate_initial}}<br>
-                    {% endfor %}
+                    1000
                 </td>
             </tr>
             
@@ -208,12 +206,6 @@
                 </td>
             
         </table>
-
     </div>
-    {% for workorder in workorder.all %}
-    <form action="/customers/pdf_workorder_summary/{{workorder.id}}">
-        <button type="submit" class="btn btn-primary">Export</button>
-    </form>
-    {% endfor %}
 </body>
 </html>
