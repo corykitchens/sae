@@ -2,10 +2,13 @@
 $(document).ready(function() {
 
 
+	// Generate Customer Report
 	$('#reportBtn').click(function() {
 		generateCustomerReport();
 	});
 
+
+	// Submit Work Order
 	$('.btnSubmit').click(function() {
 		if (verifyInput()) {
 			$('form').submit();
@@ -13,11 +16,16 @@ $(document).ready(function() {
 		
 	});
 
+	// Service Notes
 	$('.submit-note').click(function() {
 		submitNote();
 		$('form').trigger('reset');
 	});
 
+	// Payment Processing
+	$('#submitPayment').click(function() {
+		processPayment();
+	})
 	$('.vehicle-list-select').hide();
 	var vehicles;
  	$('#query-existing-customer-btn').on('click', function() {
@@ -163,3 +171,54 @@ var generateCustomerReport = function() {
 	var myNewChart = new Chart(ctx).PolarArea(data);
 
 }
+
+var processPayment = function() {
+	var est_init = $("#e_initial").val();
+	var final_cost = $("#e_final").val();
+	var payment_amount = $("#payment_amount").val();
+	var w_id = $("#w_id").val();
+	var csrftoken = $.cookie("csrftoken");
+	console.log(payment_amount)
+	
+	$.ajax({
+		url : '/workorders/process_payment/' + w_id + "/",
+		type : 'post',
+		data : {
+			'csrfmiddlewaretoken' : csrftoken,
+			'work_order_id' : w_id,
+			'estimate_initial': est_init,
+			'final_cost' : final_cost,
+			'payment_amount' : payment_amount,
+		}
+	}).success(function(data) {
+		console.log(data);
+	}).error(function(data) {
+		console.log(data['responseText']);
+	})
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

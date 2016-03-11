@@ -94,6 +94,8 @@ def create_work_order(request):
 			w.date_created = timezone.now()
 			w.problem_description = request.POST['problem_description']
 			w.estimate_initial = 0
+			w.estimate_revision = 0
+			w.amount_paid = 0
 			w.customer = c
 			w.status = 'Assigned'
 			w.vehicle = v
@@ -149,6 +151,8 @@ def create_work_order(request):
 			w.date_created = timezone.now()
 			w.problem_description = request.POST['problem_description']
 			w.estimate_initial = 0
+			w.estimate_revision = 0
+			w.amount_paid = 0
 			w.customer = c
 			w.status = 'Assigned'
 			w.vehicle = v
@@ -256,5 +260,27 @@ def process_payment(request, work_order_id):
 		except EmployeeServiceNotes.DoesNotExist:
 			service_notes = ''
 		return render(request, 'workorder/process_payment.html', {'work_order': work_order, 'service_notes' : service_notes})
-	else:
-		return HttpResponse('Hello World')
+	elif request.method == 'POST':
+		#First get post data
+		work_order_id = int(request.POST['work_order_id'])
+		try:
+			w = WorkOrder.objects.get(pk=work_order_id)
+			payment_amount = float(request.POST['payment_amount'])
+			total_balance = 0
+			w.amount_paid = w.amount_paid + payment_amount
+			if w.amount_paid >= w.estimate_revision:
+				w.status = 'Closed'
+			else:
+				w.status = 'Awaiting Payment'
+				total_balance = w.estimate_revision - w.amount_paid
+			w.save()
+		except WorkOrder.DoesNotExist:
+			w = "Failed"
+
+		response_data = dict()
+		response_data['total_balance'] = total_balance
+		response_data['status'] = w.status
+
+		return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
