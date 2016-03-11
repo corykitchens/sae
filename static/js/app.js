@@ -115,6 +115,7 @@ var submitNote = function() {
 	// //Status
 	var status = $('#service-status').val();
 	// //Reassigning?
+	console.log(status);
 	var work_order_id = $('#work_order_id').val();
 	
 	var reassign_status = $("#reassign").val();
@@ -179,7 +180,7 @@ var processPayment = function() {
 	var w_id = $("#w_id").val();
 	var csrftoken = $.cookie("csrftoken");
 	console.log(payment_amount)
-	
+
 	$.ajax({
 		url : '/workorders/process_payment/' + w_id + "/",
 		type : 'post',

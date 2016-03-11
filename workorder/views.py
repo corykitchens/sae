@@ -231,7 +231,7 @@ def submit_service_notes(request):
 	
 	service_notes.save()
 	
-	if response_data['reassign'] is "No":
+	if response_data['reassign'] != "No":
 		response_data['first_name'] = response_data['reassign'].split()[0]
 		response_data['last_name'] = response_data['reassign'].split()[1]
 		w.employee = Employee.objects.get(first_name=response_data['first_name'], last_name=response_data['last_name'])
@@ -240,7 +240,7 @@ def submit_service_notes(request):
 	'''
 	w.status = response_data['status']
 	if w.status == 'Completed':
-		w.date_completed = datetime.datetime.strftime(datetime.datetime.now(),'%B-%w-%Y-%X-%p')
+		w.date_completed = timezone.now()
 	w.save()
 
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
