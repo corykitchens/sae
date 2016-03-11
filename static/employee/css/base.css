@@ -5,7 +5,15 @@ body {
 .side-nav {
 	background-color: #263238;
 	min-height: 100%;
+	width: 20%;
+	position: fixed;
+	margin: 0 0 0 -15px;
 
+}
+
+i {
+	padding: 5px;
+	
 }
 
 .side-nav ul {

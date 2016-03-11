@@ -218,9 +218,15 @@ def submit_service_notes(request):
 		date_serviced = timezone.now(),
 		hours_spent = response_data['time_spent'],
 		notes = response_data['notes'],
+
 	)
 	service_notes.save()
 
+	for part in response_data['parts']:
+		service_notes.parts_used.add(Part.objects.get(name=part))
+	
+	service_notes.save()
+	
 	if response_data['reassign'] is "No":
 		response_data['first_name'] = response_data['reassign'].split()[0]
 		response_data['last_name'] = response_data['reassign'].split()[1]
@@ -229,8 +235,26 @@ def submit_service_notes(request):
 	Update Work Order status
 	'''
 	w.status = response_data['status']
+	if w.status == 'Completed':
+		w.date_completed = datetime.datetime.strftime(datetime.datetime.now(),'%B-%w-%Y-%X-%p')
 	w.save()
 
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
 	
-	
+
+
+def process_payment(request, work_order_id):
+	if request.method == 'GET':
+		# Work Order Information
+		try:
+			work_order = WorkOrder.objects.get(pk=work_order_id)
+		except WorkOrder.DoesNotExist:
+			work_order = ''
+		#Service Notes
+		try:
+			service_notes = EmployeeServiceNotes.objects.filter(work_order=work_order)
+		except EmployeeServiceNotes.DoesNotExist:
+			service_notes = ''
+		return render(request, 'workorder/process_payment.html', {'work_order': work_order, 'service_notes' : service_notes})
+	else:
+		return HttpResponse('Hello World')

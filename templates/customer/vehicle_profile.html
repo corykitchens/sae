@@ -1,6 +1,7 @@
-
 {% extends 'base.html' %}
 {% block content %}
+
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="card employee-card">
@@ -12,10 +13,10 @@
 				<th>License Plate</th>
 				<tbody>
 					<tr>
-						<td>{{workorder.vehicle.make}}</td>
-						<td>{{workorder.vehicle.model}}</td>
-						<td>{{workorder.odometer}}</td>
-						<td>{{workorder.vehicle.license_plate}}</td>
+						<td>{{vehicle.make}}</td>
+						<td>{{vehicle.model}}</td>
+						<td>{{odometer}}</td>
+						<td>{{vehicle.license_plate}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -37,12 +38,16 @@
 				{% for workorder in workorder.all %}
 					<tr>
 						<td>{{workorder.date_created}}</td>
-						<td>{{workorder.service_type}}</td>
+						<td>
+							{% for service in workorder.service_type.all %}
+								<li>{{service.name}}</li>
+							{% endfor %}
+						</td>
 						<td>{{workorder.amount_paid}}</td>
 						<td>{{workorder.estimate_revision}}</td>
 						<td>
 						<form action="/customers/workorder_summary/{{workorder.id}}">
-						    <button type="submit" value="Create Work Order" class="btn btn-primary">Submit</button>
+						    <button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 						</td>
 					</tr>

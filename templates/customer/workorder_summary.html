@@ -1,212 +1,67 @@
-{% load staticfiles %}
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Summary of Work Completed</title>
-    
-    <style>
-    .invoice-box{
-        max-width:800px;
-        margin:auto;
-        padding:30px;
-        border:1px solid #eee;
-        box-shadow:0 0 10px rgba(0, 0, 0, .15);
-        font-size:16px;
-        line-height:24px;
-        font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color:#555;
-    }
-    
-    .invoice-box table{
-        width:100%;
-        line-height:inherit;
-        text-align:left;
-    }
-    
-    .invoice-box table td{
-        padding:5px;
-        vertical-align:top;
-    }
-    
-    .invoice-box table tr td:nth-child(2){
-        text-align:right;
-    }
-    
-    .invoice-box table tr.top table td{
-        padding-bottom:20px;
-    }
-    
-    .invoice-box table tr.top table td.title{
-        font-size:45px;
-        line-height:45px;
-        color:#333;
-    }
-    
-    .invoice-box table tr.information table td{
-        padding-bottom:40px;
-    }
-    
-    .invoice-box table tr.heading td{
-        background:#eee;
-        border-bottom:1px solid #ddd;
-        font-weight:bold;
-    }
-    
-    .invoice-box table tr.details td{
-        padding-bottom:20px;
-    }
-    
-    .invoice-box table tr.item td{
-        border-bottom:1px solid #eee;
-    }
-    
-    .invoice-box table tr.item.last td{
-        border-bottom:none;
-    }
-    
-    .invoice-box table tr.total td:nth-child(2){
-        border-top:2px solid #eee;
-        font-weight:bold;
-    }
-    
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td{
-            width:100%;
-            display:block;
-            text-align:center;
-        }
-        
-        .invoice-box table tr.information table td{
-            width:100%;
-            display:block;
-            text-align:center;
-        }
-    }
-    </style>
+<meta charset="UTF-8">
 </head>
 
+{% block content %}
 <body>
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td class="title">
-                                <img src="{% static "pictures/Logo.png" %}" style="width:100%; max-width:300px;">
-                            </td>
-                            
-                            <td>
-                                {% for workorder in workorder.all %}
-                                    Invoice #: {{workorder.id}}<br>
-                                    Created: {{workorder.date_created}}<br>
-                                    Completed: {{workorder.date_completed}}
-                            </td>
-                                {% endfor %}
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            
-            <tr class="information">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>
-                                {% for workorder in workorder.all %}
-                                    {{workorder.customer.first_name}}
-                                    {{workorder.customer.last_name}}<br>
-                                    {{workorder.customer.address.address}}<br>
-                                    {{workorder.customer.address.city}}
-                                    {{workorder.customer.address.state}}
-                                    {{workorder.customer.address.zip_code}}
-                            </td>
-                                {% endfor %}
-                            <td>
-                                Stockdale Auto Electric<br>
-                                2901 Brundage Ln.<br>
-                                Bakersfield, California 93304<br>
+<div class="company-info">
+    <h1>Stockdale Auto Electric Customer Receipt</h1>
+    <p>2901 Brundage Ln</p>
+    <p>Bakersfield, California 93304</p>
+</div>
 
-                                {% for workorder in workorder.all %}
-                                    Tech: {{workorder.employee.first_name}}
-                                    {{workorder.employee.last_name}}<br>
-                                    {{workorder.employee.email}}<br>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            
-            <tr class="heading">
-                <td>
-                    Payment Method
-                </td>
-                
-                <td>
-                    Check #
-                </td>
-            </tr>
-            
-            <tr class="details">
-                <td>
-                    Check
-                </td>
-                
-                <td>
-                    1000
-                </td>
-            </tr>
-            
-            <tr class="heading">
-                <td>
-                    Item
-                </td>
-                
-                <td>
-                    Price
-                </td>
-            </tr>
-            
-            <tr class="item">
-                <td>
-                    Website design
-                </td>
-                
-                <td>
-                    $300.00
-                </td>
-            </tr>
-            
-            <tr class="item">
-                <td>
-                    Hosting (3 months)
-                </td>
-                
-                <td>
-                    $75.00
-                </td>
-            </tr>
-            
-            <tr class="item last">
-                <td>
-                    Domain name (1 year)
-                </td>
-                
-                <td>
-                    $10.00
-                </td>
-            </tr>
-            
-            <tr class="total">
-                <td></td>
-                
-                <td>
-                   Total: $385.00
-                </td>
-            </tr>
-        </table>
-    </div>
+<div class="customer-info">
+    <h2>Customer Information</h2>
+    {% for workorder in workorder.all %}
+        {{workorder.customer.first_name}}
+        {{workorder.customer.last_name}}<br>
+        {{workorder.customer.address.address}}<br>
+        {{workorder.customer.address.city}}
+        {{workorder.customer.address.state}}
+        {{workorder.customer.address.zip_code}}    
+</div>
+
+<div class="service-info">
+    <h2>Serivce Information</h2>
+    <strong>Service Requestd</strong>
+
+    {% for service in workorder.service.all %}
+        <li>{{service.name}}</li><br />
+    {% endfor %}
+    
+    <strong>Date of Initial Service: </strong>
+    {{work_order.date_created}}
+    
+    <strong>Date of Service Completion</strong>
+    {% for note in service_notes.all %}
+        <strong>Tech:</strong> {{note.employee}} || <strong>Date</strong>{{note.date_serviced}}
+        <br />
+        <strong>Notes</strong>{{note.notes}}
+        
+    {% endfor %}
+</div>
+
+<div class="payment-info">
+    <h2>Payment Information</h2>
+
+    <strong>Initial Estimate</strong> : {{workorder.estimate_initial}}<br />
+
+    <strong> Total Estimate: </strong> {{workorder.estimate_revision}}<br />
+
+    <strong>Total Amount Paid:</strong> {{workorder.amount_paid}}
+</div>
+
+
+{% endfor %}
+
+
+
+
+
+
+
+{% endblock %}
 </body>
 </html>

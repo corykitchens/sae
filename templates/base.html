@@ -18,60 +18,62 @@
   <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 side-nav">
-        <ul class="side-nav-links">
-
-        <!-- HOME -->
-          <li class="side-nav-link" id="home">
-            <a href="/">
-              <i class="fa fa-home"></i> Home
-            </a>
-          </li>
-
+      <div class="col-md-3">
+        <div class="side-nav">
           
-          {% if employee.job_title == "Administrative" %}
-            <li class="side-nav-link">
-              <a href="/employees/hr">
-                <i class="fa fa-credit-card"></i> Payment Processing
+          <ul class="nav side-nav-links">
+          <!-- HOME -->
+            <li class="side-nav-link" id="home">
+              <a href="/">
+                <i class="fa fa-home"></i> Home
               </a>
             </li>
-          {% endif %}
-          
-          <!-- SERVICE -->
-          <li class="side-nav-link" id="service">
-            <a href="/workorders">
-              <i class="fa fa-wrench"></i> Service
-            </a>
-          </li>
-          <!-- EMP DIRECTORY -->
-          <li class="side-nav-link" id="emp_directory">
-            <a href="/employees/employee_directory"><i class="fa fa-users"></i>
-              Employee Directory
-            </a>
-          </li>
 
-          <!-- CUST DIRECTORY -->
-          <li class="side-nav-link" id="cust_directory">
-            <a href="/customers/customer_directory">
-              <i class="fa fa-car"></i> Customer Directory
-            </a>
-          </li>
-          
+            
+            {% if employee.job_title == "Administrative" %}
+              <li class="side-nav-link">
+                <a href="/employees/hr">
+                  <i class="fa fa-credit-card"></i> Payment Processing
+                </a>
+              </li>
+            {% endif %}
+            
+            <!-- SERVICE -->
+            <li class="side-nav-link" id="service">
+              <a href="/workorders">
+                <i class="fa fa-wrench"></i> Service
+              </a>
+            </li>
+            <!-- EMP DIRECTORY -->
+            <li class="side-nav-link" id="emp_directory">
+              <a href="/employees/employee_directory"><i class="fa fa-users"></i>
+                Employee Directory
+              </a>
+            </li>
 
-          <!-- PROFILE -->
-          <li class="side-nav-link" id="profile">
-            <a href="/employees/edit_profile/{{request.user.id}}">
-              <i class="fa fa-user"></i> Employee Profile
-            </a>
-          </li>
+            <!-- CUST DIRECTORY -->
+            <li class="side-nav-link" id="cust_directory">
+              <a href="/customers/customer_directory">
+                <i class="fa fa-car"></i> Customer Directory
+              </a>
+            </li>
+            
 
-          <!-- LOGOUT -->
-          <li class="side-nav-link">
-            <a href="/user/logout">
-              <i class="fa fa-sign-out"></i> Logout
-            </a>
-          </li>
-        </ul>
+            <!-- PROFILE -->
+            <li class="side-nav-link" id="profile">
+              <a href="/employees/edit_profile/{{request.user.id}}">
+                <i class="fa fa-user"></i> Employee Profile
+              </a>
+            </li>
+
+            <!-- LOGOUT -->
+            <li class="side-nav-link">
+              <a href="/user/logout">
+                <i class="fa fa-sign-out"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- BEGIN CONTENT -->
@@ -81,13 +83,6 @@
         {% endblock %}
       </div>
   </div>
-  </div>
-  <div class="cointainer-fluid footer">
-    <div class="row">
-      <div class="col-md-12">
-        <small>Stockdale Auto Electric</small>
-      </div>
-    </div>
   </div>
     <!-- jQuery first, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

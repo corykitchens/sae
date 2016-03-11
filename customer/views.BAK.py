@@ -1,18 +1,8 @@
 from __future__ import print_function
 import sys
 import json
-from io import BytesIO, StringIO
-import StringIO
-from reportlab.pdfgen import canvas
-from xhtml2pdf import pisa
-from django.template.loader import get_template
-from django.template import Context
-from cgi import escape
 
-import random
-#from customer.reports import MyReport
-#from customer.reports import MyReport
-from workorder.models import WorkOrder, Part, EmployeeServiceNotes
+from workorder.models import WorkOrder
 from django.core import serializers
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -22,63 +12,10 @@ from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from customer.forms import CustomerForm, AddressForm, Customer_Edit_Form, Address_Edit_Form
 from customer.models import Customer, Customer_Address
 from vehicle.models import Vehicle
-from django.http import HttpResponse
-
-from easy_pdf.views import PDFTemplateView
-from easy_pdf.rendering import render_to_pdf_response
-
-class WorkOrderPDF(PDFTemplateView):
-    template_name="customer/workorder_summary.html"
-    model = WorkOrder
-
-    def get_context_data(self, **kwargs):
-        ctx = super(PDFTemplateView, self).get_context_data(**kwargs)
-        ctx['workorder_id'] = kwargs['workorder_id']
-        w = WorkOrder.objects.get(pk=ctx['workorder_id'])
-        ctx['workorder'] = w
-        return ctx
-
-
-def render_to_pdf(template_src, context_dict):
-    template = get_template(template_src)
-    context = Context(context_dict)
-    html  = template.render(context)
-    result = StringIO.StringIO()
-
-    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
-
-def barchart(request):
-    #instantiate a drawing object
-    import mycharts
-    d = mycharts.MyBarChartDrawing()
-
-    #extract the request params of interest.
-    #I suggest having a default for everything.
-    if 'height' in request:
-        d.height = int(request['height'])
-    if 'width' in request:
-        d.width = int(request['width'])
-    
-    if 'numbers' in request:
-        strNumbers = request['numbers']
-
-        numbers = map(int, strNumbers.split(','))    
-        #d.chart.data = [numbers]   #bar charts take a list-of-lists for data
-
-    if 'title' in request:
-        d.title.text = request['title']
-  
-
-    #get a GIF (or PNG, JPG, or whatever)
-    binaryStuff = d.asString('gif')
-    return HttpResponse(binaryStuff, 'image/gif')
 # Create your views here.
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
 class CustomerDirectory(ListView):
@@ -107,26 +44,23 @@ def add(request):
 
 def customer_profile(request, customer_id):
     customer  = Customer.objects.get(id=customer_id)
-    return render(request, 'customer/customer_profile.html', {'customer': customer})
+    vlist = customer.vehicle.all()
+    count = []
+    i = 0
+    for vehicle in vlist:
+        count.append(WorkOrder.objects.filter(vehicle=vehicle.id).count())
+        i += 1
+    i = 0
+    return render(request, 'customer/customer_profile.html', {'customer': customer, 'count' : count, 'i' : i })
 
 def vehicle_profile(request, vehicle_id):
-    vehicle         = Vehicle.objects.filter(id=vehicle_id)
-    workorder = WorkOrder.objects.filter(vehicle=vehicle)
-    return render(request, 'customer/vehicle_profile.html', {'workorder': workorder, 'vehicle' : vehicle} )
+    v         = Vehicle.objects.filter(id=vehicle_id)
+    workorder = WorkOrder.objects.filter(vehicle=v)
+    return render(request, 'customer/vehicle_profile.html', {'workorder': workorder} )
 
 def workorder_summary(request, workorder_id):
     workorder = WorkOrder.objects.filter(id=workorder_id)
-    service_notes = EmployeeServiceNotes.objects.filter(work_order=workorder)
-    return render_to_pdf_response(request, 'customer/workorder_summary.html', {'workorder' : workorder, 'service_notes' : service_notes})
-    #return render_to_pdf('customer/workorder_summary.html', {'workorder': workorder})    
-
-def piechart(request):
-    # Initialise the report
-    template = "myapp/my_report.html"
-    report = MyReport()
-    context = {'report': report}
-
-    return render(request, template, context)
+    return render(request, 'customer/workorder_summary.html', {'workorder': workorder})    
 
 def print_objs(*objs):
     print("OUTPUT->", objs, file=sys.stderr)

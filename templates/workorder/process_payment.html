@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Work Order Detail -->
+		<div class="card employee-card">
+			<h5 class="card-title">Work Order</h5>
+			<table class="table">
+				<th>Date</th>
+				<th>Customer</th>
+				<th>Vehicle</th>
+				<th>Services</th>
+				<th>Parts</th>
+				<tbody>
+					<tr>
+						<td>{{work_order.date_created}}</td>
+						<td>{{work_order.customer}}</td>
+						<td>{{work_order.vehicle}}</td>
+						<td>
+							{% for service in work_order.service_type.all %}
+								<li>{{service.name}}</li>
+							{% endfor %}
+						</td>
+						<td>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Work Order Detail -->
+		<div class="card employee-card">
+			<h5 class="card-title">Technician Notes</h5>
+			<table class="table">
+				<th>Date</th>
+				<th>Technician</th>
+				<th>Time Spend</th>
+				<th>Parts</th>
+				<th>Notes</th>
+				<tbody>
+					{% for service in service_notes %}
+					<tr>
+						<td>{{service.date_serviced}}</td>
+						<td>{{service.employee}}</td>
+						<td>{{service.hours_spent}}</td>
+						<td>
+						{% for parts in service.parts_used.all %}
+							<li>{{part}}</li>
+						{% endfor %}
+						</td>
+						<td>{{service.notes}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Work Order Detail -->
+		<div class="card employee-card">
+			<h5 class="card-title">Payment</h5>
+			<li>Initial Estimate of Cost {{work_order.estimate_initial}}</li>
+
+			<li>Final Cost {{work_order.estimate_revision}}</li>
+			<li>Amount of Payment <input type=number></li>
+			<li>Payment Method</li>
+			<selection>
+				<option>Cash</option>
+				<option>Credit Card</option>
+				<option>Check</option>
+			</selection>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
