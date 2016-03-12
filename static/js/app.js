@@ -202,11 +202,21 @@ var generateReportData = function(res) {
 			highlightFill: "rgba(220,220,220,0.75)",
 			highlightStroke: "rgba(220,220,220,1)",
 			data: res['w_cost']
+		},
+		{
+			label: "Net Sales",
+			fillColor: "rgba(0,255,100,0.5)",
+			strokeColor: "rgba(220,220,220,0.8)",
+			highlightFill: "rgba(220,220,220,0.75)",
+			highlightStroke: "rgba(220,220,220,1)",
+			data: res['w_net_sales']
 		}
 		]
 	};
 	var ctx = document.getElementById("myChart").getContext("2d");
-	var myNewChart = new Chart(ctx).Line(data);
+	var salesChart = new Chart(ctx).Line(data);
+	var legend_str = salesChart.generateLegend();
+	$('.legend').append(legend_str);
 }
 
 var processPayment = function() {

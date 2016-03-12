@@ -243,15 +243,20 @@ def generate_report(request):
     list_of_months = ['January','February','March','April','May','June','July','August', 'September', 'October', 'November', 'December']
     response_data['w_date'] = list_of_months[from_month-1:to_month]
 
+    sales      = [0,0,0,0,0,0,0,0]
+    net_sales = list()
+
     for i in range(from_month-1, to_month):
         workorders = WorkOrder.objects.filter(date_created__month=i+1)
         total_cost = 0
         for workorder in workorders:
             total_cost = total_cost + workorder.estimate_revision
+            net_sales.append(workorder.estimate_revision - sales[i]*.34)
+            
         workorder_cost.append(total_cost)
-
         
-
+        
+    response_data['w_net_sales'] = net_sales
     response_data['w_cost'] = workorder_cost
-    
+
     return HttpResponse(json.dumps(response_data), content_type='application/json')
