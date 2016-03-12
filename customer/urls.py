@@ -21,6 +21,7 @@ urlpatterns = [
 	url(r'^pdf_history_summary/(?P<vehicle_id>[0-9]+)$', pdf_history_summary, name="pfg_workorder_summary"),
 	#url(r'^piechart', views.piechart, name="piechart"),
 	url(r'^reports/$', 'customer.views.reports'),
+	url(r'^charts/bar/$', 'customer.views.barchart'),
 	url(r'^reports/generate_report', 'customer.views.generate_report')
 	
 ]

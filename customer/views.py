@@ -45,8 +45,16 @@ def render_to_pdf(template_src, context_dict):
 
 def barchart(request):
     #instantiate a drawing object
-    
-    d = mycharts.MyBarChartDrawing()
+    import mycharts
+    d_to = request.GET['date_to']
+    d_from = request.GET['date_from']
+    dates = dict()
+    dates = {
+        'to' : d_to,
+        'from' : d_from
+    }
+
+    d = mycharts.Bar(date_to=d_to, date_from=d_from)
 
     #extract the request params of interest.
     #I suggest having a default for everything.
@@ -67,8 +75,10 @@ def barchart(request):
 
     #get a GIF (or PNG, JPG, or whatever)
     binaryStuff = d.asString('gif')
-    return render(request, 'customer/piechart.html', {'chart' : binaryStuff})
-# Create your views here.
+    response_data = dict()
+    response_data['img'] = binaryStuff
+    return HttpResponse(binaryStuff, 'image/gif')
+
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
 class CustomerDirectory(ListView):
     model = Customer
@@ -218,28 +228,30 @@ def generate_report(request):
     dates['from'] = date_from
     dates['to'] = date_to
 
-    response_data = dict()
-    emp_cost = list()
-    workorder_cost = list()
-    workorder_date = list()
-
-
     try:
-        workorders = WorkOrder.objects.filter(date_created__gte=date_from, date_created__lte=date_to)
+        workorders = WorkOrder.objects.filter(date_created__gte=date_from, date_created__lte=date_to).order_by('date_created')
     except WorkOrder.DoesNotExit:
         return HttpResponse('Query didnt work')
 
-    for workorder in workorders:
-        workorder_cost.append(workorder.estimate_revision)
-        workorder_date.append(str(workorder.date_created))
+    
+    response_data = dict()
+    workorder_cost = list()
+    workorder_date = list()
+
+    from_month = int(date_from[6])
+    to_month = int(date_to[6])
+    list_of_months = ['January','February','March','April','May','June','July','August', 'September', 'October', 'November', 'December']
+    response_data['w_date'] = list_of_months[from_month-1:to_month]
+
+    for i in range(from_month-1, to_month):
+        workorders = WorkOrder.objects.filter(date_created__month=i+1)
+        total_cost = 0
+        for workorder in workorders:
+            total_cost = total_cost + workorder.estimate_revision
+        workorder_cost.append(total_cost)
+
+        
 
     response_data['w_cost'] = workorder_cost
-    response_data['w_date'] = workorder_date
-
-
+    
     return HttpResponse(json.dumps(response_data), content_type='application/json')
-
-
-
-
-

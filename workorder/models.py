@@ -38,7 +38,7 @@ class WorkOrder(models.Model):
 	vehicle             = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 	employee            = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	odometer            = models.IntegerField()
-	date_created        = models.DateTimeField(default=timezone.now()) 
+	date_created        = models.DateTimeField(default=timezone.now) 
 	problem_description = models.CharField(max_length=400)
 	service_type        = models.ManyToManyField('ServiceType')
 	estimate_initial    = models.FloatField(blank=True)
