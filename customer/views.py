@@ -225,7 +225,7 @@ def generate_report(request):
 
 
     try:
-        workorders = WorkOrder.objects.filter(date_created__gt=date_from, date_created__lt=date_to)
+        workorders = WorkOrder.objects.filter(date_created__gte=date_from, date_created__lte=date_to)
     except WorkOrder.DoesNotExit:
         return HttpResponse('Query didnt work')
 

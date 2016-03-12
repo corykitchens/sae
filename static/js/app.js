@@ -197,7 +197,7 @@ var generateReportData = function(res) {
 		datasets : [
 		{
 			label: "Financial Data",
-			fillColor: "rgba(220,220,220,0.5)",
+			fillColor: "rgba(225,15,15,0.5)",
 			strokeColor: "rgba(220,220,220,0.8)",
 			highlightFill: "rgba(220,220,220,0.75)",
 			highlightStroke: "rgba(220,220,220,1)",
@@ -206,7 +206,7 @@ var generateReportData = function(res) {
 		]
 	};
 	var ctx = document.getElementById("myChart").getContext("2d");
-	var myNewChart = new Chart(ctx).Bar(data);
+	var myNewChart = new Chart(ctx).Line(data);
 }
 
 var processPayment = function() {
