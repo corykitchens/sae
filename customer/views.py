@@ -30,8 +30,7 @@ from django.http import HttpResponse
 
 from easy_pdf.views import PDFTemplateView
 from easy_pdf.rendering import render_to_pdf_response
-
-
+from . import mycharts
 
 def render_to_pdf(template_src, context_dict):
     template = get_template(template_src)
@@ -46,7 +45,7 @@ def render_to_pdf(template_src, context_dict):
 
 def barchart(request):
     #instantiate a drawing object
-    import mycharts
+    
     d = mycharts.MyBarChartDrawing()
 
     #extract the request params of interest.
@@ -68,7 +67,7 @@ def barchart(request):
 
     #get a GIF (or PNG, JPG, or whatever)
     binaryStuff = d.asString('gif')
-    return HttpResponse(binaryStuff, 'image/gif')
+    return render(request, 'customer/piechart.html', {'chart' : binaryStuff})
 # Create your views here.
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
 class CustomerDirectory(ListView):
@@ -206,3 +205,41 @@ def get_customer(request, first_name, last_name):
     return HttpResponse(json.dumps(response_data),
             content_type="application/json"
 )
+
+
+def reports(request):
+    return render(request, 'customer/report.html', {})
+
+
+def generate_report(request):
+    date_from = request.GET['date_from']
+    date_to = request.GET['date_to']
+    dates = dict()
+    dates['from'] = date_from
+    dates['to'] = date_to
+
+    response_data = dict()
+    emp_cost = list()
+    workorder_cost = list()
+    workorder_date = list()
+
+
+    try:
+        workorders = WorkOrder.objects.filter(date_created__gt=date_from, date_created__lt=date_to)
+    except WorkOrder.DoesNotExit:
+        return HttpResponse('Query didnt work')
+
+    for workorder in workorders:
+        workorder_cost.append(workorder.estimate_revision)
+        workorder_date.append(str(workorder.date_created))
+
+    response_data['w_cost'] = workorder_cost
+    response_data['w_date'] = workorder_date
+
+
+    return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+
+
+

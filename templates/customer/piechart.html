@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h4 class="card-title">{{ report.pie_chart.title }}</h4>
+		</div>
+		<img src="{{chart}}">
+	</div>
+</div>
+
+{% endblock %}

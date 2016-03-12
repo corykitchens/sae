@@ -3,9 +3,9 @@ $(document).ready(function() {
 
 
 	// Generate Customer Report
-	$('#reportBtn').click(function() {
-		console.log('Hello world');
-		generateCustomerReport();
+	
+	$('#reportButton').click(function() {
+		generateReport();
 	});
 
 
@@ -167,26 +167,46 @@ var verifyInput = function() {
 	
 }
 
-var generateCustomerReport = function() {
-	
-	var data = [
-	{
-		value: 500,
-		color: "#52409AB",
-		label: "A"
-	},
-	{
-		value: 250,
-		color: "#5AX09AB",
-		label: "B"
-	},
-	
-	]
+var generateReport = function() {
+	console.log('Hello World');
 
+	var date_to = $('#date_to').val();
+	var date_from = $("#date_from").val();
+	console.log(date_to);
+	console.log(date_from);
+
+	$.ajax({
+		url : 'generate_report',
+		type : 'get',
+		data : {
+			'date_to' : date_to,
+			'date_from' : date_from,
+		}
+	}).success(function(res) {
+		console.log(res);
+		generateReportData(res);
+	}).error(function(res) {
+		console.log(res);
+	});
+
+}
+
+var generateReportData = function(res) {
+	var data = {
+		labels : res['w_date'],
+		datasets : [
+		{
+			label: "Financial Data",
+			fillColor: "rgba(220,220,220,0.5)",
+			strokeColor: "rgba(220,220,220,0.8)",
+			highlightFill: "rgba(220,220,220,0.75)",
+			highlightStroke: "rgba(220,220,220,1)",
+			data: res['w_cost']
+		}
+		]
+	};
 	var ctx = document.getElementById("myChart").getContext("2d");
-	var myNewChart = new Chart(ctx).PolarArea(data);
-	
-
+	var myNewChart = new Chart(ctx).Bar(data);
 }
 
 var processPayment = function() {

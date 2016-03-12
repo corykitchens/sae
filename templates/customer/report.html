@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+			<h3 class="card-title">Financial Data</h3>
+				<form method="#" action="generate_report">
+				<div class="row">
+				  <div class="col-lg-6">
+					<div class="input-group">
+					  <span class="input-group-addon">
+						Date From:
+					  </span>
+					  <input name="date_from" id="date_from" type="date" class="form-control">
+					</div>
+				  </div>
+				  <div class="col-lg-6">
+					<div class="input-group">
+					  <span class="input-group-addon">
+						Date To:
+					  </span>
+					  <input name="date_to" id="date_to" type="date" class="form-control">
+					</div>
+					<br>
+					<button id="reportButton" type="button" class="btn btn-primary">Submit</button>
+					<br>
+				  </div>
+				</div>
+				</form>
+
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card employee-card">
+		<canvas id="myChart" width="900" height="500"></canvas>
+		</div>
+	</div>
+</div>
+{% endblock %}
