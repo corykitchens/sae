@@ -1,6 +1,6 @@
 //
 $(document).ready(function() {
-
+	Chart.defaults.global.responsive = false;
 
 	
 	
@@ -180,8 +180,9 @@ var generateReport = function() {
 
 	var date_to = $('#date_to').val();
 	var date_from = $("#date_from").val();
-	console.log(date_to);
-	console.log(date_from);
+	console.log(date_to[6]);
+	console.log(date_from[6]);
+
 
 	$.ajax({
 		url : 'generate_report',
@@ -191,7 +192,6 @@ var generateReport = function() {
 			'date_from' : date_from,
 		}
 	}).success(function(res) {
-		console.log(res);
 		generateReportData(res);
 	}).error(function(res) {
 		console.log(res);
@@ -200,6 +200,7 @@ var generateReport = function() {
 }
 
 var generateReportData = function(res) {
+	
 	var data = {
 		labels : res['w_date'],
 		datasets : [
