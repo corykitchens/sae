@@ -11,6 +11,9 @@
 			<div class="card-block">
 				<form action="customer_form">
 				    <button type="submit" value="Create Work Order" class="btn btn-primary">New Customer</button>
+				</form><br>
+				<form action="charts/bar">
+				    <button type="submit" value="Create Work Order" class="btn btn-primary">Sales Report</button>
 				</form>
 			</div>
 			
@@ -37,6 +40,21 @@
 					</td>
 				</tr>
 			{% endfor %}
+			<div class="pagination">
+    <span class="step-links">
+        {% if customers.has_previous %}
+            <a href="?page={{ customers.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ customers.number }} of {{ customers.paginator.num_pages }}.
+        </span>
+
+        {% if customers.has_next %}
+            <a href="?page={{ customers.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 			</table>
 		</div>
 	</div>

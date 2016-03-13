@@ -83,7 +83,7 @@ def barchart(request):
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
 def CustomerDirectory(request):
     customer_list = Customer.objects.all()
-    paginator = Paginator(customer_list, 10) # Show 25 contacts per page
+    paginator = Paginator(customer_list, 5) # Show 25 contacts per page
     page = request.GET.get('page')
     try:
         customers = paginator.page(page)
