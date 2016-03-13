@@ -4,6 +4,7 @@
 	border-top: 10px solid #03A9F4;
 	margin: 1em;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+	overflow: auto;
 }
 
 .employee-card < h4 {
