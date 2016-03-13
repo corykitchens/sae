@@ -102,7 +102,12 @@
                                 
                                     Invoice #: {{workorder.id}}<br>
                                     Created: {{workorder.date_created}}<br>
+                                    {% if workorder.status == 'Completed' %}
                                     Completed: {{workorder.date_completed}}
+                                    {% else %}
+                                    Status : {{workorder.status}}
+
+                                    {% endif %}
                             </td>
                                 
                         </tr>
@@ -115,7 +120,6 @@
                     <table>
                         <tr>
                             <td>
-                                
                                     {{workorder.customer.first_name}}
                                     {{workorder.customer.last_name}}<br>
                                     {{workorder.customer.address.address}}<br>
@@ -163,7 +167,7 @@
                 
                 <td>
                     
-                        <strong>Service Type: </strong>{{workorder.service_type}}<br>
+                        <strong>Service Type: </strong>
                         {% for service in workorder.service_type.all %}
                             <li>{{service.name}}</li>
                         {% endfor %}
@@ -177,6 +181,8 @@
                         <strong>Initial Estimate: </strong>{{workorder.estimate_initial}}<br>
                         <strong>Revised Estimate: </strong>{{workorder.estimate_revision}}<br>
                         <strong>Subtotal Less Taxes: </strong>{{workorder.estimate_initial}}<br>
+                        <strong>Amount Paid</strong>
+                        {{workorder.amount_paid}}
                     
                 </td>
             </tr>
