@@ -114,11 +114,11 @@ def vehicle_profile(request, vehicle_id):
     return render(request, 'customer/vehicle_profile.html', {'vehicle': vehicle, 'workorder': workorder} )
 
 def workorder_summary(request, workorder_id):
-    workorder = WorkOrder.objects.filter(id=workorder_id)
+    workorder = WorkOrder.objects.get(id=workorder_id)
     return render(request,'customer/workorder_summary.html', {'workorder': workorder})    
 
 def pdf_workorder_summary(request, workorder_id):
-    workorder = WorkOrder.objects.filter(id=workorder_id)
+    workorder = WorkOrder.objects.get(id=workorder_id)
     return render_to_pdf('customer/pdf_workorder_summary.html', {'workorder': workorder})    
         
 def piechart(request):

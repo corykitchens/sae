@@ -115,7 +115,7 @@
                     <table>
                         <tr>
                             <td>
-                                {% for workorder in workorder.all %}
+                                
                                     {{workorder.customer.first_name}}
                                     {{workorder.customer.last_name}}<br>
                                     {{workorder.customer.address.address}}<br>
@@ -123,17 +123,17 @@
                                     {{workorder.customer.address.state}}
                                     {{workorder.customer.address.zip_code}}
                             </td>
-                                {% endfor %}
+                               
                             <td>
                                 Stockdale Auto Electric<br>
                                 2901 Brundage Ln.<br>
                                 Bakersfield, California 93304<br>
 
-                                {% for workorder in workorder.all %}
+                               
                                     Tech: {{workorder.employee.first_name}}
                                     {{workorder.employee.last_name}}<br>
                                     {{workorder.employee.email}}<br>
-                                {% endfor %}
+                                
                             </td>
                         </tr>
                     </table>
@@ -153,59 +153,29 @@
             
             <tr class="details">
                 <td>
-                    {% for workorder in workorder.all %}
+                    
                         <strong>Year/Make/Model:</strong> {{workorder.vehicle.year}}
                         {{workorder.vehicle.make}}
                         {{workorder.vehicle.model}}<br>
                         <strong>Mileage:</strong> {{workorder.odometer}}<br>
-                    {% endfor %}
+                    
                 </td>
                 
+
                 <td>
-                    {% for workorder in workorder.all %}
-                        <strong>Service Type: </strong>{{workorder.service_type}}<br>
+                    
+                        <strong>Service Type: </strong>
+                        {% for service in workorder.service_type.all %}
+                            <li>{{service.name}} </li>
+                        {% endfor %}
                         <strong>Parts Used </strong>{{workorder.parts_required}}<br>
                         <strong>Initial Estimate: </strong>{{workorder.estimate_initial}}<br>
                         <strong>Revised Estimate: </strong>{{workorder.estimate_revision}}<br>
                         <strong>Subtotal Less Taxes: </strong>{{workorder.estimate_initial}}<br>
-                    {% endfor %}
+                    
                 </td>
             </tr>
             
-            <tr class="heading">
-                <td>
-                    Item
-                </td>
-                
-                <td>
-                    Price
-                </td>
-            </tr>
-            
-            <tr class="item">
-                <td>
-                    Website design
-                </td>
-                
-                <td>
-                    $300.00
-                </td>
-            </tr>
-            
-            <tr class="item">
-                <td>
-                    Hosting (3 months)
-                </td>
-                
-                <td>
-                    $75.00
-                </td>
-            </tr>
-            
-            <tr class="item last">
-                <td>
-                    Domain name (1 year)
-                </td>
             
         </table>
 
