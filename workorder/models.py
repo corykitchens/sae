@@ -53,6 +53,7 @@ class WorkOrder(models.Model):
 
 	class Meta:
 		db_table = "CKTM_WORKORDER"
+		ordering = ['-date_created']
 
 	def __str__(self):
 		return str(self.date_created) + " " + str(self.customer) + " " + str(self.vehicle)
