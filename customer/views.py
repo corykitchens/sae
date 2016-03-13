@@ -238,24 +238,28 @@ def generate_report(request):
     workorder_cost = list()
     workorder_date = list()
 
+
     from_month = int(date_from[6])
     to_month = int(date_to[6])
     list_of_months = ['January','February','March','April','May','June','July','August', 'September', 'October', 'November', 'December']
     response_data['w_date'] = list_of_months[from_month-1:to_month]
 
-    sales      = [0,0,0,0,0,0,0,0]
-    net_sales = list()
 
+    sales      = [0,0,0,0,0,0,0,0]
+    sales_goal = [9000, 8000, 9200, 10200, 16000, 20000, 22000, 20000, 20000, 16000, 11000, 6000]
+    net_sales = list()
+    project_sales = list()
     for i in range(from_month-1, to_month):
         workorders = WorkOrder.objects.filter(date_created__month=i+1)
         total_cost = 0
+        project_sales.append(sales_goal[i])
         for workorder in workorders:
             total_cost = total_cost + workorder.estimate_revision
             net_sales.append(workorder.estimate_revision - sales[i]*.34)
             
         workorder_cost.append(total_cost)
         
-        
+    response_data['w_projections'] = project_sales
     response_data['w_net_sales'] = net_sales
     response_data['w_cost'] = workorder_cost
 

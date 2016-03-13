@@ -111,3 +111,12 @@
 	color: #FFF;
 
 }
+
+.blue, .green, .red {
+	width: 20%;
+	margin: 1em 0;
+	list-style-type: none;
+}
+.blue { background-color: rgba(0,0,255,0.5); }
+.green { background-color: rgba(0,255,0,0.5); }
+.red { background-color: rgba(255,0,0,0.5); }
