@@ -161,6 +161,7 @@
                         <strong>Year/Make/Model:</strong> {{workorder.vehicle.year}}
                         {{workorder.vehicle.make}}
                         {{workorder.vehicle.model}}<br>
+                        {{workorder.vehicle.vin}}
                         <strong>Mileage:</strong> {{workorder.odometer}}<br>
                     
                 </td>
@@ -171,7 +172,7 @@
                         {% for service in workorder.service_type.all %}
                             <li>{{service.name}}</li>
                         {% endfor %}
-                        <strong>Parts Used </strong>
+                        <strong>Parts Used </strong><br>
                         {% for note in service_notes %}
                             {% for part in note.parts_used.all %}
                             <li>{{part}}</li>
