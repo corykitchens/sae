@@ -29,12 +29,13 @@ def login(request):
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		else:
 			try:
-				work_orders = WorkOrder.objects.filter(Q(status__contains="Completed") | Q(status__contains="Awaiting Payment"))
+				completed_work_orders = WorkOrder.objects.filter(status='Completed')
+				payment_work_orders = WorkOrder.objects.filter(status='Awaiting Payment')
 
 			except WorkOrder.DoesNotExist:
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		request.session['job_title'] = employee.job_title
-		return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'work_orders' : work_orders})
+		return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'completed_work_orders' : completed_work_orders, 'payment_work_orders' : payment_work_orders})
 		
 	'''
 	Initial login
@@ -61,7 +62,10 @@ def login(request):
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 				else:
 					try:
-						work_orders = WorkOrder.objects.filter(Q(status__contains="Completed") | Q(status__contains="Awaiting Payment"))
+						completed_work_orders = WorkOrder.objects.filter(status='Completed')
+						payment_work_orders = WorkOrder.objects.filter(status='Awaiting Payment')
+						request.session['job_title'] = employee.job_title
+						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'completed_work_orders' : completed_work_orders, 'payment_work_orders' : payment_work_orders})
 					except WorkOrder.DoesNotExist:
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 				request.session['job_title'] = employee.job_title

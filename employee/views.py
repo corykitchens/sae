@@ -20,8 +20,11 @@ def employee_profile(request, employee_id):
 	return render(request, 'employee/employee_profile.html', {'employee': employee})
 
 def hr_view_pending(request):
-	w = WorkOrder.objects.filter(status='Completed')
-	return render(request, 'employee/hr_home.html', {'work_orders' : w})
+	completed_work_orders = WorkOrder.objects.filter(status='Completed')
+	payment_work_orders = WorkOrder.objects.filter(status='Awaiting Payment')
+
+
+	return render(request, 'employee/hr_home.html', {'user' : request.user, 'completed_work_orders' : completed_work_orders, 'payment_work_orders' : payment_work_orders})
 
 def new_hire(request):
 	if request.method=='GET':

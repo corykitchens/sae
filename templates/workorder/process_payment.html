@@ -84,9 +84,10 @@
 					</div>
 					{% if work_order.amount_paid > 0 %}
 					<br>
+					
 					<div class="input-group">
 					  <span class="input-group-addon" >Amount Paid So Far</span>
-					  <input class="form-control" id="e_final" type="number" value="{{work_order.amount_paid}}" disabled>					
+					  <input class="form-control" id="e_curr_paid" type="number" value="{{work_order.amount_paid}}" disabled>					
 					</div>
 					<br>
 					{% endif %}
