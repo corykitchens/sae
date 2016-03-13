@@ -25,6 +25,8 @@ def login(request):
 		if employee.job_title == "Service Technician":
 			try:
 				work_orders = WorkOrder.objects.filter(employee=employee).exclude(status='Completed').order_by('date_created')
+				request.session['job_title'] = employee.job_title
+				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'work_orders': work_orders})
 			except WorkOrder.DoesNotExist:
 				return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 		else:
@@ -58,6 +60,8 @@ def login(request):
 				if employee.job_title == "Service Technician":
 					try:
 						work_orders = WorkOrder.objects.filter(employee=employee).exclude(status='Completed')
+						request.session['job_title'] = employee.job_title
+						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user, 'work_orders': work_orders})
 					except WorkOrder.DoesNotExist:
 						return render(request, emp_home_tmp, {'employee' : employee, 'user' : request.user})
 				else:
