@@ -99,12 +99,12 @@
                             </td>
                             
                             <td>
-                                {% for workorder in workorder.all %}
+                                
                                     Invoice #: {{workorder.id}}<br>
                                     Created: {{workorder.date_created}}<br>
                                     Completed: {{workorder.date_completed}}
                             </td>
-                                {% endfor %}
+                                
                         </tr>
                     </table>
                 </td>
@@ -123,13 +123,13 @@
                                     {{workorder.customer.address.state}}
                                     {{workorder.customer.address.zip_code}}
                             </td>
-                               
+                                
                             <td>
                                 Stockdale Auto Electric<br>
                                 2901 Brundage Ln.<br>
                                 Bakersfield, California 93304<br>
 
-                               
+                                
                                     Tech: {{workorder.employee.first_name}}
                                     {{workorder.employee.last_name}}<br>
                                     {{workorder.employee.email}}<br>
@@ -161,14 +161,19 @@
                     
                 </td>
                 
-
                 <td>
                     
-                        <strong>Service Type: </strong>
+                        <strong>Service Type: </strong>{{workorder.service_type}}<br>
                         {% for service in workorder.service_type.all %}
-                            <li>{{service.name}} </li>
+                            <li>{{service.name}}</li>
                         {% endfor %}
-                        <strong>Parts Used </strong>{{workorder.parts_required}}<br>
+                        <strong>Parts Used </strong>
+                        {% for note in service_notes %}
+                            {% for part in note.parts_used.all %}
+                            <li>{{part}}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        
                         <strong>Initial Estimate: </strong>{{workorder.estimate_initial}}<br>
                         <strong>Revised Estimate: </strong>{{workorder.estimate_revision}}<br>
                         <strong>Subtotal Less Taxes: </strong>{{workorder.estimate_initial}}<br>
@@ -176,14 +181,13 @@
                 </td>
             </tr>
             
-            
         </table>
 
     </div>
-    {% for workorder in workorder.all %}
+    
     <form action="/customers/pdf_workorder_summary/{{workorder.id}}">
         <button type="submit" class="btn btn-primary">Export</button>
     </form>
-    {% endfor %}
+    
 </body>
 </html>

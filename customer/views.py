@@ -115,7 +115,8 @@ def vehicle_profile(request, vehicle_id):
 
 def workorder_summary(request, workorder_id):
     workorder = WorkOrder.objects.get(id=workorder_id)
-    return render(request,'customer/workorder_summary.html', {'workorder': workorder})    
+    service_notes = EmployeeServiceNotes.objects.filter(work_order=workorder_id)
+    return render(request,'customer/workorder_summary.html', {'workorder': workorder, 'service_notes' : service_notes})    
 
 def pdf_workorder_summary(request, workorder_id):
     workorder = WorkOrder.objects.get(id=workorder_id)
