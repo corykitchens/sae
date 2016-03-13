@@ -121,3 +121,8 @@
 .blue { background-color: rgba(0,0,255,0.5); }
 .green { background-color: rgba(0,255,0,0.5); }
 .red { background-color: rgba(255,0,0,0.5); }
+
+
+.pagination {
+	margin: 0 1em;
+}
