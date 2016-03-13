@@ -2,8 +2,14 @@
 $(document).ready(function() {
 
 
-	var payment_amount_def = $("e_final").val() - $("e_curr_paid").val();
-	$("payment_amount").val(payment_amount);
+	
+	
+	
+	if ((window.location.toString().indexOf('process_payment') != -1)) {
+		$("#payment_amount").val($('#e_final').val() - $("#e_curr_paid").val());
+	}
+	
+	// $("#payment_amount").val(payment_amount);
 	// Generate Customer Report
 	
 	$('#reportButton').click(function() {
