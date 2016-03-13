@@ -9,7 +9,7 @@ app_name="customers"
 
 urlpatterns = [
 	#landing page
-	url(r'^customer_directory', CustomerDirectory.as_view(), name="customer_index"),
+	url(r'^customer_directory', CustomerDirectory, name="customer_index"),
 	url(r'^customer_form', add, name="customer_form"),
 	url(r'^customer_profile/(?P<customer_id>[0-9]+)$', customer_profile, name="customer_profile"),
 	url(r'^vehicle_profile/(?P<vehicle_id>[0-9]+)$', vehicle_profile, name="vehicle_profile"),

@@ -12,6 +12,7 @@ from cgi import escape
 import random
 #from customer.reports import MyReport
 #from customer.reports import MyReport
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from workorder.models import WorkOrder, Part, EmployeeServiceNotes
 from django.core import serializers
 from django.shortcuts import render, redirect
@@ -80,9 +81,19 @@ def barchart(request):
     return HttpResponse(binaryStuff, 'image/gif')
 
 #Publisher.objects.filter(name__contains="press") --- How to filter objects by a string regardless of length
-class CustomerDirectory(ListView):
-    model = Customer
-    context_object_name = "customers"
+def CustomerDirectory(request):
+    customer_list = Customer.objects.all()
+    paginator = Paginator(customer_list, 10) # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        customers = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        customers = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        customers = paginator.page(paginator.num_pages)
+    return render(request, 'customer/customer_list.html', {'customers': customers})
 
 # choice has the foreign key choice is customer poll is address
 def add(request):
