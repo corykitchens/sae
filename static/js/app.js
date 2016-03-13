@@ -55,7 +55,7 @@ $(document).ready(function() {
  		$("#id_middle_initial").val(data.customer_mi);
  		$("#id_last_name").val(data.customer_ln);
  		$("#id_email").val(data.customer_email);
-
+ 		$("#id_zip_code").val(data.customer_zip_code);
  		$("#id_address").val(data.customer_address);
  		$("#vehicle_id").val(-1);
  		
@@ -205,7 +205,7 @@ var generateReportData = function(res) {
 		},
 		{
 			label: "Gross Sales",
-			fillColor: "rgba(225,15,15,0.5)",
+			fillColor: "rgba(225,0,0,0.5)",
 			strokeColor: "rgba(220,220,220,0.8)",
 			highlightFill: "rgba(220,220,220,0.75)",
 			highlightStroke: "rgba(220,220,220,1)",
@@ -213,7 +213,7 @@ var generateReportData = function(res) {
 		},
 		{
 			label: "Net Sales",
-			fillColor: "rgba(0,255,100,0.5)",
+			fillColor: "rgba(0,255,10,0.5)",
 			strokeColor: "rgba(220,220,220,0.8)",
 			highlightFill: "rgba(220,220,220,0.75)",
 			highlightStroke: "rgba(220,220,220,1)",
