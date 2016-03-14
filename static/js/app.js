@@ -231,7 +231,7 @@ var generateReportData = function(res) {
 		]
 	};
 	var ctx = document.getElementById("myChart").getContext("2d");
-	var salesChart = new Chart(ctx).Line(data);
+	var salesChart = new Chart(ctx).Bar(data);
 	
 }
 
